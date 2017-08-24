@@ -1,0 +1,41 @@
+<div class="container">
+    <br/>
+    <div class="panel">
+        <div class="panel-head">
+            سفارش ۱
+            <span class="date">1396/04/02</span>
+        </div>
+        <div class="panel-body">
+            <div class="header-row col-2">
+                <span><b>وضعیت: </b><i>در انتظار تایید</i></span>
+                <span><b>اهمیت: </b><i>زیاد</i></span>
+            </div>
+            <h4>توضیحات : </h4>
+            <div class="area area-90">
+                توضیحات سفارشات
+            </div>
+            <h4>داروها : </h4>
+            <div class="header-row col-2">
+                <span><b>دارو : </b><i>
+                        همولاکس 
+                    </i></span>
+                <span><b>تعداد : </b><i>
+                        ۱۰
+                    </i></span>
+            </div>
+        </div>
+        <br/>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+</div>
+<script>
+            $(document).ready(function () {
+                $('.tooltip').tooltipster({
+                    theme: 'tooltipster-borderless'
+                });
+                $("select.comp").select2({
+                    dir: "rtl"
+                });
+                $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
+            });
+</script>

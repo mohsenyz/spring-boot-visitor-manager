@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>مدیریت</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="asset/tooltipster.bundle.min.css" />
+        <script type="text/javascript" src="asset/js/tooltipster.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" type="text/css"/>
+        <link rel="stylesheet" href="asset/drugstore.css"/>
+        <link rel="stylesheet" href="asset/theme.css"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+        <script src="asset/js/persian-date.min.js"></script>
+        <script src="asset/js/persian-datepicker.min.js"></script>
+        <link rel="stylesheet" href="asset/persian-datepicker.min.css"/>
+    </head>
+    <body ng-app="mphj">
+        <div class="nav">
+            <img class="title-ico" src="asset/ico/user.png" width="40" height="40"/>
+            <span class="title">مدیریت</span>
+        </div>
+        <div class="right-menu">
+            <ul>
+                <li class="active tooltip" onclick="makeActive(this);" ng-click="go('/')" data-tooltipster='{"side":"left"}' title="آمار ویزیت ها">
+                    <img src="asset/ico/report.png" class="ico"/>
+                    <a href="#/!">امار درخواست ها</a>
+                </li>
+                <li onclick="makeActive(this);" ng-click="go('received-request')" data-tooltipster='{"side":"left"}' title="ویزیت های دریافتی">
+                    <img src="asset/ico/received.png" class="ico"/>
+                    <a href="#!received-request">
+                        درخواست های دریافتی
+                        <span class="badge red">1</span>
+                    </a>
+                </li>
+                <li onclick="makeActive(this);" ng-click="go('orders')" data-tooltipster='{"side":"left"}' title="ویزیت های بعدی">
+                    <img src="asset/ico/next.png" class="ico"/>
+                    <a href="#!orders">سفارشات</a>
+                </li>
+                <li onclick="makeActive(this);" ng-click="go('manage-cm')" data-tooltipster='{"side":"left"}' title="درخواست های فرستاده شده">
+                    <img src="asset/ico/sent.png" class="ico"/>
+                    <a href="#!manage-cm">مدیریت مراکز پخش</a>
+                </li>
+                <li onclick="makeActive(this);" ng-click="go('manage-visitor')" data-tooltipster='{"side":"left"}' title="درخواست های فرستاده شده">
+                    <img src="asset/ico/sent.png" class="ico"/>
+                    <a href="#!manage-visitor">مدیریت ویزیتورها</a>
+                </li>
+                <li onclick="makeActive(this);" ng-click="go('user')" data-tooltipster='{"side":"left"}' title="ناحیه کاربری">
+                    <img src="asset/ico/profile.png" class="ico"/>
+                    <a href="#!user">ناحیه ی کاربری</a>
+                </li>
+            </ul>
+        </div>
+        <div class="body">
+            <ng-view></ng-view>
+        </div>
+        <button class="fab" ng-click="go(goLink)" ng-show="goLink != 'none'">
+            <img src="asset/ico/plus.png"/>
+            <span ng-show="goLink == 'new_visitor'">ثبت ویزیتور جدید</span>
+            <span ng-show="goLink == 'new_cm'">ثبت مرکز پخش جدید</span>
+        </button>
+    </body>
+    <script src="asset/js/admin.js"></script>
+</html>

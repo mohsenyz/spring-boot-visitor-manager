@@ -1,0 +1,44 @@
+<div class="area fade-animation" ng-show="doctor == 'make_new'">
+    <div class="nrow">
+        <div class="normal-row span-5"><label>نام پزشک : </label><input type="text" ng-model="dr.name"/></div>
+        <div class="normal-row span-5"><label>تخصص / سمت: </label><input type="text" ng-model="dr.expertise"/></div>
+    </div>
+    <div class="header-row row-100">
+        <span class="span-10"><b> بهترین زمان ویزیت: </b><i>
+                <select class="comp" ng-model="dr.best_visit_time">
+                    <option value="ampm" selected="true">صبح و عصر</option>
+                    <option value="am">صبح</option>
+                    <option value="pm">عصر</option>
+                </select>
+            </i></span>
+    </div>
+    <div class="nrow">
+        <div class="normal-row span-5"><label>تلفن ثابت: </label><input type="text" ng-model="dr.fixed_phone"/></div>
+        <div class="normal-row span-5"><label>موبایل: </label><input type="text" ng-model="dr.mobile"/></div>
+    </div>
+    <div class="nrow">
+        <div class="normal-row span-10"><label>مطب/ کلینیک یا درمانگاه / بیمارستان: </label><input type="text" ng-model="dr.place"/></div>
+    </div>
+    <div class="nrow">
+        <div class="normal-row span-10"><label>آدرس: </label><input type="text" ng-model="dr.address"/></div>
+    </div>
+    <div class="nrow">
+        <div class="normal-row span-10"><label>ایمیل :‌ </label><input type="text" ng-model="dr.email"/></div>
+    </div>
+    <div class="nrow">
+        <div class="normal-row span-10"><label>شماره نظام پزشکی:  </label><input type="text" ng-model="dr.pezeshk"/></div>
+    </div>
+    <div class="nrow">
+        <div class="normal-row span-10"><label>میزان آشنایی پزشک با محصولات سینا فراور:  </label><input type="text" ng-model="dr.company_products_ack"/></div>
+    </div>
+    <div class="nrow">
+        <div class="normal-row span-10"><label>میزان رضایت مندی پزشک از تاثیر محصولات سبنا فراور: </label><input type="text" ng-model="dr.consent"/></div>
+    </div>
+    <div class="nrow">
+        <div class="normal-row span-10"><label>‫‫‪انتقاد/پیشنهاد در مورد محصولات سینا فراور</label><textarea ng-model="dr.suggestion"></textarea></div>
+    </div>
+    <div class="normal-row">
+        <button class="button" style="margin-right: 10px;">ذخیره</button>
+        <button class="button" ng-click="doctor = 'none'">لغو</button>
+    </div>
+</div>

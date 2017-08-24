@@ -1,0 +1,158 @@
+<div class="container">
+    <div class="header-row col-2-normal">
+        <span><b>داروخانه یا دکتر : </b><i>
+                <select class="comp" ng-model="drugstore" ng-disabled="doctor != 'none'">
+                    <option value="none" selected="true">انتخاب داروخانه</option>
+                    <option value="make_new">افزودن داروخانه</option>
+                    <option>فتاح الجنان</option>
+                </select>
+                <select class="comp" ng-model="doctor" ng-disabled="drugstore != 'none'">
+                    <option value="none" selected="true">انتخاب دکتر</option>
+                    <option value="make_new">افزودن دکتر</option>
+                    <option>دکتر ۱</option>
+                </select>
+            </i></span>
+        <span><b>تاریخ ویزیت بعدی :‌ </b><i>
+                <input ng-model="next_session_date" type="text" class="datepicker-do input-center" style="width:100px !important;"/>
+                <select class="comp">
+                    <option value="none" selected="true">-</option>
+                    <option value="1d">یک روز</option>
+                    <option value="1w">یک هفته</option>
+                    <option value="2w">دو هفته</option>
+                    <option value="3w">سه هفته</option>
+                    <option value="1m">یک ماه</option>
+                </select>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b>نوبت ویزیت: </b><i>
+                <select class="comp" ng-model="visit_time">
+                    <option value="am" selected="true">صبح</option>
+                    <option value="pm">عصر</option>
+                </select>
+            </i></span>
+        <span><b>تاریخ ویزیت:‌ </b><i>
+                <input type="text" class="datepicker input-center" ng-model="visit_date"/>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b>اهمیت: </b><i>
+                <select class="comp" ng-model="urgency">
+                    <option value="high" selected="true">زیاد</option>
+                    <option value="normal">متوسط</option>
+                    <option value="low">کم</option>
+                </select>
+            </i></span>
+    </div>
+    <div ng-include src="'new_visit_ds.html'"></div>
+    <div ng-include src="'new_visit_doctor.html'"></div>
+    <div ng-include src="'new_visit_doctor_section.html'"></div>
+    <div ng-include src="'new_visit_ds_section.html'"></div>
+    <div class="header-row col-2-normal">
+        <span><b>مرکز پخش :‌  </b><i>
+                <select class="comp" ng-model="cm">
+                    <option>مرکز پخش ۲</option>
+                </select>
+            </i></span>
+        <span><b>انتقال به ویزیتور:  </b><i>
+                <select ng-model="visitor" value="none" class="comp">
+                    <option value="none" selected="true">-</option>
+                    <option value="mohsen">محسن یزدانی</option>
+                </select>
+            </i></span>
+    </div>
+    <h3>توضیحات : </h3>
+    <textarea ng-model="desc">
+    </textarea>
+    <h3>محتوا : </h3>
+    <textarea ng-model="content">
+    </textarea>
+    <div class="normal-row">
+        <button class="button" ng-click="content_drugs[content_drugs.length] = {drug : null, num : null, visit : null}; reInit();">
+            افزودن دارو
+        </button>
+    </div>
+    <div class="header-row col-2-normal" ng-repeat="x in content_drugs">
+        <span class="span-3"><b>دارو : </b><i>
+                <select ng-model="x.drug">
+                    <option>همولاکس</option>
+                    <option>دایجستر</option>
+                </select>
+            </i></span>
+        <span class="span-2"><b>تعداد : </b><i>
+                <input type="number" ng-model="x.num"/>
+            </i></span>
+        <span class="span-5"><b>گزارش ویزیت : </b><i>
+                <input type="text" ng-model="x.visit"/>
+            </i></span>
+    </div>
+    <h3>اقلام تحویلی:</h3>
+    <div class="header-row col-2-normal">
+        <span class="span-10">
+            <b>
+                اقلام تحویلی:
+            </b>
+            <i>
+                <select multiple="multiple" class="comp span-5" ng-model="given">
+                    <option value="1">کاتالوگ محصولات</option>
+                    <option value="2">جدول دارویی</option>
+                    <option value="3">بروشور</option>
+                    <option value="4">پوستر</option>
+                </select>
+            </i>
+        </span>
+    </div>
+    <textarea placeholder="مقالات علمی / دارو" ng-model="given_etc"></textarea>
+    <h3>موارد درخواستی:</h3>
+    <textarea ng-model="needed"></textarea>
+    <h3 ng-show="visitor == 'none'">نتیجه : </h3>
+    <textarea ng-show="visitor == 'none'" ng-model="result"></textarea>
+    <div class="normal-row" ng-show="visitor == 'none'">
+        <button class="button" ng-click="result_drugs[result_drugs.length] = {drug : null, num : null, visit : null}; reInit();">
+            افزودن دارو
+        </button>
+    </div>
+    <div class="header-row col-2-normal" ng-repeat="x in result_drugs">
+        <span class="span-3"><b>دارو : </b><i>
+                <select ng-model="x.drug">
+                    <option>همولاکس</option>
+                    <option>دایجستر</option>
+                </select>
+            </i></span>
+        <span class="span-2"><b>تعداد : </b><i>
+                <input type="number" ng-model="x.num"/>
+            </i></span>
+        <span class="span-5"><b>گزارش ویزیت : </b><i>
+                <input type="text" ng-model="x.visit"/>
+            </i></span>
+    </div>
+    <div class="normal-row">
+        <button class="button" ng-click="docs[docs.length] = {desc : null, file : null};">
+            افزودن سند
+        </button>
+    </div>
+    <div class="header-row col-2-normal" ng-repeat="x in docs">
+        <span><b>توضیحات : </b><i>
+                <input type="text" ng-model="x.desc"/>
+            </i></span>
+        <span><b>فایل : </b><i>
+                <input type="file" ng-model="x.file"/>
+            </i></span>
+    </div>
+    <br/>
+    <hr/>
+    <div class="normal-row">
+        <button class="button" style="margin: 0 auto; float: none !important;">
+            ثبت ویزیت
+        </button>
+    </div>
+    <br/><br/><br/><br/><br/>
+</div>
+<script>
+    $(document).ready(function () {
+    $("select.comp").select2({
+    dir: "rtl"
+    });
+    $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
+    $(".datepicker-do").persianDatepicker({format: 'YYYY/MM/DD', timePicker: {enabled: false}});
+    });</script>

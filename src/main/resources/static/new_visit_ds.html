@@ -1,0 +1,46 @@
+<div class="area fade-animation" ng-show="drugstore == 'make_new'">
+    <div class="nrow">
+        <div class="normal-row span-5"><label>نام داروخانه : </label><input type="text" ng-model="ds.ds_name"/></div>
+        <div class="normal-row span-5"><label>نام مسیول فنی: </label><input type="text" ng-model="ds.fanni_name"/></div>
+    </div>
+    <div class="nrow">
+        <div class="normal-row span-10"><label>شماره تلفن: </label><input type="text" ng-model="ds.phone_number"/></div>
+    </div>
+    <div class="nrow">
+        <div class="normal-row span-10"><label>آدرس: </label><input type="text" ng-model="ds.address"/></div>
+    </div>
+    <div class="nrow">
+        <div class="normal-row span-10"><label>میزان آشنایی داروخانه با محصولات سینا فراور :  </label><input type="text" ng-model="ds.knowledge"/></div>
+    </div>
+    <div class="header-row row-100">
+        <span class="span-5"><b> بهترین زمان ویزیت: </b><i>
+                <select class="comp" ng-model="ds.best_visit_time">
+                    <option value="ampm" selected="true">صبح و عصر</option>
+                    <option value="amp">صبح</option>
+                    <option value="pm">عصر</option>
+                </select>
+            </i></span>
+        <span class="span-5"><b>نوع داروخانه : </b><i>
+                <select class="comp" ng-model="ds.type">
+                    <option value="1" selected="true">دولتی</option>
+                    <option value="2">خصوصی</option>
+                    <option value="3">شبانه روزی</option>
+                    <option value="4">بیمارستانی</option>
+                </select>
+            </i></span>
+    </div>
+    <div class="header-row row-100">
+        <span class="span-10"><b>آیا با نام داروسازی سینا فرآور آشنایی دارند؟ دلیل:</b><i>
+                <select class="comp" ng-model="ds.company_name_ack">
+                    <option value="visit" selected="true">ویزیت</option>
+                    <option value="ads">تبلیغات</option>
+                    <option value="conf">همایش</option>
+                    <option value="cm">از طریق توزیع</option>
+                </select>
+            </i></span>
+    </div>
+    <div class="normal-row">
+        <button class="button" style="margin-right: 10px;">ذخیره</button>
+        <button class="button" ng-click="drugstore = 'none'">لغو</button>
+    </div>
+</div>

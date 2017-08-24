@@ -1,0 +1,62 @@
+<div class="container">
+    <br/>
+    <div class="panel">
+        <div class="panel-head">
+            <htmldiv content="curr.name"></htmldiv>
+        </div>
+        <div class="panel-body">
+            <htmldiv content="curr.bar"></htmldiv>
+            <h3>مشخصات داروخانه : </h3>
+            <div class="area fade-animation">
+                <div class="nrow">
+                    <div class="normal-row span-5"><label>نام داروخانه : </label>فتاح الجنان</div>
+                    <div class="normal-row span-5"><label>نام مسیول فنی: </label>سینا</div>
+                </div>
+                <div class="nrow">
+                    <div class="normal-row span-10"><label>شماره تلفن: </label>09135555555</div>
+                </div>
+                <div class="nrow">
+                    <div class="normal-row span-10"><label>آدرس: </label>آدرس</div>
+                </div>
+                <div class="nrow">
+                    <div class="normal-row span-10"><label>میزان آشنایی داروخانه با محصولات سینا فراور :  </label>-</div>
+                </div>
+            </div>
+            <h4>محتوا : </h4>
+            <div class="area area-90">
+                محتوای ویزیت
+            </div>
+            <h4>داروهای پیشنهاد شده : </h4>
+            <div class="header-row col-2">
+                <span><b>دارو : </b><i>
+                        همولاکس 
+                    </i></span>
+                <span><b>تعداد : </b><i>
+                        ۱۰
+                    </i></span>
+            </div>
+            <h4 ng-show="curr.result">نتیجه : </h4>
+            <div class="area area-90" ng-show="curr.result">
+                نتیجه ی ویزیت
+            </div>
+            <h4 ng-show="curr.result">داروها : </h4>
+            <div class="header-row col-2" ng-show="curr.result">
+                <span><b>دارو : </b><i>
+                        همولاکس 
+                    </i></span>
+                <span><b>تعداد : </b><i>
+                        ۱۰
+                    </i></span>
+            </div>
+        </div>
+        <br/>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+</div>
+<script>
+            $(document).ready(function () {
+                $('.tooltip').tooltipster({
+                    theme: 'tooltipster-borderless'
+                });
+            });
+</script>

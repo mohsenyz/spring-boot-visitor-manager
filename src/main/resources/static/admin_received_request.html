@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="header-row col-2-normal">
+        <span><b> از تاریخ:‌ </b><i>
+                <input type="text" class="datepicker input-center"/>
+            </i></span>
+        <span><b> تا تاریخ:‌ </b><i>
+                <input type="text" class="datepicker input-center"/>
+            </i></span>
+    </div>
+    <div class="header-row col-3-normal">
+        <span><b> مرکز پخش: </b><i>
+                <select class="comp" multiple="multiple" ng-model="visitor">
+                    <option value="all" selected="true">همه</option>
+                    <option> مرکز پخش ۱</option>
+                    <option> مرکز پخش ۲</option>
+                </select>
+            </i></span>
+        <span><b> وضعیت: </b><i>
+                <select class="comp" multiple="multiple" ng-model="status">
+                    <option value="all" selected="true">همه</option>
+                    <option>تایید شده</option>
+                    <option>در انتظار تایید</option>
+                </select>
+            </i></span>
+        <span><b> اهمیت: </b><i>
+                <select class="comp" multiple="multiple" ng-model="status">
+                    <option value="all" selected="true">همه</option>
+                    <option>زیاد</option>
+                    <option>متوسط</option>
+                    <option>کم</option>
+                </select>
+            </i></span>
+    </div>
+    <br/>
+    <div class="panel">
+        <div class="panel-head" ng-click="showCurr($event, true)">
+            درخواست شماره ی ۱
+            <span class="date">1396/04/02</span>
+        </div>
+        <div class="panel-body">
+            <div class="header-row col-2">
+                <span><b>مرکز پخش: </b><i>مرکز پخش ۱</i></span>
+                <span><b>اهمیت: </b><i>زیاد</i></span>
+            </div>
+            <h4>توضیحات : </h4>
+            <div class="area area-90">
+                توضیحات درخواست
+            </div>
+        </div>
+        <br/>
+        <span class="help" ng-click="showCurr($event, true)">مشاهده ی بیشتر</span>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+</div>
+<script>
+            $(document).ready(function () {
+                $('.tooltip').tooltipster({
+                    theme: 'tooltipster-borderless'
+                });
+                $("select.comp").select2({
+                    dir: "rtl"
+                });
+            });
+</script>

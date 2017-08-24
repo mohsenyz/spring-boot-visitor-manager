@@ -1,0 +1,708 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 12, 2017, 12:44:13 AM
+    Author     : mphj
+*/
+@font-face {
+    font-family: 'Iran';
+    font-style: normal;
+    src: url(font/IRANSansWeb_Light.woff2) format('woff2');
+}
+
+
+*:focus {
+    outline: none !important;
+}
+
+html {
+    font-family: 'Iran', sans-serif;
+}
+
+span, div, textarea, input, button, i, b, s, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Iran', sans-serif;
+}
+
+* {
+    font-family: 'Iran', sans-serif;
+}
+.nav{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    box-sizing: border-box;
+    width: 100%;
+    background: #444;
+}
+.nav:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.nav .title{
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    float: right;
+    padding: 16px 5px 10px 15px;
+}
+
+.nav .title-ico{
+    float: right;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.right-menu{
+    width: 22%;
+    background: #444;
+    position: fixed;
+    right: 0px;
+    top: 50px;
+    border-left: 3px gold solid;
+    bottom: 0px;
+}
+
+.right-menu ul{
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.right-menu ul li{
+    display: block;
+    border-right: 4px transparent solid;
+    transition: 0.3s;
+    overflow: hidden;
+    z-index: 5;
+    position: relative;
+}
+
+.right-menu ul li::after{
+    content: '';
+    width: 0; 
+    height: 0;
+    margin-top:-500px;
+    margin-left: -500px;
+    border-top: 500px solid transparent;
+    border-bottom: 500px solid transparent;
+    border-left: 500px solid gold;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.right-menu ul li.active::after{
+    opacity: 1;
+}
+.right-menu ul li:hover{
+    border-right-color: #297cde;
+    background: #333;
+}
+
+.right-menu ul li.active{
+    background: #333;
+}
+
+.right-menu ul li a{
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    text-align: right;
+    padding-right: 45px !important;
+    box-sizing: border-box;
+    padding: 11px 10px;
+    color: white;
+}
+
+.right-menu ul li .ico{
+    float: right;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    transition: 0.3s;
+}
+
+.right-menu ul li.active .ico{
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+    transform: scale(1.15);
+}
+
+.right-menu ul li:hover .ico{
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+}
+
+.body{
+    width: 78%;
+    box-sizing: border-box;
+    position: fixed;
+    right: calc(22% + 3px);
+    top: 50px;
+    height: calc(100% - 50px);
+    box-shadow: -3px 3px 7px #999 inset;
+    overflow-y: scroll;
+}
+
+
+.container{
+    width: 100%;
+    position: relative;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+}
+
+.header-row{
+    width: 90%;
+    margin: 35px auto 10px auto;
+    background: white;
+    box-shadow: 0px 0px 5px #999;
+    font-size: 0;
+}
+.header-row > span{
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 7px 10px;
+    width: 25%;
+    font-size: medium;
+    border-left: 1px #ccc solid;
+    border-right: 2px transparent solid;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.header-row > span:hover{
+    border-right-color: gold;
+    background: #eee;
+}
+
+.header-row > span b{
+    transition: 0.3s;
+}
+
+
+.header-row > span:hover b{
+    color: #297cde;
+}
+
+.col-2 > span, .col-2-normal > span{
+    width: 50%;
+}
+.col-3 > span, .col-3-normal > span{
+    width: 33.3333333333%;
+}
+.col-3{
+    margin-top: 0px !important;
+    width: 100% !important;
+}
+.col-2{
+    margin-top: 0px !important;
+    width: 100% !important;
+}
+
+.span-1, .span-2, .span-3, .span-4, .span-5, .span-6, .span-7, .span-8, .span-9, .span-10{
+    display: inline-block;
+    font-size: medium;
+}
+
+.span-1{
+    width: 10% !important;
+}
+.span-2{
+    width: 20% !important;
+}
+.span-3{
+    width: 30% !important;
+}
+.span-4{
+    width: 40% !important;
+}
+.span-5{
+    width: 50% !important;
+}
+.span-6{
+    width: 60% !important;
+}
+.span-7{
+    width: 70% !important;
+}
+.span-8{
+    width: 80% !important;
+}
+.span-9{
+    width: 90% !important;
+}
+.span-10{
+    width: 100% !important;
+}
+
+.container h3{
+    margin-right: 20px;
+}
+
+.area{
+    background: #ddd;
+    width: 90%;
+    margin: 5px auto;
+    padding: 16px 20px;
+    border-radius: 5px;
+    border-right: 3px #00b300 solid;
+    box-sizing: border-box;
+    transition: 0.3s;
+    position: relative;
+}
+
+.area .help, .panel .help{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    background: #297cde;
+    color: white;
+    font-size: small;
+    padding: 5px 15px;
+    border-radius: 0px 0px 0px 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.panel .help{
+    border-radius: 0px !important;
+}
+
+.area .help:hover, .panel .help:hover{
+    background: #0048ff;
+    box-shadow: 0px 0px 5px #555;
+}
+
+.area-90{
+    width: 90%;
+}
+
+.area:hover{
+    border-right-color: gold;
+}
+
+
+.area .title{
+    margin: 0px 0px 15px 0px;
+}
+
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+.button{
+    display: block;
+    border: 0;
+    border-bottom: 3px gold solid;
+    color: gold;
+    font-weight: bold;
+    padding: 8px 20px;
+    box-sizing: border-box;
+    margin-bottom: -10px;
+    background: #444;
+    transition: 0.3s;
+    cursor: pointer;
+    position: relative;
+    float: left;
+}
+
+.button:hover{
+    border-bottom-color: #297cde;
+    box-shadow: 0px 0px 7px #999;
+}
+
+.normal-row{
+    width: 90%;
+    margin: 15px auto;
+}
+.normal-row::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    box-shadow: 0px 0px 3px #bbb;
+}
+
+.table,.table td,.table th {
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.table td, .table th{
+    padding: 6px 10px;
+}
+
+.table tr{
+    transition: 0.3s;
+}
+
+.table tr.def:hover{
+    background: #ddd;
+}
+
+.table tr.def:hover td:nth-child(2){
+    color: #297cde;
+    font-weight: bold;
+}
+
+.table tr:nth-child(1){
+    background: #297cde;
+    color: white;
+}
+
+
+.table td:nth-child(1), .table th:nth-child(1){
+    width: 70%;
+}
+
+.table td:nth-child(2), .table th:nth-child(2){
+    width: 30%;
+    transition: 0.3s;
+} 
+
+.panel{
+    width: 90%;
+    margin: 5px auto;
+    box-shadow: 0px 0px 3px #777;
+    position: relative;
+}
+
+.panel .panel-head{
+    background: #444;
+    padding: 6px 10px;
+    box-sizing: border-box;
+    color: white;
+    border-right: 4px #297cde solid;
+    transition: 0.3s;
+    font-weight: bold;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.panel .panel-head::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.panel .panel-head .date{
+    float: left;
+    vertical-align: middle;
+    color: gold;
+    transition: 0.3s;
+    font-size: small;
+    margin-top: 4px;
+}
+
+.panel .panel-head:hover .date{
+    color: #297cde;
+}
+
+.panel .panel-head:hover{
+    color: gold;
+    border-right-color: gold;
+}
+
+.panel .panel-body{
+    padding: 5px 10px;
+    box-sizing: border-box;
+}
+
+
+/*
+    FAB
+*/
+
+.fab{
+    position: fixed;
+    bottom: 50px;
+    left: 40px;
+    background: #eaeaea;
+    box-shadow: 0px 0px 15px #777;
+    border-radius: 22px;
+    border: 0px;
+    padding: 0px 0px 0px 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+.fab:hover{
+    background: #1b5e20;
+}
+
+.fab:hover span{
+    color: white;
+}
+
+.fab:hover img{
+    transform: rotate(180deg);
+}
+
+.fab img{
+    float: right;
+    width: 44px;
+    height: 44px;
+    margin-right: 0;
+    transition: 0.3s;
+}
+
+.fab img::after{
+    content: '';
+    clear: both;
+}
+
+.fab span{
+    vertical-align: middle;
+    padding: 12px 9px 12px 0px;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+a.classic{
+    text-decoration: none;
+}
+
+li .badge{
+    padding: 3px 5px;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: small;
+    float: left;
+    transform: translateX(0px);
+    transition: 0.3s;
+}
+
+li.active .badge{
+    transform: translateX(20px);
+}
+
+.badge.red{
+    background: red;
+    color: white;
+}
+
+
+
+/*
+
+    Responsive
+
+*/
+
+@media only screen and (max-width : 1200px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+    .right-menu ul li a{
+        display: none;
+    }
+    .right-menu ul li::after{
+        display: none;
+    }
+    .right-menu{
+        width: 45px;
+    }
+    .body{
+        width: calc(100% - 48px);
+        right: 48px;
+    }
+    .header-row > span{
+        width: 100% !important;
+    }
+    .fab{
+        bottom: 10px;
+        left: 10px;
+    }
+    .span-1, .span-2, .span-3, .span-4, .span-5, .span-6, .span-7, .span-8, .span-9, .span-10{
+        width: 100% !important;
+    }
+
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+    .right-menu ul li a{
+        display: none;
+    }
+    .right-menu ul li::after{
+        display: none;
+    }
+    .right-menu{
+        width: 45px;
+    }
+    .body{
+        width: calc(100% - 48px);
+        right: 48px;
+    }
+    .header-row > span{
+        width: 100% !important;
+    }
+    .fab{
+        bottom: 10px;
+        left: 10px;
+    }
+    .span-1, .span-2, .span-3, .span-4, .span-5, .span-6, .span-7, .span-8, .span-9, .span-10{
+        width: 100% !important;
+    }
+}
+
+/* Custom, iPhone Retina */ 
+@media only screen and (max-width : 320px) {
+    .right-menu ul li a{
+        display: none;
+    }
+    .right-menu ul li::after{
+        display: none;
+    }
+    .right-menu{
+        width: 45px;
+    }
+    .body{
+        width: calc(100% - 48px);
+        right: 48px;
+    }
+    .header-row > span{
+        width: 100% !important;
+    }
+    .fab{
+        bottom: 10px;
+        left: 10px;
+    }
+    .span-1, .span-2, .span-3, .span-4, .span-5, .span-6, .span-7, .span-8, .span-9, .span-10{
+        width: 100% !important;
+    }
+}
+
+
+
+textarea{
+    background: white;
+    width: 90%;
+    margin: 5px auto;
+    padding: 16px 20px;
+    border: 0;
+    border-right: 3px #00b300 solid;
+    box-sizing: border-box;
+    transition: 0.3s;
+    position: relative;
+    display: block;
+    box-shadow: 0px 0px 4px #999;
+}
+
+.datepicker-container .header-row{
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+
+input[type="text"], input[type="password"], input[type="number"]{
+    border-radius: 2px;
+    border: 1px #bbb solid;
+    padding: 4px 5px;
+}
+
+.input-center{
+    text-align: center;
+}
+
+.select2{
+    /*width: auto !important;*/
+    min-width: 130px;
+}
+
+input[type="number"]{
+    max-width: 60px;
+}
+
+.row-100{
+    width: 100% !important;
+}
+
+.nrow{
+    width: 100%;
+    display: block;
+    font-size: 0;
+}

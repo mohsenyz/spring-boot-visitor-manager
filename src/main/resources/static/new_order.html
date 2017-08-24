@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="header-row col-2-normal">
+        <span><b>اهمیت: </b><i>
+                <select class="comp" ng-model="urgency">
+                    <option value="high" selected="true">زیاد</option>
+                    <option value="normal">متوسط</option>
+                    <option value="low">کم</option>
+                </select>
+            </i></span>
+    </div>
+    <h3>توضیحات : </h3>
+    <textarea ng-model="desc">
+    </textarea>
+    <div class="normal-row">
+        <button class="button" ng-click="content_drugs[content_drugs.length] = {drug : null, num : null}; reInit();">
+            افزودن دارو
+        </button>
+    </div>
+    <div class="header-row col-2-normal" ng-repeat="x in content_drugs">
+        <span class="span-5"><b>دارو : </b><i>
+                <select ng-model="x.drug">
+                    <option>همولاکس</option>
+                    <option>دایجستر</option>
+                </select>
+            </i></span>
+        <span class="span-5"><b>تعداد : </b><i>
+                <input type="number" ng-model="x.num"/>
+            </i></span>
+    </div>
+    <br/>
+    <hr/>
+    <div class="normal-row">
+        <button class="button" style="margin: 0 auto; float: none !important;">
+            ثبت درخواست
+        </button>
+    </div>
+    <br/><br/><br/><br/><br/>
+</div>
+<script>
+    $(document).ready(function () {
+    $("select.comp").select2({
+    dir: "rtl"
+    });
+    $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
+    });
+</script>

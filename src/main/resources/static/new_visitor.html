@@ -1,0 +1,97 @@
+<div class="container">
+    <div class="header-row col-2-normal">
+        <span><b>نام: </b><i>
+                <input type="text" ng-model="fname"/>
+            </i></span>
+        <span><b>نام خانوادگی:‌ </b><i>
+                <input type="text" ng-model="lname"/>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b>تاریخ تولد:‌  </b><i>
+                <input type="text" class="center-text datepicker" ng-model="birthday"/>
+            </i></span>
+        <span><b> کد ملی:  </b><i>
+                <input type="text" ng-model="code"/>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b> تلفن ثابت:‌  </b><i>
+                <input type="text" ng-model="fixed_phone"/>
+            </i></span>
+        <span><b> موبایل:  </b><i>
+                <input type="text" ng-model="mobile"/>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b>معرف / نحوه ی آشنایی :‌ </b><i>
+                <input type="text" ng-model="type_ack"/>
+            </i></span>
+        <span><b> رشته ی تحصیلی: </b><i>
+                <input type="text" ng-model="grade"/>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b>شناسه ی کاربری: </b><i>
+                <input type="text" ng-model="uname"/>
+            </i></span>
+        <span><b>کلمه ی عبور:‌ </b><i>
+                <input type="text" ng-model="password"/>
+            </i></span>
+    </div>
+    <h3> آدرس: </h3>
+    <textarea ng-model="address">
+    </textarea>
+    <h3>سوابق تحصیلی / تخصصی :‌ </h3>
+    <textarea ng-model="grade_exp">
+    </textarea>
+    <h3>سوابق شغلی و آموزشی : </h3>
+    <textarea ng-model="work_exp">
+    </textarea>
+    <h3>توضیحات : </h3>
+    <textarea ng-model="desc">
+    </textarea>
+    <div class="header-row col-2-normal">
+        <span><b>تصویر پرسنلی</b><i>
+            </i></span>
+        <span><b>فایل : </b><i>
+                <input type="file" fileread="pic1"/>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b>تصویر کارت ملی</b><i>
+            </i></span>
+        <span><b>فایل : </b><i>
+                <input type="file" fileread="pic2"/>
+            </i></span>
+    </div>
+    <div class="normal-row">
+        <button class="button" ng-click="docs[docs.length] = docs.length + 1;">
+            افزودن سند
+        </button>
+    </div>
+    <div class="header-row col-2-normal" ng-repeat="x in docs">
+        <span><b>توضیحات : </b><i>
+                <input type="text" ng-model="x.desc"/>
+            </i></span>
+        <span><b>فایل : </b><i>
+                <input type="file" ng-model="x.file"/>
+            </i></span>
+    </div>
+    <br/>
+    <hr/>
+    <div class="normal-row">
+        <button class="button" style="margin: 0 auto; float: none !important;">
+            ثبت ویزیتور
+        </button>
+    </div>
+    <br/><br/><br/><br/><br/>
+</div>
+<script>
+    $(document).ready(function () {
+    $("select.comp").select2({
+    dir: "rtl"
+    });
+    $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
+    });
+</script>

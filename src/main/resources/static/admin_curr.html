@@ -1,0 +1,32 @@
+<div class="container">
+    <br/>
+    <div class="panel">
+        <div class="panel-head">
+            <htmldiv content="curr.name"></htmldiv>
+        </div>
+        <div class="panel-body">
+            <htmldiv content="curr.bar"></htmldiv>
+            <h4>داروها : </h4>
+            <div class="header-row col-2" ng-show="curr.result">
+                <span><b>دارو : </b><i>
+                        همولاکس 
+                    </i></span>
+                <span><b>تعداد : </b><i>
+                        ۱۰
+                    </i></span>
+            </div>
+            <div class="normal-row">
+                <button class="button">تایید</button>
+            </div>
+        </div>
+        <br/>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+</div>
+<script>
+            $(document).ready(function () {
+                $('.tooltip').tooltipster({
+                    theme: 'tooltipster-borderless'
+                });
+            });
+</script>

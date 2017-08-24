@@ -1,0 +1,98 @@
+<div class="container">
+    <div class="header-row col-3-normal">
+        <span><b> شهر: </b><i>
+                <select class="comp" ng-model="city">
+                    <option value="all" selected="true">همه</option>
+                    <option>اصفهان</option>
+                    <option>تهران</option>
+                    <option>مشهد</option>
+                </select>
+            </i></span>
+        <span><b> منطقه: </b><i>
+                <select class="comp" ng-model="area">
+                    <option value="all" selected="true">همه</option>
+                    <option>اصفهان</option>
+                    <option>تهران</option>
+                    <option>مشهد</option>
+                </select>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span class="span-10"><b>نام مرکز پخش: </b><i>
+                <input type="text" ng-model="name"/>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b>نام مسبول: </b><i>
+                <input type="text" ng-model="a_fname"/>
+            </i></span>
+        <span><b>نام خانوادگی مسیول: </b><i>
+                <input type="text" ng-model="a_lname"/>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b>تاریخ تولد مسیول : </b><i>
+                <input type="text" class="center-text datepicker" ng-model="a_birthday"/>
+            </i></span>
+        <span><b>کد ملی مسبول: </b><i>
+                <input type="text" ng-model="a_code"/>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b> تلفن ثابت:‌  </b><i>
+                <input type="text" ng-model="fixed_phone"/>
+            </i></span>
+        <span><b> موبایل:  </b><i>
+                <input type="text" ng-model="mobile"/>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b>شناسه ی کاربری: </b><i>
+                <input type="text" ng-model="uname"/>
+            </i></span>
+        <span><b>کلمه ی عبور:‌ </b><i>
+                <input type="text" ng-model="password"/>
+            </i></span>
+    </div>
+    <h3> آدرس: </h3>
+    <textarea ng-model="address">
+    </textarea>
+    <h3>توضیحات : </h3>
+    <textarea ng-model="desc">
+    </textarea>
+    <div class="header-row col-2-normal">
+        <span><b>تصویر کارت ملی مسیول</b><i>
+            </i></span>
+        <span><b>فایل : </b><i>
+                <input type="file" fileread="pic1"/>
+            </i></span>
+    </div>
+    <div class="normal-row">
+        <button class="button" ng-click="docs[docs.length] = {desc : null, file : null};">
+            افزودن سند
+        </button>
+    </div>
+    <div class="header-row col-2-normal" ng-repeat="x in docs">
+        <span><b>توضیحات : </b><i>
+                <input type="text" ng-model="x.desc"/>
+            </i></span>
+        <span><b>فایل : </b><i>
+                <input type="file" fileread="x.file"/>
+            </i></span>
+    </div>
+    <br/>
+    <hr/>
+    <div class="normal-row">
+        <button class="button" style="margin: 0 auto; float: none !important;">
+            ثبت ویزیتور
+        </button>
+    </div>
+    <br/><br/><br/><br/><br/>
+</div>
+<script>
+    $(document).ready(function () {
+    $("select.comp").select2({
+    dir: "rtl"
+    });
+    $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
+    });</script>

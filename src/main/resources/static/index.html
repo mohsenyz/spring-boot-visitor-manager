@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ورود</title>
+        <link rel="stylesheet" href="asset/main.css"/>
+    </head>
+    <body>
+        <div class="progress-bar" id="main-progress" style="width: 0%;"></div>
+        <div class="form box-shadow-1 active">
+            <input type="text" id="phone" class="input center-text" placeholder="شماره تلفن خود را وارد نمایید"/>
+            <button class="button" type="submit" id="submit-btn">ارسال کد
+                <div class="circle-progress" style="display: none;"></div>
+            </button>
+        </div>
+        <div id="verify-form" class="form box-shadow-1" style="display: none;">
+            <input id="code" type="text" class="input center-text" placeholder="کد را وارد کنید"/>
+            <button class="button" type="submit" id="verify-btn">تایید
+                <div class="circle-progress" style="display: none;"></div>
+            </button>
+        </div>
+        <div id="password-form" class="form box-shadow-1" style="display: none;">
+            <input id="pass" type="text" class="input center-text" placeholder="پسورد دلخواه را وارد کنید"/>
+            <button class="button" type="submit" id="pass-btn">تایید
+                <div class="circle-progress" style="display: none;"></div>
+            </button>
+        </div>
+        <div id="mpass-form" class="form box-shadow-1" style="display: none;">
+            <input id="mpass" type="text" class="input center-text" placeholder="پسورد را وارد کنید"/>
+            <button class="button" type="submit" id="mpass-btn">تایید
+                <div class="circle-progress" style="display: none;"></div>
+            </button>
+        </div>
+        <div class="footer">
+            <span class="cp">&copy; By phoenix group</span>
+        </div>
+        <div class="footer-panel">
+            <a class="classic" href="admin.php">پنل مدیریت</a>
+            <a class="classic" href="visitor.php">پنل ویزیتور</a>
+            <a class="classic" href="cm.php">پنل مرکز پخش</a>
+            <a class="classic" href="drugstore.php">پنل داروخانه و دکتر</a>
+        </div>
+    </body>
+    <script src="asset/js/jquery.js"></script>
+    <script>
+        window.Helper = {};
+        Helper.hideForm = function (duration, callback) {
+            $(".form.active").slideUp(duration, callback);
+            $(".form").removeClass("active");
+        }
+        Helper.showForm = function (form, duration, callback) {
+            $(form).slideDown(duration, callback);
+            $(".form").removeClass("active");
+            $(form).addClass("active");
+            $(".circle-progress").fadeOut();
+        }
+        window.Progress = {element: null};
+        Progress.set = function (progress, speed, callback) {
+            this.element.animate({width: progress.toString() + '%'}, speed, callback);
+        }
+        Progress.init = function (element) {
+            this.element = element;
+            this.init = null;
+        }
+        window.Login = {};
+        Login.sendCode = function (phone, success, fail, always) {
+            $.get("ctrls/send_code.php", {phone: phone})
+                    .done(success)
+                    .fail(fail)
+                    .always(always);
+        }
+        Login.verifyCode = function (code, success, fail, always) {
+            $.get("ctrls/verify_code.php", {code: code})
+                    .done(success)
+                    .fail(fail)
+                    .always(always);
+        }
+        Login.setPass = function (pass, success, fail, always) {
+            $.get("ctrls/set_pass.php", {pass: pass})
+                    .done(success)
+                    .fail(fail)
+                    .always(always);
+        }
+        Login.withPass = function (pass, success, fail, always) {
+            $.get("ctrls/verify_pass.php", {pass: pass})
+                    .done(success)
+                    .fail(fail)
+                    .always(always);
+        }
+        $(document).ready(function () {
+            Progress.init($("#main-progress"));
+            $("#submit-btn").click(function () {
+                Progress.set(20);
+                $(".circle-progress").fadeIn();
+                Login.sendCode($("#phone").val(), function (data) {
+                    Progress.set(100, 400, function () {
+                        Progress.set(0);
+                        $(".circle-progress").fadeOut();
+                    });
+                    if (data.trim() == "201") {
+                        Helper.hideForm(410, function () {
+                            Helper.showForm($("#verify-form"), 400);
+                        });
+                    } else {
+                        Helper.hideForm(410, function () {
+                            Helper.showForm($("#mpass-form"), 400);
+                        });
+                    }
+                }, function () {
+                    Progress.set(0);
+                    $(".circle-progress").fadeOut();
+                    alert("خطایی در ارسال کد رخ داد");
+                });
+            });
+            $("#verify-btn").click(function () {
+                Progress.set(20);
+                $(".circle-progress").fadeIn();
+                Login.verifyCode($("#code").val(), function () {
+                    //$(location).attr('href', '/visitor.php');
+                    Progress.set(100, 400, function () {
+                        Progress.set(0);
+                        $(".circle-progress").fadeOut();
+                    });
+                    Helper.hideForm(410, function () {
+                        Helper.showForm($("#password-form"), 400);
+                    });
+                }, function (err) {
+                    Progress.set(0);
+                    $(".circle-progress").fadeOut();
+                    data = err.responseText;
+                    alert(data);
+                });
+            });
+            $("#pass-btn").click(function () {
+                Progress.set(20);
+                $(".circle-progress").fadeIn();
+                Login.setPass($("input#pass").val(), function () {
+                    Progress.set(100, 400, function () {
+                        Progress.set(0);
+                        $(".circle-progress").fadeOut();
+                        $(".footer-panel").fadeIn();
+                    });
+                    Helper.hideForm(410, function () {
+                        //Helper.showForm($("#password-form"), 400);
+                    });
+                }, function (err) {
+                    Progress.set(0);
+                    $(".circle-progress").fadeOut();
+                    data = err.responseText;
+                    alert(data);
+                });
+            });
+            $("#mpass-btn").click(function () {
+                Progress.set(20);
+                $(".circle-progress").fadeIn();
+                Login.withPass($("input#mpass").val(), function (data) {
+                    Progress.set(100, 400, function () {
+                        Progress.set(0);
+                        $(".circle-progress").fadeOut();
+                        if (data.trim() == "400") {
+                            alert("wrong");
+                        } else {
+                            $(".footer-panel").fadeIn();
+                        }
+                    });
+                }, function (err) {
+                    Progress.set(0);
+                    $(".circle-progress").fadeOut();
+                    data = err.responseText;
+                    alert(data);
+                });
+            });
+        });
+    </script>
+</html>

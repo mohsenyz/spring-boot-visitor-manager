@@ -1,0 +1,71 @@
+<section ng-show="doctor == 'none'">
+    <div class="header-row col-2-normal">
+        <span class="span-10"><b>محل ویزیت: </b><i>
+                <select class="comp" ng-model="visit_place">
+                    <option value="1" selected="true">مطب</option>
+                    <option value="2">کلینیک</option>
+                    <option value="3">درمانگاه</option>
+                    <option value="4">بیمارستان</option>
+                </select>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span class="span-10"><b>نام محل ملاقات: </b><i>
+                <input type="text" ng-model="visit_place_name"/>
+            </i></span>
+    </div>
+    <h3>کدام یک از محصولات معرفی شده توسط پزشک نسخه میشود: </h3>
+    <div class="normal-row">
+        <button class="button" ng-click="noskhe[noskhe.length] = {drug : null, reason : null, desc : null}; reInit();">
+            افزودن دارو
+        </button>
+    </div>
+    <div class="header-row col-2-normal" ng-repeat="x in noskhe">
+        <span class="span-3"><b>دارو : </b><i>
+                <select ng-model="x.drug">
+                    <option>همولاکس</option>
+                    <option>دایجستر</option>
+                </select>
+            </i></span>
+        <span class="span-3"><b>علت : </b><i>
+                <select ng-model="x.reason">
+                    <option value="1">کیفیت</option>
+                    <option value="2">قیمت</option>
+                    <option value="3">موجود بودن</option>
+                </select>
+            </i></span>
+        <span class="span-4"><b>سایر: </b><i>
+                <input type="text" ng-model="x.desc"/>
+            </i></span>
+    </div>
+    <h3>علت نسخه نشدن داروها : </h3>
+    <div class="normal-row">
+        <button class="button" ng-click="not_noskhe[not_noskhe.length] = {drug : null, reason : null, desc : null}; reInit();">
+            افزودن دارو
+        </button>
+    </div>
+    <div class="header-row col-2-normal" ng-repeat="x in not_noskhe">
+        <span class="span-3"><b>دارو : </b><i>
+                <select ng-model="x.drug">
+                    <option>همولاکس</option>
+                    <option>دایجستر</option>
+                </select>
+            </i></span>
+        <span class="span-3"><b>علت : </b><i>
+                <select ng-model="x.reason">
+                    <option value="1">کیفیت</option>
+                    <option value="2">قیمت</option>
+                    <option value="3">موجود نبودن</option>
+                    <option value="4">عدم آشنایی</option>
+                    <option value="5">بیمه نبودن</option>
+                    <option value="6">گیاهی بودن محصولات</option>
+                </select>
+            </i></span>
+        <span class="span-4"><b>سایر: </b><i>
+                <input type="text" ng-model="x.desc"/>
+            </i></span>
+    </div>
+    <h3>انتقاد / پیشنهاد پزشک در مورد محصولات سینا فرآور : </h3>
+    <textarea ng-model="dr_visit_suggestion">
+    </textarea>
+</section>

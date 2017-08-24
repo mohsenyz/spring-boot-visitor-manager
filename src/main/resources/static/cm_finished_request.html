@@ -1,0 +1,30 @@
+<div class="container">
+    <br/>
+    <div class="panel">
+        <div class="panel-head" ng-click="showCurr($event, true)">
+            ویزیت شماره ی 1
+            <span class="date">1396/04/02</span>
+        </div>
+        <div class="panel-body">
+            <div class="header-row col-3">
+                <span><b>نام داروخانه: </b><i>فتاح الجنان</i></span>
+                <span><b>وضعیت: </b><i> تمام شده</i></span>
+                <span><b>نام ویزیتور: </b><i>ویزیتور ۱</i></span>
+            </div>
+            <h4>توضیحات : </h4>
+            <div class="area area-90">
+                توضیحات ویزیت
+            </div>
+        </div>
+        <br/>
+        <span class="help" ng-click="showCurr($event, true)">مشاهده ی بیشتر</span>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.tooltip').tooltipster({
+            theme: 'tooltipster-borderless'
+        });
+    });
+</script>

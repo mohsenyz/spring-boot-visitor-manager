@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="header-row col-2-normal">
+        <span><b> شهر: </b><i>
+                <select class="comp" multiple="multiple" ng-model="visitor">
+                    <option value="all" selected="true">همه</option>
+                    <option>اصفهان</option>
+                    <option>تهران</option>
+                    <option>مشهد</option>
+                </select>
+            </i></span>
+        <span><b> داروخانه یا دکتر: </b><i>
+                <select class="comp" multiple="multiple" ng-model="visitor">
+                    <option value="all" selected="true">همه</option>
+                    <option> داروخانه ۱</option>
+                    <option> داروخانه ۲</option>
+                </select>
+                <select class="comp" multiple="multiple" ng-model="visitor">
+                    <option value="all" selected="true">همه</option>
+                    <option> دکتر ۱</option>
+                    <option> دکتر ۲</option>
+                </select>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b> وضعیت: </b><i>
+                <select class="comp" multiple="multiple" ng-model="status">
+                    <option value="all" selected="true">همه</option>
+                    <option>در انتظار تایید</option>
+                    <option>تایید شده</option>
+                </select>
+            </i></span>
+        <span><b> اهمیت: </b><i>
+                <select class="comp" multiple="multiple" ng-model="status">
+                    <option value="all" selected="true">همه</option>
+                    <option>زیاد</option>
+                    <option>متوسط</option>
+                    <option>کم</option>
+                </select>
+            </i></span>
+    </div>
+    <div class="header-row col-2-normal">
+        <span><b> از تاریخ:‌ </b><i>
+                <input type="text" class="datepicker input-center"/>
+            </i></span>
+        <span><b> تا تاریخ:‌ </b><i>
+                <input type="text" class="datepicker input-center"/>
+            </i></span>
+    </div>
+    <br/>
+    <div class="panel">
+        <div class="panel-head" ng-click="showCurr($event, true)">
+            سفارش ۱
+            <span class="date">1396/04/02</span>
+        </div>
+        <div class="panel-body">
+            <div class="header-row col-3">
+                <span><b>داروخانه: </b><i>فتاح الجنان</i></span>
+                <span><b>وضعیت: </b><i>در انتظار تایید</i></span>
+                <span><b>اهمیت: </b><i>زیاد</i></span>
+            </div>
+            <h4>توضیحات : </h4>
+            <div class="area area-90">
+                توضیحات سفارشات
+            </div>
+        </div>
+        <br/>
+        <span class="help" ng-click="showCurr($event, true)">مشاهده ی بیشتر</span>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+</div>
+<script>
+            $(document).ready(function () {
+                $('.tooltip').tooltipster({
+                    theme: 'tooltipster-borderless'
+                });
+                $("select.comp").select2({
+                    dir: "rtl"
+                });
+                $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
+            });
+</script>
