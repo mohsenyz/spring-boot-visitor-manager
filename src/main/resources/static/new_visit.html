@@ -2,12 +2,12 @@
     <div class="header-row col-2-normal">
         <span><b>داروخانه یا دکتر : </b><i>
                 <select class="comp" ng-model="drugstore" ng-disabled="doctor != 'none'">
-                    <option value="none" selected="true">انتخاب داروخانه</option>
+                    <option value="none" selected="selected">انتخاب داروخانه</option>
                     <option value="make_new">افزودن داروخانه</option>
                     <option>فتاح الجنان</option>
                 </select>
                 <select class="comp" ng-model="doctor" ng-disabled="drugstore != 'none'">
-                    <option value="none" selected="true">انتخاب دکتر</option>
+                    <option value="none" selected="selected">انتخاب دکتر</option>
                     <option value="make_new">افزودن دکتر</option>
                     <option>دکتر ۱</option>
                 </select>
@@ -15,7 +15,7 @@
         <span><b>تاریخ ویزیت بعدی :‌ </b><i>
                 <input ng-model="next_session_date" type="text" class="datepicker-do input-center" style="width:100px !important;"/>
                 <select class="comp">
-                    <option value="none" selected="true">-</option>
+                    <option value="none" selected="selected">-</option>
                     <option value="1d">یک روز</option>
                     <option value="1w">یک هفته</option>
                     <option value="2w">دو هفته</option>
@@ -27,7 +27,7 @@
     <div class="header-row col-2-normal">
         <span><b>نوبت ویزیت: </b><i>
                 <select class="comp" ng-model="visit_time">
-                    <option value="am" selected="true">صبح</option>
+                    <option value="am" selected="selected">صبح</option>
                     <option value="pm">عصر</option>
                 </select>
             </i></span>
@@ -38,7 +38,7 @@
     <div class="header-row col-2-normal">
         <span><b>اهمیت: </b><i>
                 <select class="comp" ng-model="urgency">
-                    <option value="high" selected="true">زیاد</option>
+                    <option value="high" selected="selected">زیاد</option>
                     <option value="normal">متوسط</option>
                     <option value="low">کم</option>
                 </select>
@@ -56,7 +56,7 @@
             </i></span>
         <span><b>انتقال به ویزیتور:  </b><i>
                 <select ng-model="visitor" value="none" class="comp">
-                    <option value="none" selected="true">-</option>
+                    <option value="none" selected="selected">-</option>
                     <option value="mohsen">محسن یزدانی</option>
                 </select>
             </i></span>
