@@ -6,6 +6,7 @@
 package com.sina.sina.configs;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -27,7 +28,8 @@ public class ResourceConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 .addResourceHandler("/**")
-                .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
+                .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS)
+                .setCacheControl(CacheControl.noCache());
         registry
                 .addResourceHandler("/files/**")
                 .addResourceLocations("file:/opt/mphj/doctor-upload/");

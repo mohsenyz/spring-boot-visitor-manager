@@ -139,8 +139,7 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout) {
         email : null,
         pezeshk : null,
         company_products_ack : null,
-        consent : null,
-        suggestion : null
+        consent : null
     };
     $scope.visit_place = null;
     $scope.visit_place_name = null;
