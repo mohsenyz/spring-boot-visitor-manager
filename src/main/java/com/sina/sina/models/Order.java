@@ -7,7 +7,8 @@ public class Order {
     private int id;
     private int vid;
     private int cmid;
-    private int dsid;
+    private Integer dsid;
+    private Integer drid;
     private String dsVisitedName;
     private int dsVisitedJob;
     private String dsVisitedPhone;
@@ -58,11 +59,11 @@ public class Order {
         this.cmid = cmid;
     }
 
-    public int getDsid() {
+    public Integer getDsid() {
         return dsid;
     }
 
-    public void setDsid(int dsid) {
+    public void setDsid(Integer dsid) {
         this.dsid = dsid;
     }
 
@@ -264,5 +265,13 @@ public class Order {
 
     public void setUrgency(int urgency) {
         this.urgency = urgency;
+    }
+
+    public Integer getDrid() {
+        return drid;
+    }
+
+    public void setDrid(Integer drid) {
+        this.drid = drid;
     }
 }

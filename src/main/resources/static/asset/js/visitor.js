@@ -108,6 +108,8 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout) {
     $scope.visitor = 'none';
     $scope.doctor = 'none';
     $scope.drugstore = 'none';
+    $scope.content = null;
+    $scope.desc = null;
     $scope.noskhe = [];
     $scope.not_noskhe = [];
     $scope.known_drugs = [];

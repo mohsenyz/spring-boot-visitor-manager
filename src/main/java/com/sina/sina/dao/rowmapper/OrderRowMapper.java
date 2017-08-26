@@ -23,7 +23,8 @@ public class OrderRowMapper implements RowMapper{
         order.setId(rs.getInt("id"));
         order.setVid(rs.getInt("vid"));
         order.setCmid(rs.getInt("cmid"));
-        order.setDsid(rs.getInt("dsid"));
+        order.setDsid(DaoHelper.getInteger(rs, "dsid"));
+        order.setDrid(DaoHelper.getInteger(rs, "drid"));
         order.setDsVisitedName(rs.getString("ds_visited_name"));
         order.setDsVisitedJob(rs.getInt("ds_visited_job"));
         order.setDsVisitedPhone(rs.getString("ds_visited_phone"));

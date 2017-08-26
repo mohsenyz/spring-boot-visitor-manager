@@ -63,6 +63,7 @@ public class OrderDao extends AbstractDao{
         map.put("vid", cm.getVid());
         map.put("cmid", cm.getCmid());
         map.put("dsid", cm.getDsid());
+        map.put("drid", cm.getDrid());
         map.put("ds_visited_name", cm.getDsVisitedName());
         map.put("ds_visited_job", cm.getDsVisitedJob());
         map.put("ds_visited_phone", cm.getDsVisitedPhone());
@@ -88,7 +89,9 @@ public class OrderDao extends AbstractDao{
         map.put("submit_time", cm.getSubmitTime());
         map.put("viewed_at", cm.getViewedAt());
         map.put("urgency", cm.getUrgency());
-        return simpleJdbcInsert.executeAndReturnKey(map).intValue();
+        int key =  simpleJdbcInsert.executeAndReturnKey(map).intValue();
+        cm.setId(key);
+        return key;
     }
     
     

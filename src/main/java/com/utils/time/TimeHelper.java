@@ -24,6 +24,11 @@ public class TimeHelper {
     public static Timestamp getCurrentTimestamp() {
         return new Timestamp(Calendar.getInstance(TimeZone.getDefault()).getTime().getTime());
     }
+    
+    
+    public static Timestamp parseTimestamp(String string, String pattern){
+        return null;
+    }
 
     public static long getCurrentTime() {
         return Calendar.getInstance(TimeZone.getDefault()).getTime().getTime();
