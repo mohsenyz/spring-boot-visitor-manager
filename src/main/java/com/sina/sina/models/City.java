@@ -5,13 +5,13 @@ public class City {
 
     private int id;
     private String name;
-    private int parent;
+    private Integer parent;
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -23,11 +23,11 @@ public class City {
         this.name = name;
     }
 
-    public int getParent() {
+    public Integer getParent() {
         return parent;
     }
 
-    public void setParent(int parent) {
+    public void setParent(Integer parent) {
         this.parent = parent;
     }
 }

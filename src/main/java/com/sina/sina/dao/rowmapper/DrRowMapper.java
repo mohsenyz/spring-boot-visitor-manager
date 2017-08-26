@@ -32,6 +32,7 @@ public class DrRowMapper implements RowMapper{
         dr.setCompanyProductsAck(rs.getString("company_products_ack"));
         dr.setCompanyProductsPop(rs.getString("company_products_pop"));
         dr.setSuggestion(rs.getString("suggestion"));
+        dr.setPlace(rs.getString("place"));
         return dr;
     }
 }

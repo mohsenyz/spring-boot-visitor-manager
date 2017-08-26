@@ -9,6 +9,7 @@ public class Ds {
     private String phone;
     private String clerkName;
     private String companyProductsAck;
+    private String address;
     private int bestTime;
     private int type;
     private int companyNameAckReason;
@@ -138,5 +139,13 @@ public class Ds {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

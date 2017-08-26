@@ -8,6 +8,7 @@ public class Dr {
     private String fixedPhone;
     private String mobile;
     private String mkdb;
+    private String place;
     private String address;
     private String email;
     private String pezeshk;
@@ -117,5 +118,13 @@ public class Dr {
 
     public void setSuggestion(String suggestion) {
         this.suggestion = suggestion;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 }

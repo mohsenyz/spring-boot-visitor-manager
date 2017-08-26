@@ -35,6 +35,7 @@ public class DsRowMapper implements RowMapper{
         ds.setVerifiedAt(DaoHelper.getTimestamp(rs, "verified_at"));
         ds.setCreatedAt(DaoHelper.getTimestamp(rs, "created_at"));
         ds.setEnabled(rs.getBoolean("enabled"));
+        ds.setAddress(rs.getString("address"));
         return ds;
     }
 }
