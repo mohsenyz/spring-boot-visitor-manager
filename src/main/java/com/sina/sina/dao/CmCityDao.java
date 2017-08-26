@@ -8,11 +8,13 @@ package com.sina.sina.dao;
 import com.sina.sina.dao.rowmapper.CmCityRowMapper;
 import com.sina.sina.models.CmCity;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author mphj
  */
+@Repository
 public class CmCityDao extends AbstractDao{
 
     @Override

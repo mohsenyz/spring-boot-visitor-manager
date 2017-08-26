@@ -27,6 +27,7 @@ public class OrderDrugsRowMapper implements RowMapper{
         orderDrugs.setVisitDesc(rs.getString("visit_desc"));
         orderDrugs.setCount(rs.getInt("count"));
         orderDrugs.setType(rs.getInt("type"));
+        orderDrugs.setReason(rs.getString("reason"));
         return orderDrugs;
     }
 }

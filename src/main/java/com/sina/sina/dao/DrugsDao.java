@@ -7,11 +7,13 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.DrugsRowMapper;
 import com.sina.sina.models.Drugs;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author mphj
  */
+@Repository
 public class DrugsDao extends AbstractDao{
 
     @Override

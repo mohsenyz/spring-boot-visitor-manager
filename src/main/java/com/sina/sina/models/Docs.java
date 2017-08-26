@@ -1,6 +1,10 @@
 package com.sina.sina.models;
 
 public class Docs {
+    
+    public static final int
+            ORDER_DOCS = 1;
+    
     private int id;
     private String name;
     private String desc;

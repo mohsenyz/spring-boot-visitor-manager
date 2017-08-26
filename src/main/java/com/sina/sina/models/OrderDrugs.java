@@ -1,6 +1,16 @@
 package com.sina.sina.models;
 
 public class OrderDrugs {
+    
+    public static final int
+            RESULT_DRUGS = 1,
+            CONTENT_DRUGS = 2,
+            NOSKHE = 3,
+            NOT_NOSKHE = 4,
+            KNOWN_DRUGS = 5,
+            EXISTS_DRUGS = 6,
+            SAME_DRUGS = 7;
+    
     private int id;
     private int oid;
     private int rid;
@@ -9,7 +19,8 @@ public class OrderDrugs {
     private String visitDesc;
     private int count;
     private int type;
-
+    private String reason;
+    
     public int getId() {
         return id;
     }
@@ -72,5 +83,13 @@ public class OrderDrugs {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

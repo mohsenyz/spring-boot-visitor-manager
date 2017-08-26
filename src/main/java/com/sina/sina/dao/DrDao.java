@@ -7,11 +7,13 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.DrRowMapper;
 import com.sina.sina.models.Dr;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author mphj
  */
+@Repository
 public class DrDao extends AbstractDao{
 
     @Override

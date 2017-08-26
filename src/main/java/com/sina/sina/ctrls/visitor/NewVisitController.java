@@ -9,33 +9,50 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import com.sina.sina.dao.CityDao;
+import com.sina.sina.dao.DocsDao;
 import com.sina.sina.dao.DrDao;
 import com.sina.sina.dao.DsDao;
 import com.sina.sina.dao.OrderDao;
+import com.sina.sina.dao.OrderDrugsDao;
 import com.sina.sina.models.City;
 import com.sina.sina.models.Cm;
+import com.sina.sina.models.Docs;
 import com.sina.sina.models.Dr;
 import com.sina.sina.models.Ds;
 import com.sina.sina.models.Order;
+import com.sina.sina.models.OrderDrugs;
 import com.sina.sina.pojo.Docs_1;
 import com.sina.sina.pojo.Drugs_1;
 import com.sina.sina.pojo.Drugs_2;
+import com.utils.http.Uploader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.function.BiConsumer;
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import javax.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
@@ -50,36 +67,122 @@ public class NewVisitController {
 
     @Autowired
     DsDao dsDao;
-    
+
     @Autowired
     DrDao drDao;
-    
+
     @Autowired
     OrderDao orderDao;
+
+    @Autowired
+    OrderDrugsDao orderDrugsDao;
+
+    @Autowired
+    DocsDao docsDao;
     
     
+    @Value("${mphj.filesystem.uploadpath}")
+    String uploadPath;
 
     @GetMapping(value = "/visitor/visit")
-    public String newVisit(@RequestParam(value = "json", required = false) String jsonBody) throws IOException {
+    public String newVisit(@RequestParam(value = "json", required = false) String jsonBody, HttpServletRequest httpServletRequest) throws IOException {
         jsonBody = "{\"result_drugs\" : [{\"drug\" : 1},{\"drug\" : 2}]}";
         ObjectMapper objectMapper = new ObjectMapper();
+        Order order = new Order();
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
         Drugs_1[] result_drugs = objectMapper.treeToValue(jsonNode.get("result_drugs"), Drugs_1[].class);
+        for (Drugs_1 result_drug : result_drugs) {
+            OrderDrugs orderDrugs = new OrderDrugs();
+            orderDrugs.setDrugId(result_drug.drug);
+            orderDrugs.setType(OrderDrugs.RESULT_DRUGS);
+            orderDrugs.setCount(result_drug.num);
+            orderDrugs.setVisitDesc(result_drug.visit);
+            orderDrugs.setOid(order.getId());
+            orderDrugsDao.insert(orderDrugs);
+        }
         Drugs_1[] content_drugs = objectMapper.treeToValue(jsonNode.get("content_drugs"), Drugs_1[].class);
+        for (Drugs_1 content_drug : content_drugs) {
+            OrderDrugs orderDrugs = new OrderDrugs();
+            orderDrugs.setDrugId(content_drug.drug);
+            orderDrugs.setType(OrderDrugs.CONTENT_DRUGS);
+            orderDrugs.setCount(content_drug.num);
+            orderDrugs.setVisitDesc(content_drug.visit);
+            orderDrugs.setOid(order.getId());
+            orderDrugsDao.insert(orderDrugs);
+        }
         Docs_1[] docs = objectMapper.treeToValue(jsonNode.get("docs"), Docs_1[].class);
+        for (Docs_1 doc : docs) {
+            Docs doc1 = new Docs();
+            doc1.setDesc(doc.desc);
+            doc1.setName(UUID.randomUUID().toString() + "_" + doc.file);
+            try{
+                Uploader.from(httpServletRequest.getPart(doc.file))
+                        .withName(doc1.getName())
+                        .saveInto(uploadPath);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            doc1.setOid(order.getId());
+            docsDao.insert(doc1);
+        }
+        Drugs_2[] noskhe = objectMapper.treeToValue(jsonNode.get("noskhe"), Drugs_2[].class);
+        for (Drugs_2 noskh : noskhe) {
+            OrderDrugs orderDrugs = new OrderDrugs();
+            orderDrugs.setType(OrderDrugs.NOSKHE);
+            orderDrugs.setDrugId(noskh.drug);
+            orderDrugs.setVisitDesc(noskh.desc);
+            orderDrugs.setReason(noskh.reason);
+            orderDrugs.setOid(order.getId());
+            orderDrugsDao.insert(orderDrugs);
+        }
+        Drugs_2[] not_noskhe = objectMapper.treeToValue(jsonNode.get("not_noskhe"), Drugs_2[].class);
+        for (Drugs_2 noskh : not_noskhe) {
+            OrderDrugs orderDrugs = new OrderDrugs();
+            orderDrugs.setType(OrderDrugs.NOT_NOSKHE);
+            orderDrugs.setDrugId(noskh.drug);
+            orderDrugs.setVisitDesc(noskh.desc);
+            orderDrugs.setReason(noskh.reason);
+            orderDrugs.setOid(order.getId());
+            orderDrugsDao.insert(orderDrugs);
+        }
+        Drugs_2[] known_drugs = objectMapper.treeToValue(jsonNode.get("known_drugs"), Drugs_2[].class);
+        for (Drugs_2 noskh : known_drugs) {
+            OrderDrugs orderDrugs = new OrderDrugs();
+            orderDrugs.setType(OrderDrugs.KNOWN_DRUGS);
+            orderDrugs.setDrugId(noskh.drug);
+            orderDrugs.setVisitDesc(noskh.desc);
+            orderDrugs.setReason(noskh.reason);
+            orderDrugs.setOid(order.getId());
+            orderDrugsDao.insert(orderDrugs);
+        }
+        Drugs_2[] exists_drugs = objectMapper.treeToValue(jsonNode.get("exists_drugs"), Drugs_2[].class);
+        for (Drugs_2 noskh : exists_drugs) {
+            OrderDrugs orderDrugs = new OrderDrugs();
+            orderDrugs.setType(OrderDrugs.EXISTS_DRUGS);
+            orderDrugs.setDrugId(noskh.drug);
+            orderDrugs.setVisitDesc(noskh.desc);
+            orderDrugs.setReason(noskh.reason);
+            orderDrugs.setOid(order.getId());
+            orderDrugsDao.insert(orderDrugs);
+        }
+        Drugs_2[] same_drugs = objectMapper.treeToValue(jsonNode.get("exists_drugs"), Drugs_2[].class);
+        for (Drugs_2 noskh : same_drugs) {
+            OrderDrugs orderDrugs = new OrderDrugs();
+            orderDrugs.setType(OrderDrugs.SAME_DRUGS);
+            orderDrugs.setDrugId(noskh.drug);
+            orderDrugs.setVisitDesc(noskh.desc);
+            orderDrugs.setReason(noskh.reason);
+            orderDrugs.setOid(order.getId());
+            orderDrugsDao.insert(orderDrugs);
+        }
         String visitor = jsonNode.get("visitor").asText();
         String doctor = jsonNode.get("doctor").asText();
         String drugstore = jsonNode.get("drugstore").asText();
-        Drugs_2[] noskhe = objectMapper.treeToValue(jsonNode.get("noskhe"), Drugs_2[].class);
-        Drugs_2[] not_noskhe = objectMapper.treeToValue(jsonNode.get("not_noskhe"), Drugs_2[].class);
-        Drugs_2[] known_drugs = objectMapper.treeToValue(jsonNode.get("known_drugs"), Drugs_2[].class);
-        Drugs_2[] exists_drugs = objectMapper.treeToValue(jsonNode.get("exists_drugs"), Drugs_2[].class);
-        Drugs_2[] same_drugs = objectMapper.treeToValue(jsonNode.get("exists_drugs"), Drugs_2[].class);
         String next_session_date = jsonNode.get("next_session_date").asText();
         String visit_time = jsonNode.get("visit_time").asText();
         String visit_date = jsonNode.get("visit_date").asText();
         String urgency = jsonNode.get("urgency").asText();
-        if (drugstore.equals("make_new")){
+        if (drugstore.equals("make_new")) {
             JsonNode doctorDetails = jsonNode.get("ds");
             String ds_name = doctorDetails.get("ds_name").asText();
             String ds_fanni_name = doctorDetails.get("ds_fanni_name").asText();
@@ -89,6 +192,7 @@ public class NewVisitController {
             String ds_best_visit_time = doctorDetails.get("best_visit_time").asText();
             String ds_type = doctorDetails.get("type").asText();
             String ds_company_name_ack = doctorDetails.get("company_name_ack").asText();
+
             Ds ds = new Ds();
             ds.setName(ds_name);
             ds.setClerkName(ds_fanni_name);
@@ -100,7 +204,7 @@ public class NewVisitController {
             ds.setCompanyNameAckReason(Integer.parseInt(ds_company_name_ack));
             dsDao.insert(ds);
         }
-        if (doctor.equals("make_new")){
+        if (doctor.equals("make_new")) {
             JsonNode doctorDetails = jsonNode.get("dr");
             String dr_name = doctorDetails.get("name").asText();
             String dr_expertise = doctorDetails.get("expertise").asText();
@@ -113,6 +217,7 @@ public class NewVisitController {
             String dr_pezeshk = doctorDetails.get("pezeshk").asText();
             String dr_consent = doctorDetails.get("dr_consent").asText();
             String dr_company_product_ack = doctorDetails.get("company_products_ack").asText();
+
             Dr dr = new Dr();
             dr.setName(dr_name);
             dr.setExpert(dr_expertise);
@@ -144,22 +249,4 @@ public class NewVisitController {
         String result = jsonNode.get("result").asText();
         return null;
     }
-    
-    /*
-    $scope.visit_place = null;
-    $scope.visit_place_name = null;
-    $scope.dr_visit_suggestion = null;
-    $scope.ds_visited_name = null;
-    $scope.ds_visited_exp = null;
-    $scope.ds_visited_phone = null;
-    $scope.ds_idea = null;
-    $scope.ds_pop_ds_name = null;
-    $scope.ds_opponent = null;
-    $scope.ds_dr_index = null;
-    $scope.cm = null;
-    $scope.given = null;
-    $scope.given_etc = null;
-    $scope.needed = null;
-    $scope.result = null;
-    */
 }

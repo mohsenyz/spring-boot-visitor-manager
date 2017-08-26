@@ -7,11 +7,21 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.OrderDrugsRowMapper;
 import com.sina.sina.models.OrderDrugs;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author mphj
  */
+@Repository
 public class OrderDrugsDao extends AbstractDao{
 
     @Override
@@ -20,9 +30,9 @@ public class OrderDrugsDao extends AbstractDao{
     }
     
     
-    public void insert(OrderDrugs cm) {
-        jdbcTemplate
-                .update("insert into `" + getTableName() + "` values(?, ?, ?, ?, ?, ?, ?, ?)",
+    public int insert(OrderDrugs cm) {
+        /*jdbcTemplate
+                .update("insert into `" + getTableName() + "` values(?, ?, ?, ?, ?, ?, ?, ?, ?)",
                         cm.getId(),
                         cm.getOid(),
                         cm.getRid(),
@@ -30,7 +40,20 @@ public class OrderDrugsDao extends AbstractDao{
                         cm.getDrugName(),
                         cm.getVisitDesc(),
                         cm.getCount(),
-                        cm.getType());
+                        cm.getType(),
+                        cm.getReason());*/
+        simpleJdbcInsert.setTableName(getTableName());
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", cm.getId());
+        map.put("oid", cm.getOid());
+        map.put("rid", cm.getRid());
+        map.put("drug_id", cm.getDrugId());
+        map.put("drug_name", cm.getDrugName());
+        map.put("visit_desc", cm.getVisitDesc());
+        map.put("count", cm.getCount());
+        map.put("type", cm.getType());
+        map.put("reason", cm.getReason());
+        return simpleJdbcInsert.executeAndReturnKey(map).intValue();
     }
     
     public OrderDrugs findById(int id) {

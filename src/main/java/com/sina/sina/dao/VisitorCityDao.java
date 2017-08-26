@@ -7,11 +7,13 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.VisitorCityRowMapper;
 import com.sina.sina.models.VisitorCity;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author mphj
  */
+@Repository
 public class VisitorCityDao extends AbstractDao{
 
     @Override

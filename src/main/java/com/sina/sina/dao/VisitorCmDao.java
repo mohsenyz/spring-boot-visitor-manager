@@ -7,11 +7,13 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.VisitorCmRowMapper;
 import com.sina.sina.models.VisitorCm;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author mphj
  */
+@Repository
 public class VisitorCmDao extends AbstractDao {
 
     @Override
