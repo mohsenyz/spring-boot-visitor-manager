@@ -7,6 +7,7 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.DsRowMapper;
 import com.sina.sina.models.Ds;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -59,4 +60,12 @@ public class DsDao extends AbstractDao{
                         new DsRowMapper());
     }
     
+    
+    public List<Ds> findUnverifiedByCm(int cmId){
+        return (List<Ds>) jdbcTemplate
+                .query(
+                        "select * from `" + getTableName() + "` where verified = 0 and city in(select cid from cm_city where cmid = ?)",
+                        new Object[]{cmId},
+                        new DsRowMapper());
+    }
 }

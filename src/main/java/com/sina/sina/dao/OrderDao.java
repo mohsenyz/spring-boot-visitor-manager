@@ -5,7 +5,6 @@
  */
 package com.sina.sina.dao;
 
-import com.mysql.jdbc.PreparedStatement;
 import com.sina.sina.dao.rowmapper.OrderRowMapper;
 import com.sina.sina.models.Order;
 import com.utils.list.ArrayUtils;
@@ -13,8 +12,6 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.sql.RowSet;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 /**

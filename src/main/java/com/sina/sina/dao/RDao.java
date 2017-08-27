@@ -7,6 +7,7 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.RRowMapper;
 import com.sina.sina.models.R;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -37,6 +38,15 @@ public class RDao extends AbstractDao{
         return (R) jdbcTemplate
                 .queryForObject(
                         "select * from `" + getTableName() + "` where id = ?",
+                        new Object[]{id},
+                        new RRowMapper());
+    }
+    
+    
+    public List<R> findByCm(int id) {
+        return (List<R>) jdbcTemplate
+                .query(
+                        "select * from `" + getTableName() + "` where cmid = ?",
                         new Object[]{id},
                         new RRowMapper());
     }

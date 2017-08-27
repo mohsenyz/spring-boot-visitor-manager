@@ -5,9 +5,7 @@
  */
 package com.sina.sina.dao;
 
-import com.sina.sina.dao.rowmapper.CityRowMapper;
 import com.sina.sina.dao.rowmapper.CmRowMapper;
-import com.sina.sina.models.City;
 import com.sina.sina.models.Cm;
 import org.springframework.stereotype.Repository;
 

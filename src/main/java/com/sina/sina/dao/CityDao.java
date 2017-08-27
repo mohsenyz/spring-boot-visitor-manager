@@ -8,7 +8,6 @@ package com.sina.sina.dao;
 import com.sina.sina.dao.rowmapper.CityRowMapper;
 import com.sina.sina.models.City;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
