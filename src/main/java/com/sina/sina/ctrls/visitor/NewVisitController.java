@@ -87,7 +87,7 @@ public class NewVisitController {
     @Value("${mphj.filesystem.uploadpath}")
     String uploadPath;
 
-    @GetMapping(value = "/visitor/visit")
+    @PostMapping(value = "/visitor/visit")
     public String newVisit(@RequestParam(value = "json", required = false) String jsonBody,
             HttpServletRequest httpServletRequest,
             HttpSession httpSession) throws IOException {
@@ -95,7 +95,6 @@ public class NewVisitController {
             return "403";
         }
         Visitor currVisitor = (Visitor)httpSession.getAttribute("visitor");
-        jsonBody = "{\"result_drugs\" : [{\"drug\" : 1},{\"drug\" : 2}]}";
         ObjectMapper objectMapper = new ObjectMapper();
         Order order = new Order();
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
@@ -232,6 +231,7 @@ public class NewVisitController {
                 e.printStackTrace();
             }
             doc1.setOid(order.getId());
+            doc1.setType(Docs.ORDER_DOCS);
             docsDao.insert(doc1);
         }
         Drugs_2[] noskhe = objectMapper.treeToValue(jsonNode.get("noskhe"), Drugs_2[].class);

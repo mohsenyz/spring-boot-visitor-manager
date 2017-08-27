@@ -3,7 +3,10 @@ package com.sina.sina.models;
 public class Docs {
     
     public static final int
-            ORDER_DOCS = 1;
+            ORDER_DOCS = 1,
+            VISITOR_DOC1 = 2,
+            VISITOR_DOC2 = 3,
+            VISITOR_DOCS = 4;
     
     private int id;
     private String name;

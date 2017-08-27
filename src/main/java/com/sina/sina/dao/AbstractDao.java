@@ -22,6 +22,7 @@ public abstract class AbstractDao {
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
         simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
+        simpleJdbcInsert.setTableName(getTableName());
     }
     
     
