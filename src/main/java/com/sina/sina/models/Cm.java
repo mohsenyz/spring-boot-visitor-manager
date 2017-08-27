@@ -10,7 +10,7 @@ public class Cm {
     private String password;
     private Timestamp createdAt;
     private boolean enabled;
-
+    
     public int getId() {
         return id;
     }

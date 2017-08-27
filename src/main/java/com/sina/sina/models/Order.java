@@ -34,7 +34,7 @@ public class Order {
     private Timestamp submitTime;
     private Timestamp viewedAt;
     private int urgency;
-
+    
     public int getId() {
         return id;
     }

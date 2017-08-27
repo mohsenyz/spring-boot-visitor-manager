@@ -133,23 +133,4 @@ public class NewVisitorController {
         }
         return "done";
     }
-    /*
-    $scope.docs = [];
-    $scope.fname = null;
-    $scope.lname = null;
-    $scope.birthday = null;
-    $scope.code = null;
-    $scope.fixed_phone = null;
-    $scope.mobile = null;
-    $scope.type_ack = null;
-    $scope.grade = null;
-    $scope.uname = null;
-    $scope.password = null;
-    $scope.address = null;
-    $scope.grade_exp = null;
-    $scope.work_exp = null;
-    $scope.desc = null;
-    $scope.pic1 = null;
-    $scope.pic2 = null;
-     */
 }

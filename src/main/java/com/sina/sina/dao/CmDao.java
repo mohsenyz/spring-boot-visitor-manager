@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author mphj
  */
+
 @Repository
 public class CmDao extends AbstractDao {
 
@@ -40,7 +41,7 @@ public class CmDao extends AbstractDao {
     
     @Override
     public String getTableName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "cm";
     }
 
 }

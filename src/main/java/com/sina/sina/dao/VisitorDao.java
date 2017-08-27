@@ -8,6 +8,7 @@ package com.sina.sina.dao;
 import com.sina.sina.dao.rowmapper.VisitorRowMapper;
 import com.sina.sina.models.Visitor;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
 
@@ -72,6 +73,15 @@ public class VisitorDao extends AbstractDao{
                 .queryForObject(
                         "select * from `" + getTableName() + "` where id = ?",
                         new Object[]{id},
+                        new VisitorRowMapper());
+    }
+    
+    
+    public List<Visitor> findByCm(int cm){
+        return (List<Visitor>) jdbcTemplate
+                .query(
+                        "select `visitor`.* from `" + getTableName() + "`, `visitor_cm` where visitor.id = visitor_cm.vid and visitor_cm.cid = ?",
+                        new Object[]{cm},
                         new VisitorRowMapper());
     }
     

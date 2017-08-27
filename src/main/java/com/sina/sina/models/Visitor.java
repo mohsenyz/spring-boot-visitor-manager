@@ -23,7 +23,6 @@ public class Visitor {
     private int type;
     private Timestamp createdAt;
     private boolean enabled;
-
     public int getId() {
         return id;
     }
