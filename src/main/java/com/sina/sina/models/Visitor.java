@@ -1,9 +1,10 @@
 package com.sina.sina.models;
 
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Visitor {
+public class Visitor implements Serializable{
     private int id;
     private String fname;
     private String lname;

@@ -7,7 +7,9 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.OrderRowMapper;
 import com.sina.sina.models.Order;
+import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
 
@@ -16,15 +18,13 @@ import org.springframework.stereotype.Repository;
  * @author mphj
  */
 @Repository
-public class OrderDao extends AbstractDao{
+public class OrderDao extends AbstractDao {
 
     @Override
     public String getTableName() {
         return "order";
     }
-    
 
-    
     public int insert(Order cm) {
         /*jdbcTemplate
                 .update("insert into `" + getTableName() + "` values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -89,17 +89,49 @@ public class OrderDao extends AbstractDao{
         map.put("submit_time", cm.getSubmitTime());
         map.put("viewed_at", cm.getViewedAt());
         map.put("urgency", cm.getUrgency());
-        int key =  simpleJdbcInsert.executeAndReturnKey(map).intValue();
+        int key = simpleJdbcInsert.executeAndReturnKey(map).intValue();
         cm.setId(key);
         return key;
     }
-    
-    
+
     public Order findById(int id) {
         return (Order) jdbcTemplate
                 .queryForObject(
                         "select * from `" + getTableName() + "` where id = ?",
                         new Object[]{id},
+                        new OrderRowMapper());
+    }
+
+    public List<Order> findByVid(int vid) {
+        return (List<Order>) jdbcTemplate
+                .query(
+                        "select * from `" + getTableName() + "` where vid = ?",
+                        new Object[]{vid},
+                        new OrderRowMapper());
+    }
+    
+    
+    public List<Order> findForwarded(int id){
+        return (List<Order>) jdbcTemplate
+                .query(
+                        "select * from `" + getTableName() + "` where forward_to_vid is not null AND vid = ?",
+                        new Object[]{id},
+                        new OrderRowMapper());
+    }
+    
+    public List<Order> findReceivedRequest(int vid){
+        return (List<Order>) jdbcTemplate
+                .query(
+                        "select * from `" + getTableName() + "` where forward_to_vid = ?",
+                        new Object[]{vid},
+                        new OrderRowMapper());
+    }
+    
+    public List<Order> findNextVisit(int vid){
+        return (List<Order>) jdbcTemplate
+                .query(
+                        "select * from `" + getTableName() + "` where vid = ? AND next_session is not null",
+                        new Object[]{vid},
                         new OrderRowMapper());
     }
 }

@@ -21,6 +21,7 @@ import com.sina.sina.models.Dr;
 import com.sina.sina.models.Ds;
 import com.sina.sina.models.Order;
 import com.sina.sina.models.OrderDrugs;
+import com.sina.sina.models.Visitor;
 import com.sina.sina.pojo.Docs_1;
 import com.sina.sina.pojo.Drugs_1;
 import com.sina.sina.pojo.Drugs_2;
@@ -87,7 +88,13 @@ public class NewVisitController {
     String uploadPath;
 
     @GetMapping(value = "/visitor/visit")
-    public String newVisit(@RequestParam(value = "json", required = false) String jsonBody, HttpServletRequest httpServletRequest) throws IOException {
+    public String newVisit(@RequestParam(value = "json", required = false) String jsonBody,
+            HttpServletRequest httpServletRequest,
+            HttpSession httpSession) throws IOException {
+        if (httpSession.getAttribute("visitor") == null){
+            return "403";
+        }
+        Visitor currVisitor = (Visitor)httpSession.getAttribute("visitor");
         jsonBody = "{\"result_drugs\" : [{\"drug\" : 1},{\"drug\" : 2}]}";
         ObjectMapper objectMapper = new ObjectMapper();
         Order order = new Order();
@@ -101,7 +108,8 @@ public class NewVisitController {
         String urgency = jsonNode.get("urgency").asText();
         String content = jsonNode.get("content").asText();
         String desc = jsonNode.get("desc").asText();
-        order.setVid(Integer.parseInt(visitor));
+        order.setVid(currVisitor.getId());
+        order.setForwardToVid(Integer.parseInt(visitor));
         order.setDrid(Integer.parseInt(doctor));
         order.setDsid(Integer.parseInt(drugstore));
         order.setNextSession(TimeHelper.parseTimestamp(next_session_date, null));
