@@ -188,4 +188,20 @@ public class OrderDao extends AbstractDao {
                 , new Object[]{ds},
                 new OrderRowMapper());
     }
+    
+    
+    public List<Order> findAllDsOrder(){
+        return  jdbcTemplate.
+                query(
+                "select `order`.* from`" + getTableName() + "` where vid is null",
+                new OrderRowMapper());
+    }
+    
+    
+    public List<Order> findAll(){
+        return  jdbcTemplate.
+                query(
+                "select `order`.* from`" + getTableName() + "`",
+                new OrderRowMapper());
+    }
 }

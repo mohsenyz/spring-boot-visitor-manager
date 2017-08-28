@@ -50,10 +50,9 @@ public class AdminNewVisitorController {
     public String newVisitorAdmin(@RequestParam("json") String jsonBody,
             HttpSession httpSession,
             HttpServletRequest httpServletRequest) throws IOException {
-        if (httpSession.getAttribute("cm") == null) {
+        if (httpSession.getAttribute("admin") == null) {
             return "403";
         }
-        Cm currVisitor = (Cm) httpSession.getAttribute("cm");
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
         Visitor visitor = new Visitor();
@@ -105,7 +104,6 @@ public class AdminNewVisitorController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        doc1.setCid(currVisitor.getId());
         doc1.setVid(visitor.getId());
         doc1.setType(Docs.VISITOR_DOC1);
         docsDao.insert(doc1);
@@ -115,7 +113,6 @@ public class AdminNewVisitorController {
         doc2.setDesc(doc.desc);
         doc2.setVid(visitor.getId());
         doc2.setName(UUID.randomUUID().toString() + "_" + doc.file);
-        doc2.setCid(currVisitor.getId());
         try {
             Uploader.from(httpServletRequest.getPart(doc.file))
                     .withName(doc1.getName())
@@ -139,7 +136,6 @@ public class AdminNewVisitorController {
                 e.printStackTrace();
             }
             doc11.setType(Docs.VISITOR_DOCS);
-            doc11.setCid(currVisitor.getId());
             doc11.setVid(visitor.getId());
             docsDao.insert(doc1);
         }

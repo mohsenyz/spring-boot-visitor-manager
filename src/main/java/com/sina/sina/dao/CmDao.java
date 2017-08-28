@@ -11,6 +11,7 @@ import com.sina.sina.models.City;
 import com.sina.sina.models.Cm;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
 
@@ -61,6 +62,14 @@ public class CmDao extends AbstractDao {
                         new Object[]{id},
                         new CmRowMapper());
     }
+    
+    public List<Cm> findAll(){
+        return (List<Cm>) jdbcTemplate
+                .queryForObject(
+                        "select * from `" + getTableName() + "`",
+                        new CmRowMapper());
+    } 
+    
     
     @Override
     public String getTableName() {

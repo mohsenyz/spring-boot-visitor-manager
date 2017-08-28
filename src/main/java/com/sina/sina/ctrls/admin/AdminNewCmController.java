@@ -53,10 +53,9 @@ public class AdminNewCmController {
     public String newVisitorAdmin(@RequestParam("json") String jsonBody,
             HttpSession httpSession,
             HttpServletRequest httpServletRequest) throws IOException {
-        if (httpSession.getAttribute("cm") == null) {
+        if (httpSession.getAttribute("admin") == null) {
             return "403";
         }
-        Cm currVisitor = (Cm) httpSession.getAttribute("cm");
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
         Cm cm = new Cm();
@@ -102,7 +101,7 @@ public class AdminNewCmController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        doc1.setCid(currVisitor.getId());
+        doc1.setCid(cm.getId());
         doc1.setType(Docs.CM_DOC);
         docsDao.insert(doc1);
         return "done";

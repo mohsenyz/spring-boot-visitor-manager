@@ -77,6 +77,14 @@ public class VisitorDao extends AbstractDao{
     }
     
     
+    public List<Visitor> findAll() {
+        return (List<Visitor>) jdbcTemplate
+                .queryForObject(
+                        "select * from `" + getTableName() + "`",
+                        new VisitorRowMapper());
+    }
+    
+    
     public List<Visitor> findByCm(int cm){
         return (List<Visitor>) jdbcTemplate
                 .query(
