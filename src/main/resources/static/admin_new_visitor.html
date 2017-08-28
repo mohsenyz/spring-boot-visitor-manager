@@ -21,7 +21,7 @@
     </div>
     <div class="header-row col-2-normal">
         <span><b>تاریخ تولد:‌  </b><i>
-                <input type="text" class="center-text datepicker" ng-model="birthday"/>
+                <input type="text" class="center-text datepicker just-date" ng-model="birthday"/>
             </i></span>
         <span><b> کد ملی:  </b><i>
                 <input type="text" ng-model="code"/>
@@ -104,6 +104,6 @@
     $("select.comp").select2({
     dir: "rtl"
     });
-    $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
-    });
-</script>
+    $(".datepicker.just-date").persianDatepicker({format: 'YYYY/MM/DD', timePicker: {enabled: false}});
+    $(".datepicker:not(.just-date)").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
+    });</script>

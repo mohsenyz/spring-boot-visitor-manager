@@ -5,6 +5,7 @@
  */
 package com.sina.sina.ctrls.admin;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sina.sina.dao.CmCityDao;
@@ -57,6 +58,7 @@ public class AdminNewCmController {
             return "403";
         }
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
         Cm cm = new Cm();
         String name = jsonNode.get("name").asText();
