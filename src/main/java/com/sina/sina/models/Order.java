@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 
 public class Order {
     private int id;
-    private int vid;
-    private int cmid;
+    private Integer vid;
+    private Integer cmid;
     private Integer dsid;
     private Integer drid;
     private String dsVisitedName;
@@ -43,19 +43,19 @@ public class Order {
         this.id = id;
     }
 
-    public int getVid() {
+    public Integer getVid() {
         return vid;
     }
 
-    public void setVid(int vid) {
+    public void setVid(Integer vid) {
         this.vid = vid;
     }
 
-    public int getCmid() {
+    public Integer getCmid() {
         return cmid;
     }
 
-    public void setCmid(int cmid) {
+    public void setCmid(Integer cmid) {
         this.cmid = cmid;
     }
 
