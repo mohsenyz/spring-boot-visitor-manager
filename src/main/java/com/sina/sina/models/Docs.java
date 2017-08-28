@@ -13,11 +13,11 @@ public class Docs {
     private String name;
     private String desc;
     private int type;
-    private int oid;
-    private int vid;
-    private int cid;
-    private int did;
-    private int rid;
+    private Integer oid;
+    private Integer vid;
+    private Integer cid;
+    private Integer did;
+    private Integer rid;
 
     public int getId() {
         return id;
@@ -51,43 +51,43 @@ public class Docs {
         this.type = type;
     }
 
-    public int getOid() {
+    public Integer getOid() {
         return oid;
     }
 
-    public void setOid(int oid) {
+    public void setOid(Integer oid) {
         this.oid = oid;
     }
 
-    public int getVid() {
+    public Integer getVid() {
         return vid;
     }
 
-    public void setVid(int vid) {
+    public void setVid(Integer vid) {
         this.vid = vid;
     }
 
-    public int getCid() {
+    public Integer getCid() {
         return cid;
     }
 
-    public void setCid(int cid) {
+    public void setCid(Integer cid) {
         this.cid = cid;
     }
 
-    public int getDid() {
+    public Integer getDid() {
         return did;
     }
 
-    public void setDid(int did) {
+    public void setDid(Integer did) {
         this.did = did;
     }
 
-    public int getRid() {
+    public Integer getRid() {
         return rid;
     }
 
-    public void setRid(int rid) {
+    public void setRid(Integer rid) {
         this.rid = rid;
     }
 }

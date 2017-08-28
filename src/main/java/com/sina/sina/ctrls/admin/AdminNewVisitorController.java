@@ -5,6 +5,7 @@
  */
 package com.sina.sina.ctrls.admin;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sina.sina.dao.DocsDao;
@@ -54,6 +55,7 @@ public class AdminNewVisitorController {
             return "403";
         }
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
         Visitor visitor = new Visitor();
         String fname = jsonNode.get("fname").asText();
@@ -62,7 +64,7 @@ public class AdminNewVisitorController {
         String code = jsonNode.get("code").asText();
         String fixed_phone = jsonNode.get("fixed_phone").asText();
         String mobile = jsonNode.get("mobile").asText();
-        String ack_type = jsonNode.get("ack_type").asText();
+        String ack_type = jsonNode.get("type_ack").asText();
         String grade = jsonNode.get("grade").asText();
         String uname = jsonNode.get("uname").asText();
         String password = jsonNode.get("password").asText();
@@ -93,7 +95,7 @@ public class AdminNewVisitorController {
         visitorCity.setVid(visitor.getId());
         visitorCityDao.insert(visitorCity);
 
-        Docs_1 doc = objectMapper.treeToValue(jsonNode.get("doc1"), Docs_1.class);
+        Docs_1 doc = objectMapper.treeToValue(jsonNode.get("pic1"), Docs_1.class);
         Docs doc1 = new Docs();
         doc1.setDesc(doc.desc);
         doc1.setName(UUID.randomUUID().toString() + "_" + doc.file);
@@ -108,14 +110,14 @@ public class AdminNewVisitorController {
         doc1.setType(Docs.VISITOR_DOC1);
         docsDao.insert(doc1);
 
-        doc = objectMapper.treeToValue(jsonNode.get("doc2"), Docs_1.class);
+        doc = objectMapper.treeToValue(jsonNode.get("pic2"), Docs_1.class);
         Docs doc2 = new Docs();
         doc2.setDesc(doc.desc);
         doc2.setVid(visitor.getId());
         doc2.setName(UUID.randomUUID().toString() + "_" + doc.file);
         try {
             Uploader.from(httpServletRequest.getPart(doc.file))
-                    .withName(doc1.getName())
+                    .withName(doc2.getName())
                     .saveInto(uploadPath);
         } catch (Exception e) {
             e.printStackTrace();

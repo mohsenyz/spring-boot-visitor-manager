@@ -48,6 +48,14 @@ public class CityDao extends AbstractDao {
                         "select * from `" + getTableName() + "` where parent is null",
                         new CityRowMapper());
     }
+    
+    
+    public List<City> findAll() {
+        return jdbcTemplate
+                .query(
+                        "select * from `" + getTableName() + "`",
+                        new CityRowMapper());
+    }
 
     @Override
     public String getTableName() {

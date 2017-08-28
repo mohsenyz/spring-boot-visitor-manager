@@ -113,7 +113,8 @@ app.run(function ($rootScope, $location, $timeout) {
         }, 0);
     };
 });
-app.controller("new_visitor", function ($scope, $rootScope, $timeout) {
+app.controller("new_visitor", function ($scope, $rootScope, $timeout, $http) {
+    $scope.city_select = [];
     $scope.city = null;
     $scope.area = null;
     $scope.docs = [];
@@ -133,7 +134,64 @@ app.controller("new_visitor", function ($scope, $rootScope, $timeout) {
     $scope.desc = null;
     $scope.pic1 = null;
     $scope.pic2 = null;
+    $.getJSON("/core/city", function(data){
+       for (i = 0; i < data.length; i++){
+           $scope.city_select.push(data[i]);
+           console.log($scope.city_select);
+           window.setTimeout(function(){$("select").trigger("change");}, 200);
+           $scope.$apply();
+       } 
+    });
+    $scope.submitThis = function () {
+        dScope = {
+            city: $scope.city,
+            area: $scope.area,
+            docs: $scope.docs,
+            fname: $scope.fname,
+            lname: $scope.lname,
+            birthday: $scope.birthday,
+            code: $scope.code,
+            fixed_phone: $scope.fixed_phone,
+            mobile: $scope.mobile,
+            type_ack: $scope.type_ack,
+            grade: $scope.grade,
+            uname: $scope.uname,
+            password: $scope.password,
+            address: $scope.address,
+            grade_exp: $scope.grade_exp,
+            work_exp: $scope.work_exp,
+            desc: $scope.desc,
+            pic1: $scope.pic1,
+            pic2: $scope.pic2
+        };
+        var formdata = new FormData();
+        for (i = 0; i < dScope.docs.length; i++) {
+            name = randomStr(15) + "_" + dScope.docs[i].file.name;
+            formdata.append(name, dScope.docs[i].file);
+            dScope.docs[i].file = name;
+        }
+        pic1Name = randomStr(15) + "_" + dScope.pic1.name;
+        pic2Name = randomStr(15) + "_" + dScope.pic2.name;
+        formdata.append(pic1Name, dScope.pic1);
+        formdata.append(pic2Name, dScope.pic2);
+        dScope.pic1 = {file : pic1Name};
+        dScope.pic2 = {file : pic2Name};
+        formdata.append("json", JSON.stringify(JSON.decycle(dScope, true)));
+        $http({
+            method: 'POST',
+            url: '/admin/visitor/new',
+            data: formdata,
+            headers: {
+                'Content-Type': undefined
+            }
+        }).then(function (data) {
+            alert(data);
+        });
+    };
 });
+window.randomStr = function (length) {
+    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+};
 app.controller("new_cm", function ($scope, $rootScope, $timeout) {
     $scope.city = null;
     $scope.area = null;

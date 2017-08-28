@@ -21,8 +21,9 @@ public abstract class AbstractDao {
     @Autowired
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
-        simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-        simpleJdbcInsert.setTableName(getTableName());
+        simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName(getTableName())
+                .usingGeneratedKeyColumns("id");
     }
     
     
