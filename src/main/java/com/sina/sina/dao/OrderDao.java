@@ -184,7 +184,7 @@ public class OrderDao extends AbstractDao {
     public List<Order> findFinishedByDs(int ds){
         return  jdbcTemplate.
                 query(
-                "select `order`.* from`" + getTableName() + "` where dsid = ? and vid is null and submited = 1"
+                "select `order`.* from`" + getTableName() + "` where dsid = ? and vid is null and submited  = 1"
                 , new Object[]{ds},
                 new OrderRowMapper());
     }

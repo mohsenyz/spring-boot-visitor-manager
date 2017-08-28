@@ -3,33 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sina.sina.ctrls.cm;
+package com.sina.sina.ctrls.admin;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sina.sina.dao.CmCityDao;
 import com.sina.sina.dao.DocsDao;
 import com.sina.sina.dao.VisitorCityDao;
-import com.sina.sina.dao.VisitorCmDao;
 import com.sina.sina.dao.VisitorDao;
 import com.sina.sina.models.Cm;
-import com.sina.sina.models.CmCity;
 import com.sina.sina.models.Docs;
-import com.sina.sina.models.Order;
 import com.sina.sina.models.Visitor;
 import com.sina.sina.models.VisitorCity;
-import com.sina.sina.models.VisitorCm;
 import com.sina.sina.pojo.Docs_1;
 import com.utils.http.Uploader;
 import com.utils.time.TimeHelper;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author mphj
  */
 @RestController
-public class NewVisitorController {
+public class AdminNewVisitorController {
 
     @Autowired
     DocsDao docsDao;
@@ -48,19 +41,13 @@ public class NewVisitorController {
     VisitorDao visitorDao;
 
     @Autowired
-    CmCityDao cmCityDao;
-
-    @Autowired
     VisitorCityDao visitorCityDao;
-
-    @Autowired
-    VisitorCmDao visitorCmDao;
-
+    
     @Value("${mphj.filesystem.uploadpath}")
     String uploadPath;
 
-    @PostMapping("/cm/visitor/new")
-    public String newVisitor(@RequestParam("json") String jsonBody,
+    @PostMapping("/admin/visitor/new")
+    public String newVisitorAdmin(@RequestParam("json") String jsonBody,
             HttpSession httpSession,
             HttpServletRequest httpServletRequest) throws IOException {
         if (httpSession.getAttribute("cm") == null) {
@@ -84,6 +71,7 @@ public class NewVisitorController {
         String grade_exp = jsonNode.get("grade_exp").asText();
         String work_exp = jsonNode.get("work_exp").asText();
         String desc = jsonNode.get("desc").asText();
+        String city = jsonNode.get("city").asText();
         visitor.setFname(fname);
         visitor.setLname(lname);
         visitor.setBirthday(birthday);
@@ -101,18 +89,10 @@ public class NewVisitorController {
         visitor.setCreatedAt(TimeHelper.getCurrentTimestamp());
         visitorDao.insert(visitor);
 
-        List<CmCity> cmCity = cmCityDao.findByCmid(currVisitor.getId());
-        for (CmCity cc : cmCity) {
-            VisitorCity visitorCity = new VisitorCity();
-            visitorCity.setCid(cc.getCid());
-            visitorCity.setVid(visitor.getId());
-            visitorCityDao.insert(visitorCity);
-        }
-
-        VisitorCm visitorCm = new VisitorCm();
-        visitorCm.setVid(visitor.getId());
-        visitorCm.setCid(currVisitor.getId());
-        visitorCmDao.insert(visitorCm);
+        VisitorCity visitorCity = new VisitorCity();
+        visitorCity.setCid(Integer.parseInt(city));
+        visitorCity.setVid(visitor.getId());
+        visitorCityDao.insert(visitorCity);
 
         Docs_1 doc = objectMapper.treeToValue(jsonNode.get("doc1"), Docs_1.class);
         Docs doc1 = new Docs();

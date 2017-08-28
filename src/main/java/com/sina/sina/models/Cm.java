@@ -5,12 +5,17 @@ import java.sql.Timestamp;
 public class Cm {
     private int id;
     private String name;
-    private String phone;
+    private String aFname;
+    private String aLname;
+    private String aBirthday;
+    private String aCode;
+    private String fixedPhone;
+    private String mobile;
     private String username;
     private String password;
     private Timestamp createdAt;
     private boolean enabled;
-    
+
     public int getId() {
         return id;
     }
@@ -27,12 +32,52 @@ public class Cm {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getaFname() {
+        return aFname;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setaFname(String aFname) {
+        this.aFname = aFname;
+    }
+
+    public String getaLname() {
+        return aLname;
+    }
+
+    public void setaLname(String aLname) {
+        this.aLname = aLname;
+    }
+
+    public String getaBirthday() {
+        return aBirthday;
+    }
+
+    public void setaBirthday(String aBirthday) {
+        this.aBirthday = aBirthday;
+    }
+
+    public String getaCode() {
+        return aCode;
+    }
+
+    public void setaCode(String aCode) {
+        this.aCode = aCode;
+    }
+
+    public String getFixedPhone() {
+        return fixedPhone;
+    }
+
+    public void setFixedPhone(String fixedPhone) {
+        this.fixedPhone = fixedPhone;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getUsername() {
@@ -66,5 +111,4 @@ public class Cm {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-    
 }

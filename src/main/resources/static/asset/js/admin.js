@@ -138,6 +138,7 @@ app.controller("new_cm", function ($scope, $rootScope, $timeout) {
     $scope.city = null;
     $scope.area = null;
     $scope.docs = [];
+    $scope.name = null;
     $scope.a_fname = null;
     $scope.a_lname = null;
     $scope.a_birthday = null;

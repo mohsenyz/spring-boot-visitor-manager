@@ -15,14 +15,18 @@ import org.springframework.jdbc.core.RowMapper;
  *
  * @author mphj
  */
-public class CmRowMapper implements RowMapper{
+public class CmRowMapper implements RowMapper<Object>{
 
-    @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         Cm cm = new Cm();
         cm.setId(rs.getInt("id"));
         cm.setName(rs.getString("name"));
-        cm.setPhone(rs.getString("phone"));
+        cm.setaFname(rs.getString("a_fname"));
+        cm.setaLname(rs.getString("a_lname"));
+        cm.setaBirthday(rs.getString("a_birthday"));
+        cm.setaCode(rs.getString("a_code"));
+        cm.setFixedPhone(rs.getString("fixed_phone"));
+        cm.setMobile(rs.getString("mobile"));
         cm.setUsername(rs.getString("username"));
         cm.setPassword(rs.getString("password"));
         cm.setCreatedAt(DaoHelper.getTimestamp(rs, "created_at"));

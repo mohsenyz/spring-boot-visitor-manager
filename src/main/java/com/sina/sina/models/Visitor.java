@@ -1,5 +1,6 @@
 package com.sina.sina.models;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class Visitor {
