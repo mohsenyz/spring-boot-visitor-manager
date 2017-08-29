@@ -75,4 +75,19 @@ public class VisitorReportController {
     }
     
     
+    @GetMapping("/visitor/login")
+    public String login(HttpSession httpSession){
+        Visitor vis = new Visitor();
+        vis.setId(22);
+        httpSession.setAttribute("visitor", vis);
+        return "done";
+    }
+    
+    
+    @GetMapping("/visitor/is")
+    public boolean isLogin(HttpSession httpSession){
+        return httpSession.getAttribute("visitor") != null;
+    }
+    
+    
 }

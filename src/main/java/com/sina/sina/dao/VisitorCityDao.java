@@ -7,6 +7,7 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.VisitorCityRowMapper;
 import com.sina.sina.models.VisitorCity;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -33,6 +34,15 @@ public class VisitorCityDao extends AbstractDao{
         return (VisitorCity) jdbcTemplate
                 .queryForObject(
                         "select * from `" + getTableName() + "` where id = ?",
+                        new Object[]{id},
+                        new VisitorCityRowMapper());
+    }
+    
+    
+    public List<VisitorCity> findByVid(int id) {
+        return (List<VisitorCity>) jdbcTemplate
+                .query(
+                        "select * from `" + getTableName() + "` where vid = ?",
                         new Object[]{id},
                         new VisitorCityRowMapper());
     }

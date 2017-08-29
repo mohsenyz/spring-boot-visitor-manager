@@ -38,9 +38,9 @@
     <div class="header-row col-2-normal">
         <span><b>اهمیت: </b><i>
                 <select class="comp" ng-model="urgency">
-                    <option value="high" selected="selected">زیاد</option>
-                    <option value="normal">متوسط</option>
-                    <option value="low">کم</option>
+                    <option value="1" selected="selected">زیاد</option>
+                    <option value="2">متوسط</option>
+                    <option value="3">کم</option>
                 </select>
             </i></span>
     </div>
@@ -142,7 +142,7 @@
     <br/>
     <hr/>
     <div class="normal-row">
-        <button class="button" style="margin: 0 auto; float: none !important;">
+        <button class="button" style="margin: 0 auto; float: none !important;" ng-click="submitThis()">
             ثبت ویزیت
         </button>
     </div>

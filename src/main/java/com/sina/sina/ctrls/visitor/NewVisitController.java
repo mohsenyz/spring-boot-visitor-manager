@@ -14,6 +14,7 @@ import com.sina.sina.dao.DrDao;
 import com.sina.sina.dao.DsDao;
 import com.sina.sina.dao.OrderDao;
 import com.sina.sina.dao.OrderDrugsDao;
+import com.sina.sina.dao.VisitorCityDao;
 import com.sina.sina.models.City;
 import com.sina.sina.models.Cm;
 import com.sina.sina.models.Docs;
@@ -82,19 +83,21 @@ public class NewVisitController {
 
     @Autowired
     DocsDao docsDao;
-    
-    
+
+    @Autowired
+    VisitorCityDao visitorCityDao;
+
     @Value("${mphj.filesystem.uploadpath}")
     String uploadPath;
 
-    @PostMapping(value = "/visitor/visit")
+    @PostMapping("/visitor/visit/new")
     public String newVisit(@RequestParam(value = "json", required = false) String jsonBody,
             HttpServletRequest httpServletRequest,
             HttpSession httpSession) throws IOException {
-        if (httpSession.getAttribute("visitor") == null){
+        if (httpSession.getAttribute("visitor") == null) {
             return "403";
         }
-        Visitor currVisitor = (Visitor)httpSession.getAttribute("visitor");
+        Visitor currVisitor = (Visitor) httpSession.getAttribute("visitor");
         ObjectMapper objectMapper = new ObjectMapper();
         Order order = new Order();
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
@@ -108,15 +111,26 @@ public class NewVisitController {
         String content = jsonNode.get("content").asText();
         String desc = jsonNode.get("desc").asText();
         order.setVid(currVisitor.getId());
-        order.setForwardToVid(Integer.parseInt(visitor));
-        order.setDrid(Integer.parseInt(doctor));
-        order.setDsid(Integer.parseInt(drugstore));
-        order.setNextSession(TimeHelper.parseTimestamp(next_session_date, null));
-        order.setCreatedAtAp(Integer.parseInt(visit_time));
+        try {
+            order.setForwardToVid(Integer.parseInt(visitor));
+        } catch (Exception e) {
+
+        }
+        try {
+            order.setNextSession(TimeHelper.parseTimestamp(next_session_date, null));
+        } catch (Exception e) {
+
+        }
+        if (visit_time.contains("am")) {
+            order.setCreatedAtAp(1);
+        } else {
+            order.setCreatedAtAp(2);
+        }
         order.setCreatedAt(TimeHelper.parseTimestamp(visit_date, null));
         order.setUrgency(Integer.parseInt(urgency));
         order.setContent(content);
         order.setDesc(desc);
+        int cid = visitorCityDao.findByVid(currVisitor.getId()).get(0).getCid();
         if (drugstore.equals("make_new")) {
             JsonNode doctorDetails = jsonNode.get("ds");
             String ds_name = doctorDetails.get("ds_name").asText();
@@ -132,12 +146,20 @@ public class NewVisitController {
             ds.setName(ds_name);
             ds.setClerkName(ds_fanni_name);
             ds.setPhone(ds_phone_number);
+            ds.setCity(cid);
             ds.setAddress(ds_address);
             ds.setCompanyProductsAck(ds_knowledge);
             ds.setBestTime(Integer.parseInt(ds_best_visit_time));
             ds.setType(Integer.parseInt(ds_type));
             ds.setCompanyNameAckReason(Integer.parseInt(ds_company_name_ack));
             dsDao.insert(ds);
+            order.setDsid(ds.getId());
+        } else {
+            try {
+                order.setDsid(Integer.parseInt(drugstore));
+            } catch (Exception e) {
+
+            }
         }
         if (doctor.equals("make_new")) {
             JsonNode doctorDetails = jsonNode.get("dr");
@@ -166,6 +188,13 @@ public class NewVisitController {
             dr.setCompanyProductsPop(dr_consent);
             dr.setCompanyProductsAck(dr_company_product_ack);
             drDao.insert(dr);
+            order.setDrid(dr.getId());
+        } else {
+            try {
+                order.setDrid(Integer.parseInt(doctor));
+            } catch (Exception e) {
+
+            }
         }
         String visit_place = jsonNode.get("visit_place").asText();
         String visit_place_name = jsonNode.get("visit_place_name").asText();
@@ -182,17 +211,27 @@ public class NewVisitController {
         String given_etc = jsonNode.get("given_etc").asText();
         String needed = jsonNode.get("needed").asText();
         String result = jsonNode.get("result").asText();
-        order.setDrVisitPlace(Integer.parseInt(visit_place));
-        order.setDrVisitPlaceName(visit_place_name);
-        order.setDrSuggestion(dr_visit_suggestion);
-        order.setDsVisitedName(ds_visited_name);
-        order.setDsVisitedJob(Integer.parseInt(ds_visited_exp));
-        order.setDsVisitedPhone(ds_visited_phone);
-        order.setDsIdea(ds_idea);
-        order.setDsPopCm(ds_pop_ds_name);
-        order.setDsRival(ds_opponent);
-        order.setDsIndexDr(ds_dr_index);
-        order.setCmid(Integer.parseInt(cm));
+        try {
+            order.setDrVisitPlace(Integer.parseInt(visit_place));
+            order.setDrVisitPlaceName(visit_place_name);
+            order.setDrSuggestion(dr_visit_suggestion);
+        } catch (Exception e) {
+        }
+        try {
+            order.setDsVisitedName(ds_visited_name);
+            order.setDsVisitedJob(Integer.parseInt(ds_visited_exp));
+            order.setDsVisitedPhone(ds_visited_phone);
+            order.setDsIdea(ds_idea);
+            order.setDsPopCm(ds_pop_ds_name);
+            order.setDsRival(ds_opponent);
+            order.setDsIndexDr(ds_dr_index);
+        } catch (Exception e) {
+        }
+        try{
+            order.setCmid(Integer.parseInt(cm));
+        }catch(Exception e){
+            
+        }
         // @TODO set given
         order.setGivenDocument(given_etc);
         order.setNeededDocument(needed);
@@ -223,11 +262,11 @@ public class NewVisitController {
             Docs doc1 = new Docs();
             doc1.setDesc(doc.desc);
             doc1.setName(UUID.randomUUID().toString() + "_" + doc.file);
-            try{
+            try {
                 Uploader.from(httpServletRequest.getPart(doc.file))
                         .withName(doc1.getName())
                         .saveInto(uploadPath);
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             doc1.setOid(order.getId());

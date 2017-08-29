@@ -10,12 +10,12 @@ public class Ds {
     private String clerkName;
     private String companyProductsAck;
     private String address;
-    private int bestTime;
-    private int type;
-    private int companyNameAckReason;
+    private Integer bestTime;
+    private Integer type;
+    private Integer companyNameAckReason;
     private String username;
     private String password;
-    private int city;
+    private Integer city;
     private boolean verified;
     private Timestamp verifiedAt;
     private Timestamp createdAt;
