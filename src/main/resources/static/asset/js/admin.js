@@ -192,7 +192,8 @@ app.controller("new_visitor", function ($scope, $rootScope, $timeout, $http) {
 window.randomStr = function (length) {
     return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
 };
-app.controller("new_cm", function ($scope, $rootScope, $timeout) {
+app.controller("new_cm", function ($scope, $rootScope, $timeout, $http) {
+    $scope.city_select = [];
     $scope.city = null;
     $scope.area = null;
     $scope.docs = [];
@@ -208,6 +209,53 @@ app.controller("new_cm", function ($scope, $rootScope, $timeout) {
     $scope.address = null;
     $scope.desc = null;
     $scope.pic1 = null;
+    $.getJSON("/core/city", function(data){
+       for (i = 0; i < data.length; i++){
+           $scope.city_select.push(data[i]);
+           console.log($scope.city_select);
+           window.setTimeout(function(){$("select").trigger("change");}, 200);
+           $scope.$apply();
+       } 
+    });
+    $scope.submitThis = function () {
+        dScope = {
+            city: $scope.city,
+            area: $scope.area,
+            docs: $scope.docs,
+            name: $scope.name,
+            a_fname: $scope.a_fname,
+            a_lname: $scope.a_lname,
+            a_birthday: $scope.a_birthday,
+            a_code: $scope.a_code,
+            fixed_phone: $scope.fixed_phone,
+            mobile: $scope.mobile,
+            uname: $scope.uname,
+            password: $scope.password,
+            address: $scope.address,
+            desc: $scope.desc,
+            pic1: $scope.pic1,
+        };
+        var formdata = new FormData();
+        for (i = 0; i < dScope.docs.length; i++) {
+            name = randomStr(15) + "_" + dScope.docs[i].file.name;
+            formdata.append(name, dScope.docs[i].file);
+            dScope.docs[i].file = name;
+        }
+        pic1Name = randomStr(15) + "_" + dScope.pic1.name;
+        formdata.append(pic1Name, dScope.pic1);
+        dScope.pic1 = {file : pic1Name};
+        formdata.append("json", JSON.stringify(JSON.decycle(dScope, true)));
+        $http({
+            method: 'POST',
+            url: '/admin/cm/new',
+            data: formdata,
+            headers: {
+                'Content-Type': undefined
+            }
+        }).then(function (data) {
+            alert(data);
+        });
+    };
 });
 app.controller("user", function ($scope) {
     $scope.fpass = null;

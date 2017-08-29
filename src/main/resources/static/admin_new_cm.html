@@ -1,19 +1,13 @@
 <div class="container">
     <div class="header-row col-3-normal">
         <span><b> شهر: </b><i>
-                <select class="comp" ng-model="city">
-                    <option value="all" selected="selected">همه</option>
-                    <option>اصفهان</option>
-                    <option>تهران</option>
-                    <option>مشهد</option>
+                <select class="comp city" ng-model="city">
+                    <option value="{{x.id}}" ng-repeat="x in city_select">{{x.name}}</option>
                 </select>
             </i></span>
         <span><b> منطقه: </b><i>
                 <select class="comp" ng-model="area">
                     <option value="all" selected="selected">همه</option>
-                    <option>اصفهان</option>
-                    <option>تهران</option>
-                    <option>مشهد</option>
                 </select>
             </i></span>
     </div>
@@ -83,7 +77,7 @@
     <br/>
     <hr/>
     <div class="normal-row">
-        <button class="button" style="margin: 0 auto; float: none !important;">
+        <button class="button" style="margin: 0 auto; float: none !important;" ng-click="submitThis()">
             ثبت ویزیتور
         </button>
     </div>
