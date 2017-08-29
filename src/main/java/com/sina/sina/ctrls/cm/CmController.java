@@ -89,4 +89,12 @@ public class CmController {
         Cm cm = (Cm)httpSession.getAttribute("cm");
         return orderDao.findFinishedByCm(cm.getId());
     }
+    
+    @GetMapping("/cm/login")
+    public String login(HttpSession httpSession){
+        Cm cm = new Cm();
+        cm.setId(2);
+        httpSession.setAttribute("cm", cm);
+        return "done";
+    }
 }

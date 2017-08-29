@@ -7,7 +7,8 @@ public class Docs {
             VISITOR_DOC1 = 2,
             VISITOR_DOC2 = 3,
             VISITOR_DOCS = 4,
-            CM_DOC = 5;
+            CM_DOC = 5,
+            CM_DOC1 = 6;
     
     private int id;
     private String name;

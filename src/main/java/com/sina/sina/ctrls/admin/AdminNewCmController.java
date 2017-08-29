@@ -104,7 +104,7 @@ public class AdminNewCmController {
             e.printStackTrace();
         }
         doc1.setCid(cm.getId());
-        doc1.setType(Docs.CM_DOC);
+        doc1.setType(Docs.CM_DOC1);
         docsDao.insert(doc1);
         
         

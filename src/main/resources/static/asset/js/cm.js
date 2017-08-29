@@ -10,21 +10,24 @@ app.directive('htmldiv', function ($compile, $parse) {
         }
     }
 });
+window.randomStr = function (length) {
+    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+};
 app.directive("fileread", [
-   function(){
-       return {
-           scope : {
-               fileread : "="
-           },
-           link : function(scope, element, attributes){
-               element.bind("change", function(changeEvent){
-                  scope.$apply(function(){
-                     scope.fileread = changeEvent.target.files[0]; 
-                  });
-               });
-           }
-       }
-   } 
+    function () {
+        return {
+            scope: {
+                fileread: "="
+            },
+            link: function (scope, element, attributes) {
+                element.bind("change", function (changeEvent) {
+                    scope.$apply(function () {
+                        scope.fileread = changeEvent.target.files[0];
+                    });
+                });
+            }
+        }
+    }
 ]);
 app.config(function ($routeProvider) {
     $routeProvider
@@ -114,7 +117,7 @@ app.run(function ($rootScope, $location, $timeout) {
         }, 0);
     };
 });
-app.controller("new_visit", function ($scope, $rootScope, $timeout) {
+app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
     $scope.docs = [];
     $scope.fname = null;
     $scope.lname = null;
@@ -132,6 +135,50 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout) {
     $scope.desc = null;
     $scope.pic1 = null;
     $scope.pic2 = null;
+    $scope.submitThis = function () {
+        dScope = {
+            docs: $scope.docs,
+            fname: $scope.fname,
+            lname: $scope.lname,
+            birthday: $scope.birthday,
+            code: $scope.code,
+            fixed_phone: $scope.fixed_phone,
+            mobile: $scope.mobile,
+            type_ack: $scope.type_ack,
+            grade: $scope.grade,
+            uname: $scope.uname,
+            password: $scope.password,
+            address: $scope.address,
+            grade_exp: $scope.grade_exp,
+            work_exp: $scope.work_exp,
+            desc: $scope.desc,
+            pic1: $scope.pic1,
+            pic2: $scope.pic2
+        };
+        var formdata = new FormData();
+        for (i = 0; i < dScope.docs.length; i++) {
+            name = randomStr(15) + "_" + dScope.docs[i].file.name;
+            formdata.append(name, dScope.docs[i].file);
+            dScope.docs[i].file = name;
+        }
+        pic1Name = randomStr(15) + "_" + dScope.pic1.name;
+        pic2Name = randomStr(15) + "_" + dScope.pic2.name;
+        formdata.append(pic1Name, dScope.pic1);
+        formdata.append(pic2Name, dScope.pic2);
+        dScope.pic1 = {file: pic1Name};
+        dScope.pic2 = {file: pic2Name};
+        formdata.append("json", JSON.stringify(JSON.decycle(dScope, true)));
+        $http({
+            method: 'POST',
+            url: '/cm/visitor/new',
+            data: formdata,
+            headers: {
+                'Content-Type': undefined
+            }
+        }).then(function (data) {
+            alert(data);
+        });
+    };
 });
 app.controller("new_order", function ($scope, $rootScope, $timeout) {
     $scope.content_drugs = [];

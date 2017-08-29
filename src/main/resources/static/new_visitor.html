@@ -9,7 +9,7 @@
     </div>
     <div class="header-row col-2-normal">
         <span><b>تاریخ تولد:‌  </b><i>
-                <input type="text" class="center-text datepicker" ng-model="birthday"/>
+                <input type="text" class="center-text datepicker just-date" ng-model="birthday"/>
             </i></span>
         <span><b> کد ملی:  </b><i>
                 <input type="text" ng-model="code"/>
@@ -81,17 +81,18 @@
     <br/>
     <hr/>
     <div class="normal-row">
-        <button class="button" style="margin: 0 auto; float: none !important;">
+        <button class="button" style="margin: 0 auto; float: none !important;" ng-click="submitThis()">
             ثبت ویزیتور
         </button>
     </div>
     <br/><br/><br/><br/><br/>
 </div>
 <script>
-    $(document).ready(function () {
-    $("select.comp").select2({
-    dir: "rtl"
-    });
-    $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
-    });
+            $(document).ready(function () {
+                $("select.comp").select2({
+                    dir: "rtl"
+                });
+                $(".datepicker.just-date").persianDatepicker({format: 'YYYY/MM/DD', timePicker: {enabled: false}});
+                $(".datepicker:not(.just-date)").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
+            });
 </script>
