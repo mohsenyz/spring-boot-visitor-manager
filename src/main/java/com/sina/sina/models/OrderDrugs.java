@@ -12,8 +12,8 @@ public class OrderDrugs {
             SAME_DRUGS = 7;
     
     private int id;
-    private int oid;
-    private int rid;
+    private Integer oid;
+    private Integer rid;
     private int drugId;
     private String drugName;
     private String visitDesc;
@@ -29,19 +29,19 @@ public class OrderDrugs {
         this.id = id;
     }
 
-    public int getOid() {
+    public Integer getOid() {
         return oid;
     }
 
-    public void setOid(int oid) {
+    public void setOid(Integer oid) {
         this.oid = oid;
     }
 
-    public int getRid() {
+    public Integer getRid() {
         return rid;
     }
 
-    public void setRid(int rid) {
+    public void setRid(Integer rid) {
         this.rid = rid;
     }
 

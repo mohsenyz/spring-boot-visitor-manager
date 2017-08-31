@@ -16,7 +16,7 @@ public class Order {
     private String dsPopCm;
     private String dsRival;
     private String dsIndexDr;
-    private int drVisitPlace;
+    private Integer drVisitPlace;
     private String drVisitPlaceName;
     private String drSuggestion;
     private Timestamp createdAt;
@@ -123,11 +123,11 @@ public class Order {
         this.dsIndexDr = dsIndexDr;
     }
 
-    public int getDrVisitPlace() {
+    public Integer getDrVisitPlace() {
         return drVisitPlace;
     }
 
-    public void setDrVisitPlace(int drVisitPlace) {
+    public void setDrVisitPlace(Integer drVisitPlace) {
         this.drVisitPlace = drVisitPlace;
     }
 
