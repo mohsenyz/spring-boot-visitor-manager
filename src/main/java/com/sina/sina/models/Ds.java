@@ -1,6 +1,5 @@
 package com.sina.sina.models;
 
-
 import java.sql.Timestamp;
 
 public class Ds {
