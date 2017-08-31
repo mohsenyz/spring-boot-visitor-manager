@@ -33,6 +33,7 @@ public class DrRowMapper implements RowMapper{
         dr.setCompanyProductsPop(rs.getString("company_products_pop"));
         dr.setSuggestion(rs.getString("suggestion"));
         dr.setPlace(rs.getString("place"));
+        dr.setId(rs.getInt("city"));
         return dr;
     }
 }

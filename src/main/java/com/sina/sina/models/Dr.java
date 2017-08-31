@@ -15,6 +15,7 @@ public class Dr {
     private String companyProductsAck;
     private String companyProductsPop;
     private String suggestion;
+    private int city;
 
     public int getId() {
         return id;
@@ -126,5 +127,19 @@ public class Dr {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    /**
+     * @return the city
+     */
+    public int getCity() {
+        return city;
+    }
+
+    /**
+     * @param city the city to set
+     */
+    public void setCity(int city) {
+        this.city = city;
     }
 }

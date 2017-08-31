@@ -50,7 +50,7 @@ public class DrDao extends AbstractDao{
                 .update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection cnctn) throws SQLException {
-                PSetter pr = PSetter.from(cnctn.prepareStatement("insert into `" + getTableName() + "` values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS));
+                PSetter pr = PSetter.from(cnctn.prepareStatement("insert into `" + getTableName() + "` values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS));
                 pr.setInt(1, cm.getId());
                 pr.setString(2, cm.getName());
                 pr.setString(3, cm.getExpert());
@@ -65,6 +65,7 @@ public class DrDao extends AbstractDao{
                 pr.setString(12, cm.getCompanyProductsAck());
                 pr.setString(13, cm.getCompanyProductsPop());
                 pr.setString(14, cm.getSuggestion());
+                pr.setInt(15, cm.getCity());
                 return pr.build();
             }
         }, generatedKeyHolder);
