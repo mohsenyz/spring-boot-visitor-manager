@@ -5,7 +5,15 @@
  */
 package com.sina.sina.ctrls.visitor;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.sina.sina.dao.DrDao;
+import com.sina.sina.dao.DsDao;
 import com.sina.sina.dao.OrderDao;
+import com.sina.sina.models.Dr;
+import com.sina.sina.models.Ds;
 import com.sina.sina.models.Order;
 import com.sina.sina.models.Visitor;
 import java.util.ArrayList;
@@ -26,13 +34,34 @@ public class VisitorReportController {
     @Autowired
     OrderDao orderDao;
     
+    @Autowired
+    DrDao drDao;
+    
+    @Autowired
+    DsDao dsDao;
+    
     @GetMapping("/visitor/reports")
-    public List<Order> getReports(HttpSession httpSession){
+    public ArrayNode getReports(HttpSession httpSession){
         if (httpSession.getAttribute("visitor") == null){
-            return new ArrayList<>();
+            return null;
         }
+        ObjectMapper mapper = new ObjectMapper(); 
         Visitor currVisitor = (Visitor)httpSession.getAttribute("visitor");
-        return orderDao.findByVid(currVisitor.getId());
+        List<Order> list = orderDao.findByVid(currVisitor.getId());
+        ArrayNode arrayNode = mapper.createArrayNode();
+        for (Order order : list){
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.putPOJO("order", order);
+            if (order.getDrid() != null){
+                Dr dr = drDao.findById(order.getDrid());
+                objectNode.putPOJO("dr", dr);
+            } else if (order.getDsid() != null){
+                Ds ds = dsDao.findById(order.getDsid());
+                objectNode.putPOJO("ds", ds);
+            }
+            arrayNode.add(objectNode);
+        }
+        return arrayNode;
     }
     
     

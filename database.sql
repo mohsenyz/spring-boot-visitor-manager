@@ -26,7 +26,10 @@ CREATE TABLE `city` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_persian_ci DEFAULT NULL,
   `parent` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `parent_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKk00ylup7bsikbna9whybw9mmq` (`parent_id`),
+  CONSTRAINT `FKk00ylup7bsikbna9whybw9mmq` FOREIGN KEY (`parent_id`) REFERENCES `city` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -36,7 +39,7 @@ CREATE TABLE `city` (
 
 LOCK TABLES `city` WRITE;
 /*!40000 ALTER TABLE `city` DISABLE KEYS */;
-INSERT INTO `city` VALUES (1,'tehran',NULL);
+INSERT INTO `city` VALUES (1,'tehran',NULL,NULL);
 /*!40000 ALTER TABLE `city` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -481,4 +484,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-01 21:34:33
+-- Dump completed on 2017-09-02  0:41:28

@@ -7,11 +7,14 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.DrRowMapper;
 import com.sina.sina.models.Dr;
+import com.sina.sina.models.Visitor;
 import com.utils.dao.PSetter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
@@ -76,11 +79,9 @@ public class DrDao extends AbstractDao{
     }
     
     public Dr findById(int id) {
-        return (Dr) jdbcTemplate
-                .queryForObject(
-                        "select * from `" + getTableName() + "` where id = ?",
-                        new Object[]{id},
-                        new DrRowMapper());
+        Criteria crit = getSession().createCriteria(Dr.class);
+        crit.add(Restrictions.eq("id", id));
+        return (Dr)crit.uniqueResult();
     }
     
 }

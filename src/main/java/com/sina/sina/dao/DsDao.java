@@ -7,6 +7,7 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.DsRowMapper;
 import com.sina.sina.models.Ds;
+import com.sina.sina.models.Visitor;
 import com.utils.dao.PSetter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +16,8 @@ import java.sql.Statement;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
@@ -81,11 +84,9 @@ public class DsDao extends AbstractDao{
     }
     
     public Ds findById(int id) {
-        return (Ds) jdbcTemplate
-                .queryForObject(
-                        "select * from `" + getTableName() + "` where id = ?",
-                        new Object[]{id},
-                        new DsRowMapper());
+        Criteria crit = getSession().createCriteria(Ds.class);
+        crit.add(Restrictions.eq("id", id));
+        return (Ds)crit.uniqueResult();
     }
     
     

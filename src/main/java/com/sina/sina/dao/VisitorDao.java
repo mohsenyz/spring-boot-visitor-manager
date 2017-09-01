@@ -6,6 +6,7 @@
 package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.VisitorRowMapper;
+import com.sina.sina.models.Order;
 import com.sina.sina.models.Visitor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -114,11 +117,9 @@ public class VisitorDao extends AbstractDao {
     }
 
     public Visitor findById(int id) {
-        return (Visitor) jdbcTemplate
-                .queryForObject(
-                        "select * from `" + getTableName() + "` where id = ?",
-                        new Object[]{id},
-                        new VisitorRowMapper());
+        Criteria crit = getSession().createCriteria(Visitor.class);
+        crit.add(Restrictions.eq("id", id));
+        return (Visitor)crit.uniqueResult();
     }
 
     public List<Visitor> findAll() {

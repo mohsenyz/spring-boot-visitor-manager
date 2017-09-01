@@ -12,6 +12,8 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,104 +74,94 @@ public class OrderDao extends AbstractDao {
     }
 
     public List<Order> findByVid(int vid) {
-        return (List<Order>) jdbcTemplate
-                .query(
-                        "select * from `" + getTableName() + "` where vid = ?",
-                        new Object[]{vid},
-                        new OrderRowMapper());
+        Criteria crit = getSession().createCriteria(Order.class);
+        crit.add(Restrictions.eq("vid", vid));
+        return crit.list();
     }
-    
-    
-    public List<Order> findForwarded(int id){
+
+    public List<Order> findForwarded(int id) {
         return (List<Order>) jdbcTemplate
                 .query(
                         "select * from `" + getTableName() + "` where forward_to_vid is not null AND vid = ?",
                         new Object[]{id},
                         new OrderRowMapper());
     }
-    
-    public List<Order> findReceivedRequest(int vid){
+
+    public List<Order> findReceivedRequest(int vid) {
         return (List<Order>) jdbcTemplate
                 .query(
                         "select * from `" + getTableName() + "` where forward_to_vid = ?",
                         new Object[]{vid},
                         new OrderRowMapper());
     }
-    
-    public List<Order> findNextVisit(int vid){
+
+    public List<Order> findNextVisit(int vid) {
         return (List<Order>) jdbcTemplate
                 .query(
                         "select * from `" + getTableName() + "` where vid = ? AND next_session is not null",
                         new Object[]{vid},
                         new OrderRowMapper());
     }
-    
-    
-    public List<Order> findByCm(int cm){
-        return  jdbcTemplate.
+
+    public List<Order> findByCm(int cm) {
+        return jdbcTemplate.
                 query(
-                "select `order`.* from`" + getTableName() + "`, `visitor_cm` where order.vid = visitor_cm.vid and visitor_cm.cid = ?"
-                , new Object[]{cm},
-                new OrderRowMapper());
+                        "select `order`.* from`" + getTableName() + "`, `visitor_cm` where order.vid = visitor_cm.vid and visitor_cm.cid = ?",
+                         new Object[]{cm},
+                        new OrderRowMapper());
     }
-    
-    
-    public List<Order> findByCmByVisitorByTime(int cm, String visitors, Timestamp from, Timestamp to){
-        return  jdbcTemplate.
+
+    public List<Order> findByCmByVisitorByTime(int cm, String visitors, Timestamp from, Timestamp to) {
+        return jdbcTemplate.
                 query(
-                "select `order`.* from`" + getTableName() + "`, `visitor_cm` where order.vid = visitor_cm.vid and visitor_cm.cid = ? and vid in(?) and created_at between ? and ?"
-                , new Object[]{cm, ArrayUtils.toIntArray(visitors.split(",")), from, to},
-                new OrderRowMapper());
+                        "select `order`.* from`" + getTableName() + "`, `visitor_cm` where order.vid = visitor_cm.vid and visitor_cm.cid = ? and vid in(?) and created_at between ? and ?",
+                         new Object[]{cm, ArrayUtils.toIntArray(visitors.split(",")), from, to},
+                        new OrderRowMapper());
     }
-    
-    public List<Order> receivedByCm(int cm){
-        return  jdbcTemplate.
+
+    public List<Order> receivedByCm(int cm) {
+        return jdbcTemplate.
                 query(
-                "select `order`.* from`" + getTableName() + "` where order.cmid = ?"
-                , new Object[]{cm},
-                new OrderRowMapper());
+                        "select `order`.* from`" + getTableName() + "` where order.cmid = ?",
+                         new Object[]{cm},
+                        new OrderRowMapper());
     }
-    
-    
-    public List<Order> findFinishedByCm(int cm){
-        return  jdbcTemplate.
+
+    public List<Order> findFinishedByCm(int cm) {
+        return jdbcTemplate.
                 query(
-                "select `order`.* from`" + getTableName() + "`, `visitor_cm` where order.vid = visitor_cm.vid and visitor_cm.cid = ? and submited = 1"
-                , new Object[]{cm},
-                new OrderRowMapper());
+                        "select `order`.* from`" + getTableName() + "`, `visitor_cm` where order.vid = visitor_cm.vid and visitor_cm.cid = ? and submited = 1",
+                         new Object[]{cm},
+                        new OrderRowMapper());
     }
-    
-    
-    public List<Order> findSeenByDs(int ds){
-        return  jdbcTemplate.
+
+    public List<Order> findSeenByDs(int ds) {
+        return jdbcTemplate.
                 query(
-                "select `order`.* from`" + getTableName() + "` where dsid = ? and vid is null and viewed_at is not null"
-                , new Object[]{ds},
-                new OrderRowMapper());
+                        "select `order`.* from`" + getTableName() + "` where dsid = ? and vid is null and viewed_at is not null",
+                         new Object[]{ds},
+                        new OrderRowMapper());
     }
-    
-    
-    public List<Order> findFinishedByDs(int ds){
-        return  jdbcTemplate.
+
+    public List<Order> findFinishedByDs(int ds) {
+        return jdbcTemplate.
                 query(
-                "select `order`.* from`" + getTableName() + "` where dsid = ? and vid is null and submited  = 1"
-                , new Object[]{ds},
-                new OrderRowMapper());
+                        "select `order`.* from`" + getTableName() + "` where dsid = ? and vid is null and submited  = 1",
+                         new Object[]{ds},
+                        new OrderRowMapper());
     }
-    
-    
-    public List<Order> findAllDsOrder(){
-        return  jdbcTemplate.
+
+    public List<Order> findAllDsOrder() {
+        return jdbcTemplate.
                 query(
-                "select `order`.* from`" + getTableName() + "` where vid is null",
-                new OrderRowMapper());
+                        "select `order`.* from`" + getTableName() + "` where vid is null",
+                        new OrderRowMapper());
     }
-    
-    
-    public List<Order> findAll(){
-        return  jdbcTemplate.
+
+    public List<Order> findAll() {
+        return jdbcTemplate.
                 query(
-                "select `order`.* from`" + getTableName() + "`",
-                new OrderRowMapper());
+                        "select `order`.* from`" + getTableName() + "`",
+                        new OrderRowMapper());
     }
 }
