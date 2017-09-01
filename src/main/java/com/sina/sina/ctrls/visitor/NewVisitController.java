@@ -9,12 +9,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import com.sina.sina.dao.CityDao;
+import com.sina.sina.dao.CmDao;
 import com.sina.sina.dao.DocsDao;
 import com.sina.sina.dao.DrDao;
 import com.sina.sina.dao.DsDao;
 import com.sina.sina.dao.OrderDao;
 import com.sina.sina.dao.OrderDrugsDao;
 import com.sina.sina.dao.VisitorCityDao;
+import com.sina.sina.dao.VisitorDao;
 import com.sina.sina.models.City;
 import com.sina.sina.models.Cm;
 import com.sina.sina.models.Docs;
@@ -32,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -86,6 +89,13 @@ public class NewVisitController {
 
     @Autowired
     VisitorCityDao visitorCityDao;
+    
+    
+    @Autowired
+    VisitorDao visitorDao;
+    
+    @Autowired
+    CmDao cmDao;
 
     @Value("${mphj.filesystem.uploadpath}")
     String uploadPath;
@@ -325,4 +335,43 @@ public class NewVisitController {
         }
         return "done";
     }
+    
+    
+    
+    @GetMapping("/visitor/ds")
+    public List<Ds> getDsList(HttpSession httpSession){
+        if (httpSession.getAttribute("visitor") == null) {
+            throw new SecurityException("403");
+        }
+        return dsDao.listAll();
+    }
+    
+    
+    @GetMapping("/visitor/dr")
+    public List<Dr> getDrList(HttpSession httpSession){
+        if (httpSession.getAttribute("visitor") == null) {
+            throw new SecurityException("403");
+        }
+        return drDao.listAll();
+    }
+    
+   
+    
+    @GetMapping("/visitor/visitor")
+    public List<Visitor> getVisitorList(HttpSession httpSession){
+        if (httpSession.getAttribute("visitor") == null) {
+            throw new SecurityException("403");
+        }
+        return visitorDao.listAll();
+    }
+    
+    
+    @GetMapping("/visitor/cm")
+    public List<Cm> getCmList(HttpSession httpSession){
+        if (httpSession.getAttribute("visitor") == null) {
+            throw new SecurityException("403");
+        }
+        return cmDao.listAll();
+    }
+    
 }

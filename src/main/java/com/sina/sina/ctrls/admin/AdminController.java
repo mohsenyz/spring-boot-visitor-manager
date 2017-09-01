@@ -59,7 +59,7 @@ public class AdminController {
         if (httpSession.getAttribute("admin") == null) {
             return new ArrayList<>();
         }
-        return visitorDao.findAll();
+        return visitorDao.listAll();
     }
 
     @GetMapping("/admin/cm")
@@ -67,7 +67,7 @@ public class AdminController {
         if (httpSession.getAttribute("admin") == null) {
             return new ArrayList<>();
         }
-        return cmDao.findAll();
+        return cmDao.listAll();
     }
 
     @GetMapping("/admin/login")

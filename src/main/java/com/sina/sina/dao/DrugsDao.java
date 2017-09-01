@@ -6,7 +6,10 @@
 package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.DrugsRowMapper;
+import com.sina.sina.models.Cm;
 import com.sina.sina.models.Drugs;
+import java.util.List;
+import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +33,12 @@ public class DrugsDao extends AbstractDao{
                         cm.getId(),
                         cm.getName());*/
         getSession().save(cm);
+    }
+    
+    
+    public List<Drugs> listAll(){
+        Criteria crit = getSession().createCriteria(Drugs.class);
+        return crit.list();
     }
     
     public Drugs findById(int id) {

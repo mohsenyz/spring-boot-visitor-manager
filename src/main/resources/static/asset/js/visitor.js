@@ -161,6 +161,53 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
     $scope.given_etc = null;
     $scope.needed = null;
     $scope.result = null;
+    
+    $scope.ds_list = [];
+    $scope.dr_list = [];
+    $scope._drugs_list = [];
+    $scope.cm_list = [];
+    $scope.visitor_list = [];
+    
+    $.getJSON("/visitor/ds", function(data){
+       for (i = 0; i < data.length; i++){
+           $scope.ds_list.push(data[i]);
+           window.setTimeout(function(){$("select").trigger("change");}, 200);
+           $scope.$apply();
+       } 
+    });
+    
+    $.getJSON("/visitor/dr", function(data){
+       for (i = 0; i < data.length; i++){
+           $scope.dr_list.push(data[i]);
+           window.setTimeout(function(){$("select").trigger("change");}, 200);
+           $scope.$apply();
+       } 
+    });
+    
+    $.getJSON("/visitor/cm", function(data){
+       for (i = 0; i < data.length; i++){
+           $scope.cm_list.push(data[i]);
+           window.setTimeout(function(){$("select").trigger("change");}, 200);
+           $scope.$apply();
+       } 
+    });
+    
+    $.getJSON("/visitor/visitor", function(data){
+       for (i = 0; i < data.length; i++){
+           $scope.visitor_list.push(data[i]);
+           window.setTimeout(function(){$("select").trigger("change");}, 200);
+           $scope.$apply();
+       } 
+    });
+    
+    $.getJSON("/core/drugs", function(data){
+       for (i = 0; i < data.length; i++){
+           $scope._drugs_list.push(data[i]);
+           window.setTimeout(function(){$("select").trigger("change");}, 200);
+           $scope.$apply();
+       } 
+    });
+    
     $scope.submitThis = function () {
         dScope = {
             result_drugs: $scope.result_drugs,

@@ -90,6 +90,11 @@ public class DsDao extends AbstractDao{
     }
     
     
+    public List<Ds> listAll(){
+        Criteria crit = getSession().createCriteria(Ds.class);
+        return crit.list();
+    }
+    
     public Ds findByUsername(String pass) {
         return (Ds) jdbcTemplate
                 .queryForObject(

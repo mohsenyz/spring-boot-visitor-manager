@@ -122,11 +122,9 @@ public class VisitorDao extends AbstractDao {
         return (Visitor)crit.uniqueResult();
     }
 
-    public List<Visitor> findAll() {
-        return (List<Visitor>) jdbcTemplate
-                .queryForObject(
-                        "select * from `" + getTableName() + "`",
-                        new VisitorRowMapper());
+    public List<Visitor> listAll() {
+        Criteria crit = getSession().createCriteria(Visitor.class);
+        return crit.list();
     }
 
     public List<Visitor> findByCm(int cm) {

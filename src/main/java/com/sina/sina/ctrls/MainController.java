@@ -6,7 +6,9 @@
 package com.sina.sina.ctrls;
 
 import com.sina.sina.dao.CityDao;
+import com.sina.sina.dao.DrugsDao;
 import com.sina.sina.models.City;
+import com.sina.sina.models.Drugs;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +24,17 @@ public class MainController {
     @Autowired
     CityDao cityDao;
     
+    @Autowired
+    DrugsDao drugsDao;
+    
     @GetMapping("/core/city")
     public List<City> listCity(){
         return cityDao.findAll();
+    }
+    
+    
+    @GetMapping("/core/drugs")
+    public List<Drugs> listDrugs(){
+        return drugsDao.listAll();
     }
 }

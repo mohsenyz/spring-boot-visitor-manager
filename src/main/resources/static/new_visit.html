@@ -4,12 +4,12 @@
                 <select class="comp" ng-model="drugstore" ng-disabled="doctor != 'none'">
                     <option value="none" selected="selected">انتخاب داروخانه</option>
                     <option value="make_new">افزودن داروخانه</option>
-                    <option>فتاح الجنان</option>
+                    <option value="{{x.id}}" ng-repeat="x in ds_list">{{x.name}}</option>
                 </select>
                 <select class="comp" ng-model="doctor" ng-disabled="drugstore != 'none'">
                     <option value="none" selected="selected">انتخاب دکتر</option>
                     <option value="make_new">افزودن دکتر</option>
-                    <option>دکتر ۱</option>
+                    <option value="{{x.id}}" ng-repeat="x in dr_list">{{x.name}}</option>
                 </select>
             </i></span>
         <span><b>تاریخ ویزیت بعدی :‌ </b><i>
@@ -51,13 +51,13 @@
     <div class="header-row col-2-normal">
         <span><b>مرکز پخش :‌  </b><i>
                 <select class="comp" ng-model="cm">
-                    <option>مرکز پخش ۲</option>
+                    <option value="{{x.id}}" ng-repeat="x in cm_list">{{x.name}}</option>
                 </select>
             </i></span>
         <span><b>انتقال به ویزیتور:  </b><i>
                 <select ng-model="visitor" value="none" class="comp">
                     <option value="none" selected="selected">-</option>
-                    <option value="mohsen">محسن یزدانی</option>
+                    <option value="{{x.id}}" ng-repeat="x in visitor_list">{{x.fname}} {{x.lname}}</option>
                 </select>
             </i></span>
     </div>
@@ -75,8 +75,7 @@
     <div class="header-row col-2-normal" ng-repeat="x in content_drugs">
         <span class="span-3"><b>دارو : </b><i>
                 <select ng-model="x.drug">
-                    <option>همولاکس</option>
-                    <option>دایجستر</option>
+                    <option value="{{x.id}}" ng-repeat="x in _drugs_list">{{x.name}}</option>
                 </select>
             </i></span>
         <span class="span-2"><b>تعداد : </b><i>
@@ -115,8 +114,7 @@
     <div class="header-row col-2-normal" ng-repeat="x in result_drugs">
         <span class="span-3"><b>دارو : </b><i>
                 <select ng-model="x.drug">
-                    <option>همولاکس</option>
-                    <option>دایجستر</option>
+                    <option value="{{x.id}}" ng-repeat="x in _drugs_list">{{x.name}}</option>
                 </select>
             </i></span>
         <span class="span-2"><b>تعداد : </b><i>

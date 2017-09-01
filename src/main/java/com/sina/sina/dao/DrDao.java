@@ -7,12 +7,14 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.DrRowMapper;
 import com.sina.sina.models.Dr;
+import com.sina.sina.models.Ds;
 import com.sina.sina.models.Visitor;
 import com.utils.dao.PSetter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -26,13 +28,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class DrDao extends AbstractDao{
+public class DrDao extends AbstractDao {
 
     @Override
     public String getTableName() {
         return "dr";
     }
-    
+
     public void insert(Dr cm) {
         /*jdbcTemplate
                 .update("insert into `" + getTableName() + "` values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -50,7 +52,7 @@ public class DrDao extends AbstractDao{
                         cm.getCompanyProductsAck(),
                         cm.getCompanyProductsPop(),
                         cm.getSuggestion());*/
-        /*GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+ /*GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbcTemplate
                 .update(new PreparedStatementCreator() {
             @Override
@@ -77,11 +79,16 @@ public class DrDao extends AbstractDao{
         cm.setId(generatedKeyHolder.getKey().intValue());*/
         getSession().save(cm);
     }
-    
+
     public Dr findById(int id) {
         Criteria crit = getSession().createCriteria(Dr.class);
         crit.add(Restrictions.eq("id", id));
-        return (Dr)crit.uniqueResult();
+        return (Dr) crit.uniqueResult();
     }
-    
+
+    public List<Dr> listAll() {
+        Criteria crit = getSession().createCriteria(Dr.class);
+        return crit.list();
+    }
+
 }
