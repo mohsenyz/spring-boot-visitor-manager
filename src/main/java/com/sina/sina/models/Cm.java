@@ -1,19 +1,51 @@
 package com.sina.sina.models;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "cm")
 public class Cm {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private int id;
+    
+    @Column(name = "name")
     private String name;
+    
+    @Column(name = "a_fname")
     private String aFname;
+    
+    @Column(name = "a_lname")
     private String aLname;
+    
+    @Column(name = "a_birthday")
     private String aBirthday;
+    
+    @Column(name = "a_code")
     private String aCode;
+    
+    @Column(name = "fixed_phone")
     private String fixedPhone;
+    
+    @Column(name = "mobile")
     private String mobile;
+    
+    @Column(name = "username")
     private String username;
+    
+    @Column(name = "password")
     private String password;
+    
+    @Column(name = "created_at")
     private Timestamp createdAt;
+    
+    @Column(name = "enabled")
     private boolean enabled;
 
     public int getId() {

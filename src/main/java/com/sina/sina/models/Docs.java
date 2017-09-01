@@ -1,5 +1,14 @@
 package com.sina.sina.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "docs")
 public class Docs {
     
     public static final int
@@ -10,14 +19,33 @@ public class Docs {
             CM_DOC = 5,
             CM_DOC1 = 6;
     
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private int id;
+    
+    @Column(name = "name")
     private String name;
+    
+    @Column(name = "desc")
     private String desc;
+    
+    @Column(name = "type")
     private int type;
+    
+    @Column(name = "oid", nullable = true)
     private Integer oid;
+    
+    @Column(name = "vid", nullable = true)
     private Integer vid;
+    
+    @Column(name = "cid", nullable = true)
     private Integer cid;
+    
+    @Column(name = "did", nullable = true)
     private Integer did;
+    
+    @Column(name = "rid", nullable = true)
     private Integer rid;
 
     public int getId() {

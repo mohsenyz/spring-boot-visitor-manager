@@ -2,26 +2,70 @@ package com.sina.sina.models;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "visitor")
 public class Visitor {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private int id;
+    
+    @Column(name = "fname")
     private String fname;
+    
+    @Column(name = "lname")
     private String lname;
+    
+    @Column(name = "birthday")
     private String birthday;
+    
+    @Column(name = "code")
     private String code;
+    
+    @Column(name = "fixed_phone")
     private String fixedPhone;
+    
+    @Column(name = "mobile")
     private String mobile;
+    
+    @Column(name = "ack")
     private String ack;
+    
+    @Column(name = "grade")
     private String grade;
+    
+    @Column(name = "username")
     private String username;
+    
+    @Column(name = "password")
     private String password;
+    
+    @Column(name = "address")
     private String address;
+    
+    @Column(name = "grade_exp")
     private String gradeExp;
+    
+    @Column(name = "work_exp")
     private String workExp;
+    
+    @Column(name = "desc")
     private String desc;
+    
+    @Column(name = "type")
     private int type;
+    
+    @Column(name = "created_at")
     private Timestamp createdAt;
+    
+    @Column(name = "enabled")
     private boolean enabled;
     public int getId() {
         return id;

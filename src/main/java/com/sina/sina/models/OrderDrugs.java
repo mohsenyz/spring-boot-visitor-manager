@@ -1,5 +1,13 @@
 package com.sina.sina.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "order_drugs")
 public class OrderDrugs {
     
     public static final int
@@ -11,14 +19,34 @@ public class OrderDrugs {
             EXISTS_DRUGS = 6,
             SAME_DRUGS = 7;
     
+    
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private int id;
+    
+    @Column(name = "oid", nullable = true)
     private Integer oid;
+    
+    @Column(name = "rid", nullable = true)
     private Integer rid;
+    
+    @Column(name = "drug_id")
     private int drugId;
+    
+    @Column(name = "drug_name")
     private String drugName;
+    
+    @Column(name = "visit_desc")
     private String visitDesc;
+    
+    @Column(name = "count")
     private int count;
+    
+    @Column(name = "type")
     private int type;
+    
+    @Column(name = "reason")
     private String reason;
     
     public int getId() {

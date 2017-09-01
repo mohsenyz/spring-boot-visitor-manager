@@ -2,37 +2,105 @@ package com.sina.sina.models;
 
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "order")
 public class Order {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private int id;
+    
+    @Column(name = "vid", nullable = true)
     private Integer vid;
+    
+    @Column(name = "cmid", nullable = true)
     private Integer cmid;
+    
+    @Column(name = "dsid", nullable = true)
     private Integer dsid;
+    
+    @Column(name = "drid", nullable = true)
     private Integer drid;
+    
+    @Column(name = "ds_visited_name", nullable = true)
     private String dsVisitedName;
+    
+    @Column(name = "ds_visited_job", nullable = true)
     private int dsVisitedJob;
+    
+    @Column(name = "ds_visited_phone", nullable = true)
     private String dsVisitedPhone;
+    
+    @Column(name = "ds_idea", nullable = true)
     private String dsIdea;
+    
+    @Column(name = "ds_pop_cm", nullable = true)
     private String dsPopCm;
+    
+    @Column(name = "ds_rival", nullable = true)
     private String dsRival;
+    
+    @Column(name = "ds_index_dr", nullable = true)
     private String dsIndexDr;
+    
+    @Column(name = "dr_visit_place", nullable = true)
     private Integer drVisitPlace;
+    
+    @Column(name = "dr_visit_place_name", nullable = true)
     private String drVisitPlaceName;
+    
+    @Column(name = "dr_suggestion", nullable = true)
     private String drSuggestion;
+    
+    @Column(name = "created_at")
     private Timestamp createdAt;
+    
+    @Column(name = "created_at_ap")
     private int createdAtAp;
+    
+    @Column(name = "next_session")
     private Timestamp nextSession;
+    
+    @Column(name = "prev_session_id", nullable = true)
     private Integer prevSessionId;
+    
+    @Column(name = "content")
     private String content;
+    
+    @Column(name = "result")
     private String result;
+    
+    @Column(name = "desc")
     private String desc;
+    
+    @Column(name = "given_document")
     private String givenDocument;
+    
+    @Column(name = "needed_document")
     private String neededDocument;
+    
+    @Column(name = "forward_to_vid", nullable = true)
     private Integer forwardToVid;
+    
+    @Column(name = "from_id", nullable = true)
     private Integer fromId;
+    
+    @Column(name = "submited", nullable = true)
     private Boolean submited;
+    
+    @Column(name = "submit_time")
     private Timestamp submitTime;
+    
+    @Column(name = "viewed_at")
     private Timestamp viewedAt;
+    
+    @Column(name = "urgency")
     private int urgency;
     
     public int getId() {

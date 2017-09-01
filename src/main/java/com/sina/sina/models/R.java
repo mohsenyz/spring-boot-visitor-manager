@@ -2,7 +2,15 @@ package com.sina.sina.models;
 
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "r")
 public class R {
 
     public int getId() {
@@ -52,10 +60,24 @@ public class R {
     public void setUrgency(int urgency) {
         this.urgency = urgency;
     }
+    
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private int id;
+    
+    @Column(name = "cmid")
     private int cmid;
+    
+    @Column(name = "created_at")
     private Timestamp createdAt;
+    
+    @Column(name = "status")
     private int status;
+    
+    @Column(name = "desc")
     private String desc;
+    
+    @Column(name = "urgency")
     private int urgency;
 }

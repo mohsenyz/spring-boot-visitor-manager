@@ -1,20 +1,61 @@
 package com.sina.sina.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "dr")
 public class Dr {
+    
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private int id;
+    
+    @Column(name = "name")
     private String name;
+    
+    @Column(name = "expert")
     private String expert;
+    
+    @Column(name = "best_visit_time1")
     private int bestVisitTime1;
+    
+    @Column(name = "fixed_phone")
     private String fixedPhone;
+    
+    @Column(name = "mobile")
     private String mobile;
+    
+    @Column(name = "mkdb")
     private String mkdb;
+    
+    @Column(name = "place")
     private String place;
+    
+    @Column(name = "address")
     private String address;
+    
+    @Column(name = "email")
     private String email;
+    
+    @Column(name = "pezeshk")
     private String pezeshk;
+    
+    @Column(name = "company_products_ack", nullable = true)
     private String companyProductsAck;
+    
+    @Column(name = "company_products_pop", nullable = true)
     private String companyProductsPop;
+    
+    @Column(name = "suggestion", nullable = true)
     private String suggestion;
+    
+    @Column(name = "city")
     private int city;
 
     public int getId() {
