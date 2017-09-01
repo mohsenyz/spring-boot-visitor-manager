@@ -10,20 +10,23 @@ import com.sina.sina.models.City;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author mphj
  */
 @Repository
+@Transactional
 public class CityDao extends AbstractDao {
 
     public void insert(City city) {
-        jdbcTemplate
+        /*jdbcTemplate
                 .update("insert into `" + getTableName() + "` values(?, ?, ?)",
                         city.getId(),
                         city.getName(),
-                        city.getParent());
+                        city.getParent());*/
+        getSession().save(city);
     }
 
     public City findById(int id) {

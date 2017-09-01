@@ -21,12 +21,14 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author mphj
  */
 @Repository
+@Transactional
 public class VisitorDao extends AbstractDao {
 
     @Override
@@ -55,7 +57,7 @@ public class VisitorDao extends AbstractDao {
                         cm.getType(),
                         cm.getCreatedAt(),
                         cm.isEnabled());*/
-        GeneratedKeyHolder holder = new GeneratedKeyHolder();
+        /*GeneratedKeyHolder holder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection cnctn) throws SQLException {
@@ -80,7 +82,7 @@ public class VisitorDao extends AbstractDao {
                 ps.setBoolean(18, cm.isEnabled());
                 return ps;
             }
-        }, holder);
+        }, holder);*/
 
         //Map<String, Object> map = new HashMap<>();
 
@@ -107,7 +109,8 @@ public class VisitorDao extends AbstractDao {
         map.addValue("enabled", cm.isEnabled());
         int key = simpleJdbcInsert.executeAndReturnKey(map).intValue();
         cm.setId(key);*/
-        cm.setId(holder.getKey().intValue());
+        //cm.setId(holder.getKey().intValue());
+        getSession().save(cm);
     }
 
     public Visitor findById(int id) {

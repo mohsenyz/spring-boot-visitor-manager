@@ -27,8 +27,8 @@ public class Docs {
     @Column(name = "name")
     private String name;
     
-    @Column(name = "desc")
-    private String desc;
+    @Column(name = "description")
+    private String description;
     
     @Column(name = "type")
     private int type;
@@ -65,11 +65,11 @@ public class Docs {
     }
 
     public String getDesc() {
-        return desc;
+        return description;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.description = desc;
     }
 
     public int getType() {

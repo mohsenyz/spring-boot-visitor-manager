@@ -8,12 +8,14 @@ package com.sina.sina.dao;
 import com.sina.sina.dao.rowmapper.DrugsRowMapper;
 import com.sina.sina.models.Drugs;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author mphj
  */
 @Repository
+@Transactional
 public class DrugsDao extends AbstractDao{
 
     @Override
@@ -23,10 +25,11 @@ public class DrugsDao extends AbstractDao{
     
     
     public void insert(Drugs cm) {
-        jdbcTemplate
+        /*jdbcTemplate
                 .update("insert into `" + getTableName() + "` values(?, ?)",
                         cm.getId(),
-                        cm.getName());
+                        cm.getName());*/
+        getSession().save(cm);
     }
     
     public Drugs findById(int id) {

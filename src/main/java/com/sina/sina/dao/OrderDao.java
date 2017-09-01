@@ -13,21 +13,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author mphj
  */
 @Repository
+@Transactional
 public class OrderDao extends AbstractDao {
 
     @Override
     public String getTableName() {
-        return "order";
+        return "order_list";
     }
 
     public void insert(Order cm) {
-        jdbcTemplate
+        /*jdbcTemplate
                 .update("insert into `" + getTableName() + "` values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                         cm.getId(),
                         cm.getVid(),
@@ -57,7 +59,8 @@ public class OrderDao extends AbstractDao {
                         cm.getSubmited(),
                         cm.getSubmitTime(),
                         cm.getViewedAt(),
-                        cm.getUrgency());
+                        cm.getUrgency());*/
+        getSession().save(cm);
     }
 
     public Order findById(int id) {

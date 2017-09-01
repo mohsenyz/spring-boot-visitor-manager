@@ -46,11 +46,11 @@ public class R {
     }
 
     public String getDesc() {
-        return desc;
+        return description;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.description = desc;
     }
 
     public int getUrgency() {
@@ -75,8 +75,8 @@ public class R {
     @Column(name = "status")
     private int status;
     
-    @Column(name = "desc")
-    private String desc;
+    @Column(name = "description")
+    private String description;
     
     @Column(name = "urgency")
     private int urgency;

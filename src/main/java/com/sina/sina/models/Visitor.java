@@ -56,8 +56,8 @@ public class Visitor {
     @Column(name = "work_exp")
     private String workExp;
     
-    @Column(name = "desc")
-    private String desc;
+    @Column(name = "description")
+    private String description;
     
     @Column(name = "type")
     private int type;
@@ -180,11 +180,11 @@ public class Visitor {
     }
 
     public String getDesc() {
-        return desc;
+        return description;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.description = desc;
     }
 
     public int getType() {

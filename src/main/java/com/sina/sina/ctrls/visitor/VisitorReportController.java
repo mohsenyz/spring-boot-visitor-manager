@@ -13,6 +13,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -76,9 +77,9 @@ public class VisitorReportController {
     
     
     @GetMapping("/visitor/login")
-    public String login(HttpSession httpSession){
+    public String login(HttpSession httpSession, @RequestParam("id") int id){
         Visitor vis = new Visitor();
-        vis.setId(1);
+        vis.setId(id);
         httpSession.setAttribute("visitor", vis);
         return "done";
     }

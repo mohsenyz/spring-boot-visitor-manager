@@ -22,7 +22,7 @@ public class TimeHelper {
             MILISECOND = "ms";
 
     public static Timestamp getCurrentTimestamp() {
-        return new Timestamp(Calendar.getInstance(TimeZone.getDefault()).getTime().getTime());
+        return new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("Asia/Tehran")).getTime().getTime());
     }
     
     

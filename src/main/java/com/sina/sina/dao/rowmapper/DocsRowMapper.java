@@ -21,7 +21,7 @@ public class DocsRowMapper implements RowMapper{
         Docs docs = new Docs();
         docs.setId(rs.getInt("id"));
         docs.setName(rs.getString("name"));
-        docs.setDesc(rs.getString("desc"));
+        docs.setDesc(rs.getString("description"));
         docs.setType(rs.getInt("type"));
         docs.setOid(rs.getInt("oid"));
         docs.setVid(rs.getInt("vid"));

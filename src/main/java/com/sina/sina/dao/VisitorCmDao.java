@@ -8,12 +8,14 @@ package com.sina.sina.dao;
 import com.sina.sina.dao.rowmapper.VisitorCmRowMapper;
 import com.sina.sina.models.VisitorCm;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author mphj
  */
 @Repository
+@Transactional
 public class VisitorCmDao extends AbstractDao {
 
     @Override
@@ -22,11 +24,12 @@ public class VisitorCmDao extends AbstractDao {
     }
     
     public void insert(VisitorCm cm) {
-        jdbcTemplate
+        /*jdbcTemplate
                 .update("insert into `" + getTableName() + "` values(?, ?, ?)",
                         cm.getId(),
                         cm.getVid(),
-                        cm.getCid());
+                        cm.getCid());*/
+        getSession().save(cm);
     }
 
     public VisitorCm findById(int id) {

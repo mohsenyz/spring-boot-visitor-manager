@@ -16,12 +16,14 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author mphj
  */
 @Repository
+@Transactional
 public class OrderDrugsDao extends AbstractDao{
 
     @Override
@@ -42,7 +44,7 @@ public class OrderDrugsDao extends AbstractDao{
                         cm.getCount(),
                         cm.getType(),
                         cm.getReason());*/
-        simpleJdbcInsert.setTableName(getTableName());
+        /*simpleJdbcInsert.setTableName(getTableName());
         Map<String, Object> map = new HashMap<>();
         map.put("id", cm.getId());
         map.put("oid", cm.getOid());
@@ -53,7 +55,8 @@ public class OrderDrugsDao extends AbstractDao{
         map.put("count", cm.getCount());
         map.put("type", cm.getType());
         map.put("reason", cm.getReason());
-        return simpleJdbcInsert.executeAndReturnKey(map).intValue();
+        return simpleJdbcInsert.executeAndReturnKey(map).intValue();*/
+        return (Integer)getSession().save(cm);
     }
     
     public OrderDrugs findById(int id) {

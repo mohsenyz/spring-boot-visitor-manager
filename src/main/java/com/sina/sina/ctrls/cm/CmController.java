@@ -91,9 +91,9 @@ public class CmController {
     }
     
     @GetMapping("/cm/login")
-    public String login(HttpSession httpSession){
+    public String login(HttpSession httpSession, @RequestParam("id") int id){
         Cm cm = new Cm();
-        cm.setId(2);
+        cm.setId(id);
         httpSession.setAttribute("cm", cm);
         return "done";
     }

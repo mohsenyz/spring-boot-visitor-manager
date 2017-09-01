@@ -15,12 +15,14 @@ import java.sql.Statement;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author mphj
  */
 @Repository
+@Transactional
 public class DrDao extends AbstractDao{
 
     @Override
@@ -45,7 +47,7 @@ public class DrDao extends AbstractDao{
                         cm.getCompanyProductsAck(),
                         cm.getCompanyProductsPop(),
                         cm.getSuggestion());*/
-        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        /*GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbcTemplate
                 .update(new PreparedStatementCreator() {
             @Override
@@ -69,7 +71,8 @@ public class DrDao extends AbstractDao{
                 return pr.build();
             }
         }, generatedKeyHolder);
-        cm.setId(generatedKeyHolder.getKey().intValue());
+        cm.setId(generatedKeyHolder.getKey().intValue());*/
+        getSession().save(cm);
     }
     
     public Dr findById(int id) {

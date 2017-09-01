@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "order")
+@Table(name = "order_list")
 public class Order {
     @Id
     @GeneratedValue
@@ -76,8 +76,8 @@ public class Order {
     @Column(name = "result")
     private String result;
     
-    @Column(name = "desc")
-    private String desc;
+    @Column(name = "description")
+    private String description;
     
     @Column(name = "given_document")
     private String givenDocument;
@@ -264,11 +264,11 @@ public class Order {
     }
 
     public String getDesc() {
-        return desc;
+        return description;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.description = desc;
     }
 
     public String getGivenDocument() {

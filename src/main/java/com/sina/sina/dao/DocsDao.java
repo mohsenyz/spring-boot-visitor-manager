@@ -8,12 +8,14 @@ package com.sina.sina.dao;
 import com.sina.sina.dao.rowmapper.DocsRowMapper;
 import com.sina.sina.models.Docs;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author mphj
  */
 @Repository
+@Transactional
 public class DocsDao extends AbstractDao{
 
     @Override
@@ -24,7 +26,7 @@ public class DocsDao extends AbstractDao{
     
     
     public void insert(Docs cm) {
-        jdbcTemplate
+        /*jdbcTemplate
                 .update("insert into `" + getTableName() + "` values(?, ?, ?, ?, ?, ?, ?, ?, ?)",
                         cm.getId(),
                         cm.getName(),
@@ -34,7 +36,8 @@ public class DocsDao extends AbstractDao{
                         cm.getVid(),
                         cm.getCid(),
                         cm.getDid(),
-                        cm.getRid());
+                        cm.getRid());*/
+        getSession().save(cm);
     }
     
     public Docs findById(int id) {

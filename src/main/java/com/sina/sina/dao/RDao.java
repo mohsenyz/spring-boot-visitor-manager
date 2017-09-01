@@ -9,12 +9,14 @@ import com.sina.sina.dao.rowmapper.RRowMapper;
 import com.sina.sina.models.R;
 import java.util.List;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author mphj
  */
 @Repository
+@Transactional
 public class RDao extends AbstractDao{
 
     @Override
@@ -24,14 +26,15 @@ public class RDao extends AbstractDao{
     
     
     public void insert(R cm) {
-        jdbcTemplate
+        /*jdbcTemplate
                 .update("insert into `" + getTableName() + "` values(?, ?, ?, ?, ?, ?)",
                         cm.getId(),
                         cm.getCmid(),
                         cm.getCreatedAt(),
                         cm.getStatus(),
                         cm.getDesc(),
-                        cm.getUrgency());
+                        cm.getUrgency());*/
+        getSession().save(cm);
     }
     
     public R findById(int id) {

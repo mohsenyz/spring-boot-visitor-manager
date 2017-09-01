@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
+@Transactional
 public class CmDao extends AbstractDao {
     
     public void insert(Cm cm) {
@@ -38,7 +40,7 @@ public class CmDao extends AbstractDao {
                         cm.getPassword(),
                         cm.getCreatedAt(),
                         cm.isEnabled());*/
-        Map<String, Object> map = new HashMap<>();
+        /*Map<String, Object> map = new HashMap<>();
         map.put("id", cm.getId());
         map.put("name", cm.getName());
         map.put("a_fname", cm.getaFname());
@@ -52,7 +54,8 @@ public class CmDao extends AbstractDao {
         map.put("created_at", cm.getCreatedAt());
         map.put("enabled", cm.isEnabled());
         int key = simpleJdbcInsert.executeAndReturnKey(map).intValue();
-        cm.setId(key);
+        cm.setId(key);*/
+        getSession().save(cm);
     }
 
     public Cm findById(int id) {

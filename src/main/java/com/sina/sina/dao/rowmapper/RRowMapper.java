@@ -24,7 +24,7 @@ public class RRowMapper implements RowMapper{
         r.setCmid(rs.getInt("cmid"));
         r.setCreatedAt(DaoHelper.getTimestamp(rs, "created_at"));
         r.setStatus(rs.getInt("status"));
-        r.setDesc(rs.getString("desc"));
+        r.setDesc(rs.getString("description"));
         r.setUrgency(rs.getInt("urgency"));
         return r;
     }

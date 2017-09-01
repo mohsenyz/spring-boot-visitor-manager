@@ -18,12 +18,14 @@ import java.util.TimeZone;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author mphj
  */
 @Repository
+@Transactional
 public class DsDao extends AbstractDao{
 
     @Override
@@ -50,7 +52,7 @@ public class DsDao extends AbstractDao{
                         cm.getVerifiedAt(),
                         cm.getCreatedAt(),
                         cm.isEnabled());*/
-        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        /*GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection cnctn) throws SQLException {
@@ -74,7 +76,8 @@ public class DsDao extends AbstractDao{
                 return pr.build();
             }
         }, generatedKeyHolder);
-        cm.setId(generatedKeyHolder.getKey().intValue());
+        cm.setId(generatedKeyHolder.getKey().intValue());*/
+        getSession().save(cm);
     }
     
     public Ds findById(int id) {

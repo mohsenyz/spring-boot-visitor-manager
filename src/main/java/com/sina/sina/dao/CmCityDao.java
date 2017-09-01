@@ -9,12 +9,14 @@ import com.sina.sina.dao.rowmapper.CmCityRowMapper;
 import com.sina.sina.models.CmCity;
 import java.util.List;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author mphj
  */
 @Repository
+@Transactional
 public class CmCityDao extends AbstractDao{
 
     @Override
@@ -23,11 +25,12 @@ public class CmCityDao extends AbstractDao{
     }
     
     public void insert(CmCity cm) {
-        jdbcTemplate
+        /*jdbcTemplate
                 .update("insert into `" + getTableName() + "` values(?, ?, ?)",
                         cm.getId(),
                         cm.getCmid(),
-                        cm.getCid());
+                        cm.getCid());*/
+        getSession().save(cm);
     }
     
     public CmCity findById(int id) {

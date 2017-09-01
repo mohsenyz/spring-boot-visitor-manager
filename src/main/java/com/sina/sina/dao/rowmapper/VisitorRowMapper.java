@@ -34,7 +34,7 @@ public class VisitorRowMapper implements RowMapper{
         visitor.setAddress(rs.getString("address"));
         visitor.setGradeExp(rs.getString("grade_exp"));
         visitor.setWorkExp(rs.getString("work_exp"));
-        visitor.setDesc(rs.getString("desc"));
+        visitor.setDesc(rs.getString("description"));
         visitor.setType(rs.getInt("type"));
         visitor.setCreatedAt(DaoHelper.getTimestamp(rs, "created_at"));
         visitor.setEnabled(rs.getBoolean("enabled"));

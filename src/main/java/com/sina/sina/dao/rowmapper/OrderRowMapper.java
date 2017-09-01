@@ -41,7 +41,7 @@ public class OrderRowMapper implements RowMapper{
         order.setPrevSessionId(DaoHelper.getInteger(rs, "prev_session_id"));
         order.setContent(rs.getString("content"));
         order.setResult(rs.getString("result"));
-        order.setDesc(rs.getString("desc"));
+        order.setDesc(rs.getString("description"));
         order.setGivenDocument(rs.getString("given_document"));
         order.setNeededDocument(rs.getString("needed_document"));
         order.setForwardToVid(DaoHelper.getInteger(rs, "forward_to_vid"));
