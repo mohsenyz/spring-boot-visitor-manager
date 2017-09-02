@@ -226,6 +226,7 @@ public class NewVisitController {
             order.setDrVisitPlaceName(visit_place_name);
             order.setDrSuggestion(dr_visit_suggestion);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         try {
             order.setDsVisitedName(ds_visited_name);
@@ -236,6 +237,7 @@ public class NewVisitController {
             order.setDsRival(ds_opponent);
             order.setDsIndexDr(ds_dr_index);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         try{
             order.setCmid(Integer.parseInt(cm));

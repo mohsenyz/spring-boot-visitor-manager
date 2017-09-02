@@ -118,15 +118,15 @@
             <section ng-if="x.dr != null">
                 <div class="header-row col-2-normal">
                     <span class="span-10"><b>محل ویزیت: </b><i>
-                            <span ng-show="x.dr.drVisitPlace == 1">مطب</span>
-                            <span ng-show="x.dr.drVisitPlace == 2">کلینیک</span>
-                            <span ng-show="x.dr.drVisitPlace == 3">درمانگاه</span>
-                            <span ng-show="x.dr.drVisitPlace == 4">بیمارستان</span>
+                            <span ng-show="x.order.drVisitPlace == 1">مطب</span>
+                            <span ng-show="x.order.drVisitPlace == 2">کلینیک</span>
+                            <span ng-show="x.order.drVisitPlace == 3">درمانگاه</span>
+                            <span ng-show="x.order.drVisitPlace == 4">بیمارستان</span>
                         </i></span>
                 </div>
                 <div class="header-row col-2-normal">
                     <span class="span-10"><b>نام محل ملاقات: </b><i>
-                            {{x.dr.drVisitPlaceName}}
+                            {{x.order.drVisitPlaceName}}
                         </i></span>
                 </div>
                 <h3>کدام یک از محصولات معرفی شده توسط پزشک نسخه میشود: </h3>
@@ -177,7 +177,123 @@
                         </i></span>
                 </div>
                 <h3>انتقاد / پیشنهاد پزشک در مورد محصولات سینا فرآور : </h3>
-                <textarea ng-model="dr_visit_suggestion">
+                <div class="area area-90">
+                    {{x.order.drSuggestion}}
+                </div>
+            </section>
+
+
+            <section ng-if="x.ds != null">
+                <div class="header-row col-2-normal">
+                    <span class="span-10"><b>نام کامل ویزیت شونده:</b><i>
+                            {{x.order.dsVisitedName}}
+                        </i></span>
+                </div>
+                <div class="header-row col-2-normal">
+                    <span class="span-5"><b>شغل:</b><i>
+                            <span ng-show="x.order.dsVisitedJob == 1">مسیول فنی</span>
+                            <span ng-show="x.order.dsVisitedJob == 2">مسیول سفارش</span>
+                        </i></span>
+                    <span class="span-5"><b>شماره تلفن</b><i>
+                            {{x.order.dsVisitedPhone}}
+                        </i></span>
+                </div>
+                <h3>با کدام یک از محصولات ویزیت شده آشنایی دارند؟</h3>
+                <!-- @TODO drugs not supported -->
+                <div class="normal-row">
+                    <button class="button" ng-click="known_drugs[known_drugs.length] = {drug: null, reason: null}; reInit();">
+                        افزودن دارو
+                    </button>
+                </div>
+                <div class="header-row col-2-normal" ng-repeat="x in known_drugs">
+                    <span class="span-5"><b>دارو : </b><i>
+                            <select ng-model="x.drug">
+                                <option>همولاکس</option>
+                                <option>دایجستر</option>
+                            </select>
+                        </i></span>
+                    <span class="span-5"><b>علت : </b><i>
+                            <select class="comp" ng-model="x.reason">
+                                <option value="1" selected="selected">ویزیت</option>
+                                <option value="2">تبلیغات</option>
+                                <option value="3">همایش</option>
+                                <option value="4">از طریق توزیع</option>
+                            </select>
+                        </i></span>
+                </div>
+                <h3>کدام یک از محصولات ویزیت شده در داروخانه وجود دارد؟</h3>
+                <div class="normal-row">
+                    <button class="button" ng-click="exists_drugs[exists_drugs.length] = {drug: null, reason: null}; reInit();">
+                        افزودن دارو
+                    </button>
+                </div>
+                <div class="header-row col-2-normal" ng-repeat="x in exists_drugs">
+                    <span class="span-5"><b>دارو : </b><i>
+                            <select ng-model="x.drug">
+                                <option>همولاکس</option>
+                                <option>دایجستر</option>
+                            </select>
+                        </i></span>
+                    <span class="span-5"><b>علت : </b><i>
+                            <select class="comp" ng-model="x.reason">
+                                <option value="1" selected="selected">ویزیت</option>
+                                <option value="2">تبلیغات</option>
+                                <option value="3">همایش</option>
+                                <option value="4">از طریق توزیع</option>
+                            </select>
+                        </i></span>
+                </div>
+                <div class="header-row col-2-normal">
+                    <span class="span-10"><b>راهکار پیشنهادی داروخانه برای افزایش فروش محصول:</b><i>
+                                <span value="1">ویزیت پزشکان</span>
+                                <span value="2">بیمه شدن</span>
+                                <span value="3">جایزه جنسی</span>
+                                <span value="4">جایزه نقدی</span>
+                                <span value="5">آگاهی مصرف کننده</span>
+                                <span value="6">کیفیت</span>
+                                <span value="7">قیمت</ospanption>
+                                <span value="8">بسته بندی</span>
+                        </i></span>
+                </div>
+                <h3>میزان فروش ماهانه محصول معرفی شده</h3>
+                <div class="normal-row">
+                    <button class="button" ng-click="drugs_esales[drugs_esales.length] = {drug: null, num: null}; reInit();">
+                        افزودن دارو
+                    </button>
+                </div>
+                <div class="header-row col-2-normal" ng-repeat="x in drugs_esales">
+                    <span class="span-5"><b>دارو : </b><i>
+                            <select ng-model="x.drug">
+                                <option>همولاکس</option>
+                                <option>دایجستر</option>
+                            </select>
+                        </i></span>
+                    <span class="span-5"><b>تعداد : </b><i>
+                            <input type="number" ng-model="x.num"/>
+                        </i></span>
+                </div>
+                <h3>نام و اولویت شرکت توزیع کننده ی مناسب از نظر داروخانه:</h3>
+                <textarea ng-model="ds_pop_ds_name">
+                </textarea>
+                <h3>محصولات مشابه محصولات معرفی شده موجود در داروخانه:</h3>
+                <div class="normal-row">
+                    <button class="button" ng-click="same_drugs[same_drugs.length] = {drugname: null, num: null}; reInit();">
+                        افزودن دارو
+                    </button>
+                </div>
+                <div class="header-row col-2-normal" ng-repeat="x in same_drugs">
+                    <span class="span-5"><b>دارو : </b><i>
+                            <input type="text" ng-model="x.drugname"/>
+                        </i></span>
+                    <span class="span-5"><b>تعداد : </b><i>
+                            <input type="number" ng-model="x.num"/>
+                        </i></span>
+                </div>
+                <h3>تسهیلات رقبا:</h3>
+                <textarea ng-model="ds_opponent">
+                </textarea>
+                <h3>پزشکان شاخص مجاور داروخانه: </h3>
+                <textarea ng-model="ds_dr_index">
                 </textarea>
             </section>
 

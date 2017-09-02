@@ -1,7 +1,7 @@
 <section ng-show="doctor != 'none'">
     <div class="header-row col-2-normal">
         <span class="span-10"><b>محل ویزیت: </b><i>
-                <select class="comp" ng-model="visit_place">
+                <select class="comp" ng-model="$parent.visit_place">
                     <option value="1" selected="selected">مطب</option>
                     <option value="2">کلینیک</option>
                     <option value="3">درمانگاه</option>
@@ -11,16 +11,16 @@
     </div>
     <div class="header-row col-2-normal">
         <span class="span-10"><b>نام محل ملاقات: </b><i>
-                <input type="text" ng-model="visit_place_name"/>
+                <input type="text" ng-model="$parent.visit_place_name"/>
             </i></span>
     </div>
     <h3>کدام یک از محصولات معرفی شده توسط پزشک نسخه میشود: </h3>
     <div class="normal-row">
-        <button class="button" ng-click="noskhe[noskhe.length] = {drug : null, reason : null, desc : null}; reInit();">
+        <button class="button" ng-click="$parent.noskhe[$parent.noskhe.length] = {drug : null, reason : null, desc : null}; reInit();">
             افزودن دارو
         </button>
     </div>
-    <div class="header-row col-2-normal" ng-repeat="x in noskhe">
+    <div class="header-row col-2-normal" ng-repeat="x in $parent.noskhe">
         <span class="span-3"><b>دارو : </b><i>
                 <select ng-model="x.drug">
                     <option>همولاکس</option>
@@ -40,11 +40,11 @@
     </div>
     <h3>علت نسخه نشدن داروها : </h3>
     <div class="normal-row">
-        <button class="button" ng-click="not_noskhe[not_noskhe.length] = {drug : null, reason : null, desc : null}; reInit();">
+        <button class="button" ng-click="$parent.not_noskhe[$parent.not_noskhe.length] = {drug : null, reason : null, desc : null}; reInit();">
             افزودن دارو
         </button>
     </div>
-    <div class="header-row col-2-normal" ng-repeat="x in not_noskhe">
+    <div class="header-row col-2-normal" ng-repeat="x in $parent.not_noskhe">
         <span class="span-3"><b>دارو : </b><i>
                 <select ng-model="x.drug">
                     <option>همولاکس</option>
@@ -66,6 +66,6 @@
             </i></span>
     </div>
     <h3>انتقاد / پیشنهاد پزشک در مورد محصولات سینا فرآور : </h3>
-    <textarea ng-model="dr_visit_suggestion">
+    <textarea ng-model="$parent.dr_visit_suggestion">
     </textarea>
 </section>
