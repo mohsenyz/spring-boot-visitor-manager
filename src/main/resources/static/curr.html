@@ -2,51 +2,188 @@
     <br/>
     <div class="panel">
         <div class="panel-head">
-            <htmldiv content="curr.name"></htmldiv>
+            ویزیت شماره ی  {{x.order.id}}
+            <span class="date">{{x.order.created_at}}</span>
         </div>
         <div class="panel-body">
-            <htmldiv content="curr.bar"></htmldiv>
-            <h3>مشخصات داروخانه : </h3>
-            <div class="area fade-animation">
+            <div class="header-row col-2" ng-if="x.order.forwardToVid == null && x.order.nextSession == null">
+                <span ng-if="x.ds != null"><b>نام داروخانه: </b><i>{{x.ds.name}}</i></span>
+                <span ng-if="x.dr != null"><b>نام دکتر: </b><i>{{x.dr.name}}</i></span>
+                <span><b>وضعیت: </b>
+                    <i ng-if="x.order.submited == 1">تمام شده</i>
+                    <i ng-if="x.order.submited != 1 && x.order.viewedAt == null">انتظار</i>
+                    <i ng-if="x.order.submited != 1 && x.order.viewedAt != null">بررسی شده</i></span>
+            </div>
+
+            <div class="header-row col-3" ng-if="x.order.forwardToVid == null && x.order.nextSession != null">
+                <span ng-if="x.ds != null"><b>نام داروخانه: </b><i>{{x.ds.name}}</i></span>
+                <span ng-if="x.dr != null"><b>نام دکتر: </b><i>{{x.dr.name}}</i></span>
+                <span><b>وضعیت: </b>
+                    <i ng-if="x.order.submited == 1">تمام شده</i>
+                    <i ng-if="x.order.submited == 0 && x.order.viewedAt == null">انتظار</i>
+                    <i ng-if="x.order.submited != 1 && x.order.viewedAt != null">بررسی شده</i>
+                </span>
+                <span class="tooltip" title="{{x.order.nextSession}}"><b>ویزیت بعدی: </b><i>{{x.order.nextSession}}</i></span>
+
+            </div>
+
+
+            <div class="header-row col-3" ng-if="x.order.forwardToVid != null && x.order.nextSession == null">
+                <span ng-if="x.ds != null"><b>نام داروخانه: </b><i>{{x.ds.name}}</i></span>
+                <span ng-if="x.dr != null"><b>نام دکتر: </b><i>{{x.dr.name}}</i></span>
+                <span><b>وضعیت: </b>
+                    <i ng-if="x.order.submited == 1">تمام شده</i>
+                    <i ng-if="x.order.submited == 0 && x.order.viewedAt == null">انتظار</i>
+                    <i ng-if="x.order.submited != 1 && x.order.viewedAt != null">بررسی شده</i>
+                </span>
+                <span class="tooltip" title="1396/04/17"><b>منتقل شده به: </b><i><a href="#!user/{{x.visitor.id}}" class="classic">{{x.visitor.fname}} {{x.visitor.lname}}</a></i></span>
+            </div>
+            <!-- Doctor section -->
+            <div class="area fade-animation" ng-if="x.dr != null">
                 <div class="nrow">
-                    <div class="normal-row span-5"><label>نام داروخانه : </label>فتاح الجنان</div>
-                    <div class="normal-row span-5"><label>نام مسیول فنی: </label>سینا</div>
+                    <div class="normal-row span-5"><label>نام پزشک : </label>{{x.dr.name}}</div>
+                    <div class="normal-row span-5"><label>تخصص / سمت: </label>{{x.dr.expert}}</div>
+                </div>
+                <div class="header-row row-100">
+                    <span class="span-10"><b> بهترین زمان ویزیت: </b><i>
+                            <span ng-show="x.dr.bestVisitTime1 == 3">صبح و عصر</span>
+                            <span ng-show="x.dr.bestVisitTime1 == 2">صبح</span>
+                            <span ng-show="x.dr.bestVisitTime1 == 1">عصر</span>
+                        </i></span>
                 </div>
                 <div class="nrow">
-                    <div class="normal-row span-10"><label>شماره تلفن: </label>09135555555</div>
+                    <div class="normal-row span-5"><label>تلفن ثابت: </label>{{x.dr.fixedPhone}}</div>
+                    <div class="normal-row span-5"><label>موبایل: </label>{{x.dr.mobile}}</div>
                 </div>
                 <div class="nrow">
-                    <div class="normal-row span-10"><label>آدرس: </label>آدرس</div>
+                    <div class="normal-row span-10"><label>مطب/ کلینیک یا درمانگاه / بیمارستان: </label>{{x.dr.mkdb}}</div>
                 </div>
                 <div class="nrow">
-                    <div class="normal-row span-10"><label>میزان آشنایی داروخانه با محصولات سینا فراور :  </label>-</div>
+                    <div class="normal-row span-10"><label>آدرس: </label>{{x.dr.address}}</div>
+                </div>
+                <div class="nrow">
+                    <div class="normal-row span-10"><label>ایمیل :‌ </label>{{x.dr.email}}</div>
+                </div>
+                <div class="nrow">
+                    <div class="normal-row span-10"><label>شماره نظام پزشکی:  </label>{{x.dr.pezeshk}}</div>
+                </div>
+                <div class="nrow">
+                    <div class="normal-row span-10"><label>میزان آشنایی پزشک با محصولات سینا فراور:  </label>{{x.dr.companyProductsAck}}</div>
+                </div>
+                <div class="nrow">
+                    <div class="normal-row span-10"><label>میزان رضایت مندی پزشک از تاثیر محصولات سبنا فراور: </label>{{x.dr.companyProductsPop}}</div>
                 </div>
             </div>
-            <h4>محتوا : </h4>
+
+            <div class="area fade-animation" ng-if="x.ds != null">
+                <div class="nrow">
+                    <div class="normal-row span-5"><label>نام داروخانه : </label>{{x.ds.name}}</div>
+                    <div class="normal-row span-5"><label>نام مسیول فنی: </label>{{x.ds.clerkName}}</div>
+                </div>
+                <div class="nrow">
+                    <div class="normal-row span-10"><label>شماره تلفن: </label>{{x.ds.phone}}</div>
+                </div>
+                <div class="nrow">
+                    <div class="normal-row span-10"><label>آدرس: </label>{{x.ds.address}}</div>
+                </div>
+                <div class="nrow">
+                    <div class="normal-row span-10"><label>میزان آشنایی داروخانه با محصولات سینا فراور :  </label>{{x.ds.companyProductsAck}}</div>
+                </div>
+                <div class="header-row row-100">
+                    <span class="span-5"><b> بهترین زمان ویزیت: </b><i>
+                            <span ng-show="x.ds.bestTime == 3">صبح و عصر</span>
+                            <span ng-show="x.ds.bestTime == 2">صبح</span>
+                            <span ng-show="x.ds.bestTime == 1">عصر</span>
+                        </i></span>
+                    <span class="span-5"><b>نوع داروخانه : </b><i>
+                            <span ng-show="x.ds.type == 1">دولتی</span>
+                            <span ng-show="x.ds.type == 2">خصوصی</span>
+                            <span ng-show="x.ds.type == 3">شبانه روزی</span>
+                            <span ng-show="x.ds.type == 4">بیمارستانی</span>
+                        </i></span>
+                </div>
+                <div class="header-row row-100">
+                    <span class="span-10"><b>آیا با نام داروسازی سینا فرآور آشنایی دارند؟ دلیل:</b><i>
+                            <span ng-show="x.ds.companyNameAckReason == 1">ویزیت</span>
+                            <span ng-show="x.ds.companyNameAckReason == 2">تبلیغات</span>
+                            <span ng-show="x.ds.companyNameAckReason == 3">همایش</span>
+                            <span ng-show="x.ds.companyNameAckReason == 4">از طریق توزیع</span>
+                        </i></span>
+                </div>
+            </div>
+
+
+            <!-- Time to sections!! -->
+
+            <section ng-if="x.dr != null">
+                <div class="header-row col-2-normal">
+                    <span class="span-10"><b>محل ویزیت: </b><i>
+                            <span ng-show="x.dr.drVisitPlace == 1">مطب</span>
+                            <span ng-show="x.dr.drVisitPlace == 2">کلینیک</span>
+                            <span ng-show="x.dr.drVisitPlace == 3">درمانگاه</span>
+                            <span ng-show="x.dr.drVisitPlace == 4">بیمارستان</span>
+                        </i></span>
+                </div>
+                <div class="header-row col-2-normal">
+                    <span class="span-10"><b>نام محل ملاقات: </b><i>
+                            {{x.dr.drVisitPlaceName}}
+                        </i></span>
+                </div>
+                <h3>کدام یک از محصولات معرفی شده توسط پزشک نسخه میشود: </h3>
+                <!-- @TODO drugs list not supported -->
+                <div class="header-row col-2-normal" ng-repeat="x in noskhe">
+                    <span class="span-3"><b>دارو : </b><i>
+                            <select ng-model="x.drug">
+                                <option>همولاکس</option>
+                                <option>دایجستر</option>
+                            </select>
+                        </i></span>
+                    <span class="span-3"><b>علت : </b><i>
+                            <select ng-model="x.reason">
+                                <option value="1">کیفیت</option>
+                                <option value="2">قیمت</option>
+                                <option value="3">موجود بودن</option>
+                            </select>
+                        </i></span>
+                    <span class="span-4"><b>سایر: </b><i>
+                            <input type="text" ng-model="x.desc"/>
+                        </i></span>
+                </div>
+                <h3>علت نسخه نشدن داروها : </h3>
+                <div class="normal-row">
+                    <button class="button" ng-click="not_noskhe[not_noskhe.length] = {drug: null, reason: null, desc: null}; reInit();">
+                        افزودن دارو
+                    </button>
+                </div>
+                <div class="header-row col-2-normal" ng-repeat="x in not_noskhe">
+                    <span class="span-3"><b>دارو : </b><i>
+                            <select ng-model="x.drug">
+                                <option>همولاکس</option>
+                                <option>دایجستر</option>
+                            </select>
+                        </i></span>
+                    <span class="span-3"><b>علت : </b><i>
+                            <select ng-model="x.reason">
+                                <option value="1">کیفیت</option>
+                                <option value="2">قیمت</option>
+                                <option value="3">موجود نبودن</option>
+                                <option value="4">عدم آشنایی</option>
+                                <option value="5">بیمه نبودن</option>
+                                <option value="6">گیاهی بودن محصولات</option>
+                            </select>
+                        </i></span>
+                    <span class="span-4"><b>سایر: </b><i>
+                            <input type="text" ng-model="x.desc"/>
+                        </i></span>
+                </div>
+                <h3>انتقاد / پیشنهاد پزشک در مورد محصولات سینا فرآور : </h3>
+                <textarea ng-model="dr_visit_suggestion">
+                </textarea>
+            </section>
+
+            <h4>توضیحات : </h4>
             <div class="area area-90">
-                محتوای ویزیت
-            </div>
-            <h4>داروهای پیشنهاد شده : </h4>
-            <div class="header-row col-2">
-                <span><b>دارو : </b><i>
-                        همولاکس 
-                    </i></span>
-                <span><b>تعداد : </b><i>
-                        ۱۰
-                    </i></span>
-            </div>
-            <h4 ng-show="curr.result">نتیجه : </h4>
-            <div class="area area-90" ng-show="curr.result">
-                نتیجه ی ویزیت
-            </div>
-            <h4 ng-show="curr.result">داروها : </h4>
-            <div class="header-row col-2" ng-show="curr.result">
-                <span><b>دارو : </b><i>
-                        همولاکس 
-                    </i></span>
-                <span><b>تعداد : </b><i>
-                        ۱۰
-                    </i></span>
+                {{x.order.desc}}
             </div>
         </div>
         <br/>
@@ -54,9 +191,9 @@
     <br/><br/><br/><br/><br/><br/>
 </div>
 <script>
-            $(document).ready(function () {
-                $('.tooltip').tooltipster({
-                    theme: 'tooltipster-borderless'
-                });
-            });
+    $(document).ready(function () {
+        $('.tooltip').tooltipster({
+            theme: 'tooltipster-borderless'
+        });
+    });
 </script>

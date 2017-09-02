@@ -32,7 +32,8 @@ app.directive("fileread", [
 app.config(function ($routeProvider) {
     $routeProvider
             .when("/", {
-                templateUrl: "reports.html"
+                templateUrl: "reports.html",
+                controller : "reports"
             })
             .when("/received-visit", {
                 templateUrl: "received_visits.html"
@@ -74,17 +75,10 @@ app.run(function ($rootScope, $location, $timeout) {
     $rootScope.go = function (path) {
         $location.path(path);
     };
-    $rootScope.curr = {
-        bar: '',
-        name: '',
-        result: false,
-    };
-    $rootScope.showCurr = function ($event, type) {
-        var curr = $($event.originalEvent.originalTarget).parent();
-        $rootScope.curr.bar = curr.find(".panel-body").html();
-        $rootScope.curr.name = curr.find(".panel-head").html();
-        $rootScope.curr.result = type;
-        console.log($rootScope.curr);
+    $rootScope.x = null;
+    $rootScope.showCurr = function ($event, obj) {
+        $rootScope.x = obj;
+        console.log($rootScope.x);
         $rootScope.go('curr');
         $('.tooltip').tooltipster({
             theme: 'tooltipster-borderless'
@@ -102,6 +96,15 @@ app.run(function ($rootScope, $location, $timeout) {
     };
     $rootScope.$on("$includeContentLoaded", function (event, templateName) {
         $rootScope.reInit();
+    });
+});
+app.controller("reports", function($scope, $http){
+    $scope.visits = [];
+    $.getJSON("/visitor/reports", function(data){
+       for (i = 0; i < data.length; i++){
+           $scope.visits.push(data[i]);
+           $scope.$apply();
+       } 
     });
 });
 app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
