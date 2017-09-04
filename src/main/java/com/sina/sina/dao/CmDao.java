@@ -9,12 +9,14 @@ import com.sina.sina.dao.rowmapper.CityRowMapper;
 import com.sina.sina.dao.rowmapper.CmRowMapper;
 import com.sina.sina.models.City;
 import com.sina.sina.models.Cm;
+import com.sina.sina.models.Ds;
 import com.sina.sina.models.Visitor;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,11 +63,9 @@ public class CmDao extends AbstractDao {
     }
 
     public Cm findById(int id) {
-        return (Cm) jdbcTemplate
-                .queryForObject(
-                        "select * from `" + getTableName() + "` where id = ?",
-                        new Object[]{id},
-                        new CmRowMapper());
+        Criteria crit = getSession().createCriteria(Cm.class);
+        crit.add(Restrictions.eq("id", id));
+        return (Cm)crit.uniqueResult();
     }
     
     public List<Cm> listAll(){

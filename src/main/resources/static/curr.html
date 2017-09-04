@@ -245,14 +245,14 @@
                 </div>
                 <div class="header-row col-2-normal">
                     <span class="span-10"><b>راهکار پیشنهادی داروخانه برای افزایش فروش محصول:</b><i>
-                                <span value="1">ویزیت پزشکان</span>
-                                <span value="2">بیمه شدن</span>
-                                <span value="3">جایزه جنسی</span>
-                                <span value="4">جایزه نقدی</span>
-                                <span value="5">آگاهی مصرف کننده</span>
-                                <span value="6">کیفیت</span>
-                                <span value="7">قیمت</ospanption>
-                                <span value="8">بسته بندی</span>
+                            <span ng-show="x.order.dsIdea == 1">ویزیت پزشکان</span>
+                            <span ng-show="x.order.dsIdea == 2">بیمه شدن</span>
+                            <span ng-show="x.order.dsIdea == 3">جایزه جنسی</span>
+                            <span ng-show="x.order.dsIdea == 4">جایزه نقدی</span>
+                            <span ng-show="x.order.dsIdea == 5">آگاهی مصرف کننده</span>
+                            <span ng-show="x.order.dsIdea == 6">کیفیت</span>
+                            <span ng-show="x.order.dsIdea == 7">قیمت</span>
+                            <span ng-show="x.order.dsIdea == 8">بسته بندی</span>
                         </i></span>
                 </div>
                 <h3>میزان فروش ماهانه محصول معرفی شده</h3>
@@ -296,11 +296,37 @@
                 <textarea ng-model="ds_dr_index">
                 </textarea>
             </section>
-
+            <div class="header-row col-2-normal">
+                <span class="span-10"><b>مرکز پخش :‌  </b><i>
+                        {{x.cm.name}}
+                    </i></span>
+            </div>
             <h4>توضیحات : </h4>
             <div class="area area-90">
                 {{x.order.desc}}
             </div>
+            <h3>محتوا : </h3>
+            <div class="area area-90">
+                {{x.order.content}}
+            </div>
+            <h3>اقلام تحویلی:</h3>
+            <div class="header-row col-2-normal">
+                <span class="span-10">
+                    <b>
+                        اقلام تحویلی:
+                    </b>
+                    <i>
+                        <span ng-show="x.order.givenDocument == 1">کاتالوگ محصولات</span>
+                        <span ng-show="x.order.givenDocument == 2">جدول دارویی</span>
+                        <span ng-show="x.order.givenDocument == 3">بروشور</span>
+                        <span ng-show="x.order.givenDocument == 4">پوستر</span>
+                    </i>
+                </span>
+            </div>
+            <h3>موارد درخواستی:</h3>
+            <div class="area area-90">{{x.order.neededDocument}}</div>
+            <h3>نتیجه : </h3>
+            <div class="area area-90">{{x.order.result}}</div>
         </div>
         <br/>
     </div>
