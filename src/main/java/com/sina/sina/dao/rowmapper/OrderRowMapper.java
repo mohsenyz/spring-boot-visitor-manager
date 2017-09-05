@@ -37,7 +37,7 @@ public class OrderRowMapper implements RowMapper{
         order.setDrSuggestion(rs.getString("dr_suggestion"));
         order.setCreatedAt(DaoHelper.getTimestamp(rs, "created_at"));
         order.setCreatedAtAp(rs.getInt("created_at_ap"));
-        order.setNextSession(DaoHelper.getTimestamp(rs, " next_session"));
+        order.setNextSession(DaoHelper.getTimestamp(rs, "next_session"));
         order.setPrevSessionId(DaoHelper.getInteger(rs, "prev_session_id"));
         order.setContent(rs.getString("content"));
         order.setResult(rs.getString("result"));

@@ -100,7 +100,7 @@ public class OrderDao extends AbstractDao {
     public List<Order> findByCm(int cm) {
         return jdbcTemplate.
                 query(
-                        "select `order`.* from`" + getTableName() + "`, `visitor_cm` where order.vid = visitor_cm.vid and visitor_cm.cid = ?",
+                        "select `order_list`.* from `" + getTableName() + "`, `visitor_cm` where order_list.vid = visitor_cm.vid and visitor_cm.cid = ?",
                         new Object[]{cm},
                         new OrderRowMapper());
     }
@@ -108,7 +108,7 @@ public class OrderDao extends AbstractDao {
     public List<Order> findByCmByVisitorByTime(int cm, String visitors, Timestamp from, Timestamp to) {
         return jdbcTemplate.
                 query(
-                        "select `order`.* from`" + getTableName() + "`, `visitor_cm` where order.vid = visitor_cm.vid and visitor_cm.cid = ? and vid in(?) and created_at between ? and ?",
+                        "select `order_list`.* from`" + getTableName() + "`, `visitor_cm` where order_list.vid = visitor_cm.vid and visitor_cm.cid = ? and vid in(?) and created_at between ? and ?",
                         new Object[]{cm, ArrayUtils.toIntArray(visitors.split(",")), from, to},
                         new OrderRowMapper());
     }
@@ -116,7 +116,7 @@ public class OrderDao extends AbstractDao {
     public List<Order> receivedByCm(int cm) {
         return jdbcTemplate.
                 query(
-                        "select `order`.* from`" + getTableName() + "` where order.cmid = ?",
+                        "select `order_list`.* from`" + getTableName() + "` where order_list.cmid = ?",
                         new Object[]{cm},
                         new OrderRowMapper());
     }
@@ -124,7 +124,7 @@ public class OrderDao extends AbstractDao {
     public List<Order> findFinishedByCm(int cm) {
         return jdbcTemplate.
                 query(
-                        "select `order`.* from`" + getTableName() + "`, `visitor_cm` where order.vid = visitor_cm.vid and visitor_cm.cid = ? and submited = 1",
+                        "select `order_list`.* from`" + getTableName() + "`, `visitor_cm` where order_list.vid = visitor_cm.vid and visitor_cm.cid = ? and submited = 1",
                         new Object[]{cm},
                         new OrderRowMapper());
     }
@@ -132,7 +132,7 @@ public class OrderDao extends AbstractDao {
     public List<Order> findSeenByDs(int ds) {
         return jdbcTemplate.
                 query(
-                        "select `order`.* from`" + getTableName() + "` where dsid = ? and vid is null and viewed_at is not null",
+                        "select `order_list`.* from`" + getTableName() + "` where dsid = ? and vid is null and viewed_at is not null",
                         new Object[]{ds},
                         new OrderRowMapper());
     }
@@ -140,7 +140,7 @@ public class OrderDao extends AbstractDao {
     public List<Order> findFinishedByDs(int ds) {
         return jdbcTemplate.
                 query(
-                        "select `order`.* from`" + getTableName() + "` where dsid = ? and vid is null and submited  = 1",
+                        "select `order_list`.* from`" + getTableName() + "` where dsid = ? and vid is null and submited  = 1",
                         new Object[]{ds},
                         new OrderRowMapper());
     }
@@ -148,14 +148,14 @@ public class OrderDao extends AbstractDao {
     public List<Order> findAllDsOrder() {
         return jdbcTemplate.
                 query(
-                        "select `order`.* from`" + getTableName() + "` where vid is null",
+                        "select `order_list`.* from`" + getTableName() + "` where vid is null",
                         new OrderRowMapper());
     }
 
     public List<Order> findAll() {
         return jdbcTemplate.
                 query(
-                        "select `order`.* from`" + getTableName() + "`",
+                        "select `order_list`.* from`" + getTableName() + "`",
                         new OrderRowMapper());
     }
 }

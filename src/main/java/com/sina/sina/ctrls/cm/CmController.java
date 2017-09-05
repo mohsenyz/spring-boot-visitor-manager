@@ -5,9 +5,17 @@
  */
 package com.sina.sina.ctrls.cm;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.sina.sina.dao.CmDao;
+import com.sina.sina.dao.DrDao;
+import com.sina.sina.dao.DsDao;
 import com.sina.sina.dao.OrderDao;
 import com.sina.sina.dao.VisitorDao;
 import com.sina.sina.models.Cm;
+import com.sina.sina.models.Dr;
+import com.sina.sina.models.Ds;
 import com.sina.sina.models.Order;
 import com.sina.sina.models.Visitor;
 import com.utils.time.TimeHelper;
@@ -32,14 +40,55 @@ public class CmController {
     
     @Autowired
     VisitorDao visitorDao;
+
+    @Autowired
+    DrDao drDao;
+
+    @Autowired
+    DsDao dsDao;
+
+    @Autowired
+    CmDao cmDao;
     
     @GetMapping("/cm/reports/visits")
-    public List<Order> getOrders(HttpSession httpSession){
+    public ArrayNode getOrders(HttpSession httpSession){
         if (httpSession.getAttribute("cm") == null){
-            return new ArrayList<>();
+            return null;
         }
         Cm cm = (Cm)httpSession.getAttribute("cm");
-        return orderDao.findByCm(cm.getId());
+        List<Order> list = orderDao.findByCm(cm.getId());
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayNode arrayNode = mapper.createArrayNode();
+        for (Order order : list) {
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.putPOJO("order", order);
+            fillOrder(order, objectNode);
+            arrayNode.add(objectNode);
+        }
+        return arrayNode;
+    }
+    
+    
+    public void fillOrder(Order order, ObjectNode objectNode) {
+        if (order.getDrid() != null) {
+            Dr dr = drDao.findById(order.getDrid());
+            objectNode.putPOJO("dr", dr);
+        } else if (order.getDsid() != null) {
+            Ds ds = dsDao.findById(order.getDsid());
+            objectNode.putPOJO("ds", ds);
+        }
+        if (order.getForwardToVid() != null) {
+            Visitor visitor = visitorDao.findById(order.getForwardToVid());
+            objectNode.putPOJO("visitor", visitor);
+        }
+        if (order.getCmid() != null) {
+            Cm visitor = cmDao.findById(order.getCmid());
+            objectNode.putPOJO("cm", visitor);
+        }
+        if (order.getVid() != null){
+            Visitor visitor = visitorDao.findById(order.getVid());
+            objectNode.putPOJO("v", visitor);
+        }
     }
     
     
