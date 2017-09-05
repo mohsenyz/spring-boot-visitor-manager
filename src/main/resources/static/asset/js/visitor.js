@@ -1,19 +1,19 @@
 Array.prototype.hasObject = (
-  !Array.indexOf ? function (o)
-  {
-    var l = this.length + 1;
-    while (l -= 1)
-    {
-        if (this[l - 1] === o)
+        !Array.indexOf ? function (o)
         {
-            return true;
-        }
-    }
-    return false;
-  } : function (o)
-  {
+            var l = this.length + 1;
+            while (l -= 1)
+            {
+                if (this[l - 1] === o)
+                {
+                    return true;
+                }
+            }
+            return false;
+        } : function (o)
+{
     return (this.indexOf(o) !== -1);
-  }
+}
 );
 var app = angular.module("mphj", ["ngRoute"]);
 app.directive('htmldiv', function ($compile, $parse) {
@@ -50,16 +50,19 @@ app.config(function ($routeProvider) {
     $routeProvider
             .when("/", {
                 templateUrl: "reports.html",
-                controller : "reports"
+                controller: "reports"
             })
             .when("/received-visit", {
-                templateUrl: "received_visits.html"
+                templateUrl: "received_visits.html",
+                controller: "received-visit"
             })
             .when("/next-visit", {
-                templateUrl: "next_visists.html"
+                templateUrl: "next_visists.html",
+                controller: "next-visits"
             })
             .when("/forwarded-visit", {
-                templateUrl: "forwarded_visits.html"
+                templateUrl: "forwarded_visits.html",
+                controller: "forwarded-visits"
             })
             .when("/user", {
                 templateUrl: "user_visitor.html",
@@ -115,13 +118,49 @@ app.run(function ($rootScope, $location, $timeout) {
         $rootScope.reInit();
     });
 });
-app.controller("reports", function($scope, $http){
+app.controller("reports", function ($scope, $http) {
     $scope.visits = [];
-    $.getJSON("/visitor/reports", function(data){
-       for (i = 0; i < data.length; i++){
-           $scope.visits.push(data[i]);
-           $scope.$apply();
-       } 
+    $.getJSON("/visitor/reports", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.visits.push(data[i]);
+            $scope.$apply();
+        }
+    });
+});
+app.controller("received-visit", function ($scope, $http) {
+    $scope.visits = [];
+    $.getJSON("/visitor/reports/received", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.visits.push(data[i]);
+            $scope.$apply();
+        }
+    });
+});
+app.controller("next-visits", function ($scope, $http) {
+    $scope.visits = [];
+    $.getJSON("/visitor/reports/next", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.visits.push(data[i]);
+            $scope.$apply();
+        }
+    });
+});
+app.controller("forwarded-visits", function ($scope, $http) {
+    $scope.visits = [];
+    $.getJSON("/visitor/reports/forwarded", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.visits.push(data[i]);
+            $scope.$apply();
+        }
+    });
+});
+app.controller("reports", function ($scope, $http) {
+    $scope.visits = [];
+    $.getJSON("/visitor/reports", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.visits.push(data[i]);
+            $scope.$apply();
+        }
     });
 });
 app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
@@ -181,53 +220,63 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
     $scope.given_etc = null;
     $scope.needed = null;
     $scope.result = null;
-    
+
     $scope.ds_list = [];
     $scope.dr_list = [];
     $scope._drugs_list = [];
     $scope.cm_list = [];
     $scope.visitor_list = [];
-    
-    $.getJSON("/visitor/ds", function(data){
-       for (i = 0; i < data.length; i++){
-           $scope.ds_list.push(data[i]);
-           window.setTimeout(function(){$("select").trigger("change");}, 200);
-           $scope.$apply();
-       } 
+
+    $.getJSON("/visitor/ds", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.ds_list.push(data[i]);
+            window.setTimeout(function () {
+                $("select").trigger("change");
+            }, 200);
+            $scope.$apply();
+        }
     });
-    
-    $.getJSON("/visitor/dr", function(data){
-       for (i = 0; i < data.length; i++){
-           $scope.dr_list.push(data[i]);
-           window.setTimeout(function(){$("select").trigger("change");}, 200);
-           $scope.$apply();
-       } 
+
+    $.getJSON("/visitor/dr", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.dr_list.push(data[i]);
+            window.setTimeout(function () {
+                $("select").trigger("change");
+            }, 200);
+            $scope.$apply();
+        }
     });
-    
-    $.getJSON("/visitor/cm", function(data){
-       for (i = 0; i < data.length; i++){
-           $scope.cm_list.push(data[i]);
-           window.setTimeout(function(){$("select").trigger("change");}, 200);
-           $scope.$apply();
-       } 
+
+    $.getJSON("/visitor/cm", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.cm_list.push(data[i]);
+            window.setTimeout(function () {
+                $("select").trigger("change");
+            }, 200);
+            $scope.$apply();
+        }
     });
-    
-    $.getJSON("/visitor/visitor", function(data){
-       for (i = 0; i < data.length; i++){
-           $scope.visitor_list.push(data[i]);
-           window.setTimeout(function(){$("select").trigger("change");}, 200);
-           $scope.$apply();
-       } 
+
+    $.getJSON("/visitor/visitor", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.visitor_list.push(data[i]);
+            window.setTimeout(function () {
+                $("select").trigger("change");
+            }, 200);
+            $scope.$apply();
+        }
     });
-    
-    $.getJSON("/core/drugs", function(data){
-       for (i = 0; i < data.length; i++){
-           $scope._drugs_list.push(data[i]);
-           window.setTimeout(function(){$("select").trigger("change");}, 200);
-           $scope.$apply();
-       } 
+
+    $.getJSON("/core/drugs", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope._drugs_list.push(data[i]);
+            window.setTimeout(function () {
+                $("select").trigger("change");
+            }, 200);
+            $scope.$apply();
+        }
     });
-    
+
     $scope.submitThis = function () {
         dScope = {
             result_drugs: $scope.result_drugs,
@@ -243,7 +292,7 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
             known_drugs: $scope.known_drugs,
             exists_drugs: $scope.exists_drugs,
             drugs_esales: $scope.drugs_esales,
-            same_drugs : $scope.same_drugs,
+            same_drugs: $scope.same_drugs,
             next_session_date: $scope.next_session_date,
             visit_time: $scope.visit_time,
             visit_date: $scope.visit_date,
@@ -331,6 +380,11 @@ app.controller("user", function ($scope) {
             alert("متاسفانه مشکلی به وجود آمد");
         });
     };
+    $scope.info = {};
+    $.getJSON("/visitor/profile", function (data) {
+        $scope.info = data;
+        $scope.$apply();
+    });
 });
 function makeActive(ele) {
     ele = $(ele);

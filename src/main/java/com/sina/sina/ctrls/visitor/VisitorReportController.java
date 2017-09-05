@@ -149,7 +149,7 @@ public class VisitorReportController {
             return null;
         }
         Visitor currVisitor = (Visitor) httpSession.getAttribute("visitor");
-        return currVisitor;
+        return visitorDao.findById(currVisitor.getId());
     }
 
     @GetMapping("/visitor/login")

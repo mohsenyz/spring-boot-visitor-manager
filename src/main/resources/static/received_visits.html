@@ -1,23 +1,30 @@
 <div class="container">
     <br/>
-    <div class="panel">
-        <div class="panel-head" ng-click="showCurr($event, false)">
-            ویزیت شماره ی 6
-            <span class="date">1396/04/02</span>
+    <div class="panel" ng-repeat="x in visits">
+        <div class="panel-head" ng-click="showCurr($event, x)">
+            ویزیت شماره ی  {{x.order.id}}
+            <span class="date">{{x.order.created_at}}</span>
         </div>
         <div class="panel-body">
             <div class="header-row col-3">
-                <span><b>نام داروخانه: </b><i>فتاح الجنان</i></span>
-                <span><b>وضعیت: </b><i>منتقل شده</i></span>
-                <span class="tooltip" title="1396/04/17"><b>منتقل شده از طرف: </b><i><a href="#!user-mohsen" class="classic">محسن یزدانی</a></i></span>
+                <span ng-if="x.ds != null"><b>نام داروخانه: </b><i>{{x.ds.name}}</i></span>
+                <span ng-if="x.dr != null"><b>نام دکتر: </b><i>{{x.dr.name}}</i></span>
+                <span><b>وضعیت: </b>
+                    <i ng-if="x.order.submited == 1">تمام شده</i>
+                    <i ng-if="x.order.submited == 0 && x.order.viewedAt == null">انتظار</i>
+                    <i ng-if="x.order.submited != 1 && x.order.viewedAt != null">بررسی شده</i>
+                </span>
+                <span class="tooltip" title="1396/04/17"><b>منتقل شده از طرف: </b><i><a href="#!user/{{x.v.id}}" class="classic">{{x.v.fname}} {{x.v.lname}}</a></i></span>
             </div>
+
+
             <h4>توضیحات : </h4>
             <div class="area area-90">
-                توضیحات ویزیت
+                {{x.order.desc}}
             </div>
         </div>
         <br/>
-        <span class="help" ng-click="showCurr($event, false)">مشاهده ی بیشتر</span>
+        <span class="help" ng-click="showCurr($event, x)">مشاهده ی بیشتر</span>
     </div>
     <br/><br/><br/><br/><br/><br/>
 </div>
