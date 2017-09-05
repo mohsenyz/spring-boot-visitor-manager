@@ -7,8 +7,6 @@ package com.sina.sina.ctrls.visitor;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
-import com.sina.sina.dao.CityDao;
 import com.sina.sina.dao.CmDao;
 import com.sina.sina.dao.DocsDao;
 import com.sina.sina.dao.DrDao;
@@ -17,7 +15,6 @@ import com.sina.sina.dao.OrderDao;
 import com.sina.sina.dao.OrderDrugsDao;
 import com.sina.sina.dao.VisitorCityDao;
 import com.sina.sina.dao.VisitorDao;
-import com.sina.sina.models.City;
 import com.sina.sina.models.Cm;
 import com.sina.sina.models.Docs;
 import com.sina.sina.models.Dr;
@@ -30,40 +27,17 @@ import com.sina.sina.pojo.Drugs_1;
 import com.sina.sina.pojo.Drugs_2;
 import com.utils.http.Uploader;
 import com.utils.time.TimeHelper;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-import java.util.function.BiConsumer;
-import javax.annotation.Resource;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
-import javax.validation.constraints.Size;
-import org.hibernate.dialect.TimesTenDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.annotation.RequestScope;
-import org.springframework.web.context.annotation.SessionScope;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -89,11 +63,10 @@ public class NewVisitController {
 
     @Autowired
     VisitorCityDao visitorCityDao;
-    
-    
+
     @Autowired
     VisitorDao visitorDao;
-    
+
     @Autowired
     CmDao cmDao;
 
@@ -124,12 +97,12 @@ public class NewVisitController {
         try {
             order.setForwardToVid(Integer.parseInt(visitor));
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         try {
             order.setNextSession(TimeHelper.parseTimestamp(next_session_date, null));
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         if (visit_time.contains("am")) {
             order.setCreatedAtAp(1);
@@ -141,71 +114,11 @@ public class NewVisitController {
         order.setContent(content);
         order.setDesc(desc);
         int cid = visitorCityDao.findByVid(currVisitor.getId()).get(0).getCid();
-        if (drugstore.equals("make_new")) {
-            JsonNode doctorDetails = jsonNode.get("ds");
-            String ds_name = doctorDetails.get("ds_name").asText();
-            String ds_fanni_name = doctorDetails.get("ds_fanni_name").asText();
-            String ds_phone_number = doctorDetails.get("phone_number").asText();
-            String ds_address = doctorDetails.get("address").asText();
-            String ds_knowledge = doctorDetails.get("knowledge").asText();
-            String ds_best_visit_time = doctorDetails.get("best_visit_time").asText();
-            String ds_type = doctorDetails.get("type").asText();
-            String ds_company_name_ack = doctorDetails.get("company_name_ack").asText();
 
-            Ds ds = new Ds();
-            ds.setName(ds_name);
-            ds.setClerkName(ds_fanni_name);
-            ds.setPhone(ds_phone_number);
-            ds.setCity(cid);
-            ds.setAddress(ds_address);
-            ds.setCompanyProductsAck(ds_knowledge);
-            ds.setBestTime(Integer.parseInt(ds_best_visit_time));
-            ds.setType(Integer.parseInt(ds_type));
-            ds.setCompanyNameAckReason(Integer.parseInt(ds_company_name_ack));
-            dsDao.insert(ds);
-            order.setDsid(ds.getId());
-        } else {
-            try {
-                order.setDsid(Integer.parseInt(drugstore));
-            } catch (Exception e) {
-
-            }
-        }
-        if (doctor.equals("make_new")) {
-            JsonNode doctorDetails = jsonNode.get("dr");
-            String dr_name = doctorDetails.get("name").asText();
-            String dr_expertise = doctorDetails.get("expertise").asText();
-            String dr_best_visit_time = doctorDetails.get("best_visit_time").asText();
-            String dr_fixed_phone = doctorDetails.get("fixed_phone").asText();
-            String dr_mobile = doctorDetails.get("mobile").asText();
-            String dr_place = doctorDetails.get("place").asText();
-            String dr_address = doctorDetails.get("address").asText();
-            String dr_email = doctorDetails.get("email").asText();
-            String dr_pezeshk = doctorDetails.get("pezeshk").asText();
-            String dr_consent = doctorDetails.get("dr_consent").asText();
-            String dr_company_product_ack = doctorDetails.get("company_products_ack").asText();
-
-            Dr dr = new Dr();
-            dr.setName(dr_name);
-            dr.setExpert(dr_expertise);
-            dr.setBestVisitTime1(Integer.parseInt(dr_best_visit_time));
-            dr.setFixedPhone(dr_fixed_phone);
-            dr.setMobile(dr_mobile);
-            dr.setPlace(dr_place);
-            dr.setAddress(dr_address);
-            dr.setEmail(dr_email);
-            dr.setPezeshk(dr_pezeshk);
-            dr.setCompanyProductsPop(dr_consent);
-            dr.setCompanyProductsAck(dr_company_product_ack);
-            drDao.insert(dr);
-            order.setDrid(dr.getId());
-        } else {
-            try {
-                order.setDrid(Integer.parseInt(doctor));
-            } catch (Exception e) {
-
-            }
-        }
+        /**
+         * *
+         *
+         */
         String visit_place = jsonNode.get("visit_place").asText();
         String visit_place_name = jsonNode.get("visit_place_name").asText();
         String dr_visit_suggestion = jsonNode.get("dr_visit_suggestion").asText();
@@ -221,29 +134,104 @@ public class NewVisitController {
         String given_etc = jsonNode.get("given_etc").asText();
         String needed = jsonNode.get("needed").asText();
         String result = jsonNode.get("result").asText();
-        try {
-            order.setDrVisitPlace(Integer.parseInt(visit_place));
-            order.setDrVisitPlaceName(visit_place_name);
-            order.setDrSuggestion(dr_visit_suggestion);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        /**
+         * *
+         *
+         */
+        if (drugstore != null && !drugstore.equals("none")) {
+            if (drugstore.equals("make_new")) {
+                JsonNode doctorDetails = jsonNode.get("ds");
+                String ds_name = doctorDetails.get("ds_name").asText();
+                String ds_fanni_name = doctorDetails.get("ds_fanni_name").asText();
+                String ds_phone_number = doctorDetails.get("phone_number").asText();
+                String ds_address = doctorDetails.get("address").asText();
+                String ds_knowledge = doctorDetails.get("knowledge").asText();
+                String ds_best_visit_time = doctorDetails.get("best_visit_time").asText();
+                String ds_type = doctorDetails.get("type").asText();
+                String ds_company_name_ack = doctorDetails.get("company_name_ack").asText();
+
+                Ds ds = new Ds();
+                ds.setName(ds_name);
+                ds.setClerkName(ds_fanni_name);
+                ds.setPhone(ds_phone_number);
+                ds.setCity(cid);
+                ds.setAddress(ds_address);
+                ds.setCompanyProductsAck(ds_knowledge);
+                ds.setBestTime(Integer.parseInt(ds_best_visit_time));
+                ds.setType(Integer.parseInt(ds_type));
+                ds.setCompanyNameAckReason(Integer.parseInt(ds_company_name_ack));
+                dsDao.insert(ds);
+                order.setDsid(ds.getId());
+            } else {
+                try {
+                    order.setDsid(Integer.parseInt(drugstore));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                order.setDsVisitedName(ds_visited_name);
+                order.setDsVisitedJob(Integer.parseInt(ds_visited_exp));
+                order.setDsVisitedPhone(ds_visited_phone);
+                order.setDsIdea(ds_idea);
+                order.setDsPopCm(ds_pop_ds_name);
+                order.setDsRival(ds_opponent);
+                order.setDsIndexDr(ds_dr_index);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                order.setCmid(Integer.parseInt(cm));
+            } catch (Exception e) {
+                e.printStackTrace();;
+            }
         }
-        try {
-            order.setDsVisitedName(ds_visited_name);
-            order.setDsVisitedJob(Integer.parseInt(ds_visited_exp));
-            order.setDsVisitedPhone(ds_visited_phone);
-            order.setDsIdea(ds_idea);
-            order.setDsPopCm(ds_pop_ds_name);
-            order.setDsRival(ds_opponent);
-            order.setDsIndexDr(ds_dr_index);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (doctor != null && !doctor.equals("none")) {
+            if (doctor.equals("make_new")) {
+                JsonNode doctorDetails = jsonNode.get("dr");
+                String dr_name = doctorDetails.get("name").asText();
+                String dr_expertise = doctorDetails.get("expertise").asText();
+                String dr_best_visit_time = doctorDetails.get("best_visit_time").asText();
+                String dr_fixed_phone = doctorDetails.get("fixed_phone").asText();
+                String dr_mobile = doctorDetails.get("mobile").asText();
+                String dr_place = doctorDetails.get("place").asText();
+                String dr_address = doctorDetails.get("address").asText();
+                String dr_email = doctorDetails.get("email").asText();
+                String dr_pezeshk = doctorDetails.get("pezeshk").asText();
+                String dr_consent = doctorDetails.get("dr_consent").asText();
+                String dr_company_product_ack = doctorDetails.get("company_products_ack").asText();
+
+                Dr dr = new Dr();
+                dr.setName(dr_name);
+                dr.setExpert(dr_expertise);
+                dr.setBestVisitTime1(Integer.parseInt(dr_best_visit_time));
+                dr.setFixedPhone(dr_fixed_phone);
+                dr.setMobile(dr_mobile);
+                dr.setPlace(dr_place);
+                dr.setAddress(dr_address);
+                dr.setEmail(dr_email);
+                dr.setPezeshk(dr_pezeshk);
+                dr.setCompanyProductsPop(dr_consent);
+                dr.setCompanyProductsAck(dr_company_product_ack);
+                drDao.insert(dr);
+                order.setDrid(dr.getId());
+            } else {
+                try {
+                    order.setDrid(Integer.parseInt(doctor));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                order.setDrVisitPlace(Integer.parseInt(visit_place));
+                order.setDrVisitPlaceName(visit_place_name);
+                order.setDrSuggestion(dr_visit_suggestion);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        try{
-            order.setCmid(Integer.parseInt(cm));
-        }catch(Exception e){
-            
-        }
+
         // @TODO set given
         order.setGivenDocument(given_etc);
         order.setNeededDocument(needed);
@@ -337,43 +325,37 @@ public class NewVisitController {
         }
         return "done";
     }
-    
-    
-    
+
     @GetMapping("/visitor/ds")
-    public List<Ds> getDsList(HttpSession httpSession){
+    public List<Ds> getDsList(HttpSession httpSession) {
         if (httpSession.getAttribute("visitor") == null) {
             throw new SecurityException("403");
         }
         return dsDao.listAll();
     }
-    
-    
+
     @GetMapping("/visitor/dr")
-    public List<Dr> getDrList(HttpSession httpSession){
+    public List<Dr> getDrList(HttpSession httpSession) {
         if (httpSession.getAttribute("visitor") == null) {
             throw new SecurityException("403");
         }
         return drDao.listAll();
     }
-    
-   
-    
+
     @GetMapping("/visitor/visitor")
-    public List<Visitor> getVisitorList(HttpSession httpSession){
+    public List<Visitor> getVisitorList(HttpSession httpSession) {
         if (httpSession.getAttribute("visitor") == null) {
             throw new SecurityException("403");
         }
         return visitorDao.listAll();
     }
-    
-    
+
     @GetMapping("/visitor/cm")
-    public List<Cm> getCmList(HttpSession httpSession){
+    public List<Cm> getCmList(HttpSession httpSession) {
         if (httpSession.getAttribute("visitor") == null) {
             throw new SecurityException("403");
         }
         return cmDao.listAll();
     }
-    
+
 }

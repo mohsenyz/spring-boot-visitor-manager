@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sina.sina.dao.DocsDao;
 import com.sina.sina.dao.VisitorCityDao;
 import com.sina.sina.dao.VisitorDao;
-import com.sina.sina.models.Cm;
 import com.sina.sina.models.Docs;
 import com.sina.sina.models.Visitor;
 import com.sina.sina.models.VisitorCity;

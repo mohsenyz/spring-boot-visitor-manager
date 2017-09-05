@@ -6,7 +6,6 @@
 package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.DrugsRowMapper;
-import com.sina.sina.models.Cm;
 import com.sina.sina.models.Drugs;
 import java.util.List;
 import org.hibernate.Criteria;

@@ -5,16 +5,8 @@
  */
 package com.sina.sina.dao;
 
-import com.sina.sina.dao.rowmapper.CityRowMapper;
-import com.sina.sina.dao.rowmapper.CmRowMapper;
-import com.sina.sina.models.City;
 import com.sina.sina.models.Cm;
-import com.sina.sina.models.Ds;
-import com.sina.sina.models.Visitor;
-import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;

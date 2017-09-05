@@ -7,19 +7,9 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.DsRowMapper;
 import com.sina.sina.models.Ds;
-import com.sina.sina.models.Visitor;
-import com.utils.dao.PSetter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

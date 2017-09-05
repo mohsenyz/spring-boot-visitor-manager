@@ -5,7 +5,6 @@
  */
 package com.sina.sina.ctrls.visitor;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -19,7 +18,6 @@ import com.sina.sina.models.Dr;
 import com.sina.sina.models.Ds;
 import com.sina.sina.models.Order;
 import com.sina.sina.models.Visitor;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
