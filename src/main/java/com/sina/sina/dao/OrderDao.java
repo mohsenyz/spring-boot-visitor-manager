@@ -79,35 +79,31 @@ public class OrderDao extends AbstractDao {
         return crit.list();
     }
 
-    public List<Order> findForwarded(int id) {
-        return (List<Order>) jdbcTemplate
-                .query(
-                        "select * from `" + getTableName() + "` where forward_to_vid is not null AND vid = ?",
-                        new Object[]{id},
-                        new OrderRowMapper());
+    public List<Order> findForwarded(int vid) {
+        Criteria crit = getSession().createCriteria(Order.class);
+        crit.add(Restrictions.eq("vid", vid));
+        crit.add(Restrictions.isNotNull("forward_to_vid"));
+        return crit.list();
     }
 
     public List<Order> findReceivedRequest(int vid) {
-        return (List<Order>) jdbcTemplate
-                .query(
-                        "select * from `" + getTableName() + "` where forward_to_vid = ?",
-                        new Object[]{vid},
-                        new OrderRowMapper());
+        Criteria crit = getSession().createCriteria(Order.class);
+        crit.add(Restrictions.eq("forward_to_vid", vid));
+        return crit.list();
     }
 
     public List<Order> findNextVisit(int vid) {
-        return (List<Order>) jdbcTemplate
-                .query(
-                        "select * from `" + getTableName() + "` where vid = ? AND next_session is not null",
-                        new Object[]{vid},
-                        new OrderRowMapper());
+        Criteria crit = getSession().createCriteria(Order.class);
+        crit.add(Restrictions.eq("vid", vid));
+        crit.add(Restrictions.isNotNull("next_session"));
+        return crit.list();
     }
 
     public List<Order> findByCm(int cm) {
         return jdbcTemplate.
                 query(
                         "select `order`.* from`" + getTableName() + "`, `visitor_cm` where order.vid = visitor_cm.vid and visitor_cm.cid = ?",
-                         new Object[]{cm},
+                        new Object[]{cm},
                         new OrderRowMapper());
     }
 
@@ -115,7 +111,7 @@ public class OrderDao extends AbstractDao {
         return jdbcTemplate.
                 query(
                         "select `order`.* from`" + getTableName() + "`, `visitor_cm` where order.vid = visitor_cm.vid and visitor_cm.cid = ? and vid in(?) and created_at between ? and ?",
-                         new Object[]{cm, ArrayUtils.toIntArray(visitors.split(",")), from, to},
+                        new Object[]{cm, ArrayUtils.toIntArray(visitors.split(",")), from, to},
                         new OrderRowMapper());
     }
 
@@ -123,7 +119,7 @@ public class OrderDao extends AbstractDao {
         return jdbcTemplate.
                 query(
                         "select `order`.* from`" + getTableName() + "` where order.cmid = ?",
-                         new Object[]{cm},
+                        new Object[]{cm},
                         new OrderRowMapper());
     }
 
@@ -131,7 +127,7 @@ public class OrderDao extends AbstractDao {
         return jdbcTemplate.
                 query(
                         "select `order`.* from`" + getTableName() + "`, `visitor_cm` where order.vid = visitor_cm.vid and visitor_cm.cid = ? and submited = 1",
-                         new Object[]{cm},
+                        new Object[]{cm},
                         new OrderRowMapper());
     }
 
@@ -139,7 +135,7 @@ public class OrderDao extends AbstractDao {
         return jdbcTemplate.
                 query(
                         "select `order`.* from`" + getTableName() + "` where dsid = ? and vid is null and viewed_at is not null",
-                         new Object[]{ds},
+                        new Object[]{ds},
                         new OrderRowMapper());
     }
 
@@ -147,7 +143,7 @@ public class OrderDao extends AbstractDao {
         return jdbcTemplate.
                 query(
                         "select `order`.* from`" + getTableName() + "` where dsid = ? and vid is null and submited  = 1",
-                         new Object[]{ds},
+                        new Object[]{ds},
                         new OrderRowMapper());
     }
 
