@@ -103,38 +103,65 @@ public class CmController {
     
     
     @GetMapping("/cm/reports/visitors")
-    public List<Order> visitorReports(
+    public ArrayNode visitorReports(
             @RequestParam("visitors") String visitors,
             @RequestParam("from") String from,
             @RequestParam("to") String to,
             HttpSession httpSession){
         if (httpSession.getAttribute("cm") == null){
-            return new ArrayList<>();
+            return null;
         }
         Cm cm = (Cm)httpSession.getAttribute("cm");
         Timestamp fromTime = TimeHelper.parseTimestamp(from, null);
         Timestamp toTime = TimeHelper.parseTimestamp(to, null);
-        return orderDao.findByCmByVisitorByTime(cm.getId(), visitors, fromTime, toTime);
+        List<Order> list = orderDao.findByCmByVisitorByTime(cm.getId(), visitors, fromTime, toTime);
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayNode arrayNode = mapper.createArrayNode();
+        for (Order order : list) {
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.putPOJO("order", order);
+            fillOrder(order, objectNode);
+            arrayNode.add(objectNode);
+        }
+        return arrayNode;
     }
     
     
     @GetMapping("/cm/reports/received")
-    public List<Order> getReceivedReports(HttpSession httpSession){
+    public ArrayNode getReceivedReports(HttpSession httpSession){
         if (httpSession.getAttribute("cm") == null){
-            return new ArrayList<>();
+            return null;
         }
         Cm cm = (Cm)httpSession.getAttribute("cm");
-        return orderDao.receivedByCm(cm.getId());
+        List<Order> list = orderDao.receivedByCm(cm.getId());
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayNode arrayNode = mapper.createArrayNode();
+        for (Order order : list) {
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.putPOJO("order", order);
+            fillOrder(order, objectNode);
+            arrayNode.add(objectNode);
+        }
+        return arrayNode;
     }
     
     
     @GetMapping("/cm/reports/finished")
-    public List<Order> getFinishedReports(HttpSession httpSession){
+    public ArrayNode getFinishedReports(HttpSession httpSession){
         if (httpSession.getAttribute("cm") == null){
-            return new ArrayList<>();
+            return null;
         }
         Cm cm = (Cm)httpSession.getAttribute("cm");
-        return orderDao.findFinishedByCm(cm.getId());
+        List<Order> list = orderDao.findFinishedByCm(cm.getId());
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayNode arrayNode = mapper.createArrayNode();
+        for (Order order : list) {
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.putPOJO("order", order);
+            fillOrder(order, objectNode);
+            arrayNode.add(objectNode);
+        }
+        return arrayNode;
     }
     
     @GetMapping("/cm/login")
