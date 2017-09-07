@@ -32,10 +32,12 @@ app.directive("fileread", [
 app.config(function ($routeProvider) {
     $routeProvider
             .when("/", {
-                templateUrl: "cm_visits_report.html"
+                templateUrl: "cm_visits_report.html",
+                controller: "cm_visits_report"
             })
             .when("/visitor-report", {
-                templateUrl: "cm_visitor_report.html"
+                templateUrl: "cm_visitor_report.html",
+        controller : "cm_visitor_report"
             })
             .when("/received-request", {
                 templateUrl: "cm_received_request.html"
@@ -184,6 +186,28 @@ app.controller("new_order", function ($scope, $rootScope, $timeout) {
     $scope.content_drugs = [];
     $scope.urgency = null;
     $scope.desc = null;
+});
+app.controller("cm_visits_report", function ($scope, $rootScope, $timeout) {
+    $scope.visits = [];
+    $.getJSON("/cm/reports/visits", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.visits.push(data[i]);
+            $scope.$apply();
+        }
+    });
+});
+app.controller("cm_visitor_report", function ($scope, $rootScope, $timeout) {
+    $scope.from = null;
+    $scope.to = null;
+    $scope.visitor = null;
+    $scope.submitChange = function () {
+        $.getJSON("/cm/reports/visitors", function (data) {
+            for (i = 0; i < data.length; i++) {
+                $scope.visits.push(data[i]);
+                $scope.$apply();
+            }
+        });
+    };
 });
 app.controller("user", function ($scope) {
     $scope.fpass = null;

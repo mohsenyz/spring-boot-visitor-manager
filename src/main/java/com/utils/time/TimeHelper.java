@@ -20,18 +20,18 @@ public class TimeHelper {
             MINUTE = "m",
             HOUR = "h",
             MILISECOND = "ms";
-
+    public static final TimeZone currentTimezone = TimeZone.getTimeZone("Asia/Tehran");
     public static Timestamp getCurrentTimestamp() {
-        return new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("Asia/Tehran")).getTime().getTime());
+        return new Timestamp(Calendar.getInstance(currentTimezone).getTime().getTime());
     }
     
     
     public static Timestamp parseTimestamp(String string, String pattern){
-        return null;
+        return new Timestamp(Long.parseLong(string));
     }
 
     public static long getCurrentTime() {
-        return Calendar.getInstance(TimeZone.getDefault()).getTime().getTime();
+        return Calendar.getInstance(currentTimezone).getTime().getTime();
     }
 
     public static String getTimeUnitAsString(long time, TimeUnit timeUnit) {
