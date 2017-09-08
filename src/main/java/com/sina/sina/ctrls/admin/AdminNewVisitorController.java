@@ -76,6 +76,7 @@ public class AdminNewVisitorController {
         visitor.setLname(lname);
         visitor.setBirthday(birthday);
         visitor.setCode(code);
+        visitor.setEnabled(true);
         visitor.setFixedPhone(fixed_phone);
         visitor.setMobile(mobile);
         visitor.setAck(ack_type);
