@@ -27,7 +27,7 @@ public class TimeHelper {
     
     
     public static Timestamp parseTimestamp(String string, String pattern){
-        return new Timestamp(Long.parseLong(string));
+        return new Timestamp(Long.parseLong(string.trim()));
     }
 
     public static long getCurrentTime() {

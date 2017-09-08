@@ -37,13 +37,15 @@ app.config(function ($routeProvider) {
             })
             .when("/visitor-report", {
                 templateUrl: "cm_visitor_report.html",
-        controller : "cm_visitor_report"
+                controller: "cm_visitor_report"
             })
             .when("/received-request", {
-                templateUrl: "cm_received_request.html"
+                templateUrl: "cm_received_request.html",
+                controller: "cm_received_request"
             })
             .when("/finished-request", {
-                templateUrl: "cm_finished_request.html"
+                templateUrl: "cm_finished_request.html",
+                controller: "cm_finished_request"
             })
             .when("/accept-ds-request", {
                 templateUrl: "cm_accept_ds_request.html"
@@ -196,18 +198,45 @@ app.controller("cm_visits_report", function ($scope, $rootScope, $timeout) {
         }
     });
 });
+app.controller("cm_received_request", function ($scope, $rootScope, $timeout) {
+    $scope.visits = [];
+    $.getJSON("/cm/reports/received", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.visits.push(data[i]);
+            $scope.$apply();
+        }
+    });
+});
+app.controller("cm_finished_request", function ($scope, $rootScope, $timeout) {
+    $scope.visits = [];
+    $.getJSON("/cm/reports/finished", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.visits.push(data[i]);
+            $scope.$apply();
+        }
+    });
+});
 app.controller("cm_visitor_report", function ($scope, $rootScope, $timeout) {
     $scope.from = null;
     $scope.to = null;
     $scope.visitor = null;
+    $scope.visitor_list = [{id: 1, fname: "fff", lname: "Gdgg"}];
     $scope.submitChange = function () {
-        $.getJSON("/cm/reports/visitors", function (data) {
+        $.getJSON("/cm/reports/visitors?visitors=" + $scope.visitor + "&to=" + window.__to_date + "&from=" + window.__from_date, function (data) {
             for (i = 0; i < data.length; i++) {
                 $scope.visits.push(data[i]);
                 $scope.$apply();
+                window.setTimeout(function () {
+                    $("select").trigger("change");
+                }, 200);
             }
         });
     };
+    $.getJSON("/cm/visitors", function (data) {
+        $scope.visitor_list = data;
+        $scope.$apply();
+    });
+
 });
 app.controller("user", function ($scope) {
     $scope.fpass = null;

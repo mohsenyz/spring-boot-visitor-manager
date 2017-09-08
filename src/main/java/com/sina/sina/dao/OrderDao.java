@@ -106,10 +106,16 @@ public class OrderDao extends AbstractDao {
     }
 
     public List<Order> findByCmByVisitorByTime(int cm, String visitors, Timestamp from, Timestamp to) {
+        int[] vidArray = null;
+        if (visitors.contains(",")){
+            vidArray = ArrayUtils.toIntArray(visitors.split(","));
+        } else{
+            vidArray = new int[]{Integer.parseInt(visitors.trim())};
+        }
         return jdbcTemplate.
                 query(
-                        "select `order_list`.* from`" + getTableName() + "`, `visitor_cm` where order_list.vid = visitor_cm.vid and visitor_cm.cid = ? and vid in(?) and created_at between ? and ?",
-                        new Object[]{cm, ArrayUtils.toIntArray(visitors.split(",")), from, to},
+                        "select `order_list`.* from`" + getTableName() + "`, `visitor_cm` where order_list.vid = visitor_cm.vid and visitor_cm.cid = ? and order_list.vid in(?) and created_at between ? and ?",
+                        new Object[]{cm, vidArray, from, to},
                         new OrderRowMapper());
     }
 

@@ -12,8 +12,8 @@ package com.utils.list;
 public class ArrayUtils {
     public static int[] toIntArray(String[] string){
         int[] intArray = new int[string.length];
-        for (String str : string){
-            intArray[intArray.length] = Integer.parseInt(str);
+        for (int i =0; i < string.length; i++){
+            intArray[i] = Integer.parseInt(string[i]);
         }
         return intArray;
     }

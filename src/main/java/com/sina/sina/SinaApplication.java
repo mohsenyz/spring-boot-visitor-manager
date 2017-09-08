@@ -24,7 +24,7 @@ public class SinaApplication {
     void started() {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Tehran"));
         try {
-            System.setOut(new PrintStream(new FileOutputStream("/home/mphj/" + new Timestamp(Calendar.getInstance().getTime().getTime()).toString() + "_" + UUID.randomUUID().toString() + ".log")));
+            System.setOut(new PrintStream(new FileOutputStream("/home/mphj/Logs/visitor-manager/" + new Timestamp(Calendar.getInstance().getTime().getTime()).toString() + "_" + UUID.randomUUID().toString() + ".log")));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SinaApplication.class.getName()).log(Level.SEVERE, null, ex);
         }

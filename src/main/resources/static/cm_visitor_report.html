@@ -2,9 +2,7 @@
     <div class="header-row col-2-normal">
         <span><b> ویزیتور: </b><i>
                 <select class="comp" multiple="multiple" ng-model="visitor" ng-change="submitChange()">
-                    <option value="all" selected="selected">همه</option>
-                    <option>ویزیتور ۱</option>
-                    <option>ویزیتور ۲</option>
+                    <option ng-repeat="x in visitor_list" value="{{x.id}}">{{x.fname}} {{x.lname}}</option>
                 </select>
             </i></span>
         <span><b> وضعیت: </b><i>
@@ -19,11 +17,16 @@
     </div>
     <div class="header-row col-2-normal">
         <span><b> از تاریخ:‌ </b><i>
-                <input type="text" class="datepicker input-center" ng-model="from" ng-change="submitChange()"/>
+                <input type="text" id="from-date" class="datepicker input-center" ng-model="from" ng-change="submitChange()"/>
             </i></span>
         <span><b> تا تاریخ:‌ </b><i>
-                <input type="text" class="datepicker input-center" ng-model="to" ng-change="submitChange()"/>
+                <input type="text" id="to-date" class="datepicker input-center" ng-model="to" ng-change="submitChange()"/>
             </i></span>
+    </div>
+    <div class="normal-row">
+        <button class="button" ng-click="submitChange()">
+            اعمال تغییرات
+        </button>
     </div>
     <br/>
     <div class="panel" ng-repeat="x in visits">
@@ -84,6 +87,19 @@
         $("select.comp").select2({
             dir: "rtl"
         });
-        $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
+        $("#from-date").persianDatepicker({
+            format: 'YYYY/MM/DD HH:mm:ss',
+            timePicker: {enabled: true},
+            onSelect : function(unix){
+                window.__from_date = unix;
+            }
+        });
+        $("#to-date").persianDatepicker({
+            format: 'YYYY/MM/DD HH:mm:ss',
+            timePicker: {enabled: true},
+            onSelect : function(unix){
+                window.__to_date = unix;
+            }
+        });
     });
 </script>
