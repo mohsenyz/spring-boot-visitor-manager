@@ -51,7 +51,8 @@ app.config(function ($routeProvider) {
                 templateUrl: "cm_accept_ds_request.html"
             })
             .when("/manage-visitor", {
-                templateUrl: "cm_manage_visitors.html"
+                templateUrl: "cm_manage_visitors.html",
+                controller: "cm_manage_visitors"
             })
             .when("/orders", {
                 templateUrl: "cm_orders.html"
@@ -88,6 +89,9 @@ $(document).ready(function () {
     });
 });
 app.run(function ($rootScope, $location, $timeout) {
+    $rootScope.unixToString = function (unix) {
+        return new persianDate(unix).format();
+    };
     $rootScope.goLink = 'new';
     $rootScope.go = function (path) {
         $location.path(path);
@@ -215,6 +219,28 @@ app.controller("cm_finished_request", function ($scope, $rootScope, $timeout) {
             $scope.$apply();
         }
     });
+});
+app.controller("cm_manage_visitors", function ($scope, $rootScope, $timeout) {
+    $scope.visitors = [];
+    $.getJSON("/cm/visitors", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.visitors.push(data[i]);
+            $scope.$apply();
+        }
+    });
+
+    $scope.enableVisitor = function (id, index) {
+        $.getJSON("/cm/visitor/" + id + "/enable", function (data) {
+            $scope.visitors[index].enabled = true;
+            $scope.$apply();
+        });
+    };
+    $scope.disableVisitor = function (id, index) {
+        $.getJSON("/cm/visitor/" + id + "/disable", function (data) {
+            $scope.visitors[index].enabled = false;
+            $scope.$apply();
+        });
+    }
 });
 app.controller("cm_visitor_report", function ($scope, $rootScope, $timeout) {
     $scope.from = null;

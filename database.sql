@@ -405,7 +405,7 @@ CREATE TABLE `visitor` (
   `code` varchar(255) COLLATE utf8_persian_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `description` varchar(255) COLLATE utf8_persian_ci DEFAULT NULL,
-  `enabled` bit(1) DEFAULT NULL,
+  `enabled` bit(1) DEFAULT b'1',
   `fixed_phone` varchar(255) COLLATE utf8_persian_ci DEFAULT NULL,
   `fname` varchar(255) COLLATE utf8_persian_ci DEFAULT NULL,
   `grade` varchar(255) COLLATE utf8_persian_ci DEFAULT NULL,
@@ -426,9 +426,9 @@ CREATE TABLE `visitor` (
 
 LOCK TABLES `visitor` WRITE;
 /*!40000 ALTER TABLE `visitor` DISABLE KEYS */;
-INSERT INTO `visitor` VALUES (4,'n=mohseni','ngisgn','mohseni','mohseni','2017-09-01 14:49:22','pogw','\0','mohseni','mohseni','mpnishe','pgn','mohseni','mohseno','nmoadadni',0,'mohse','ign');
-INSERT INTO `visitor` VALUES (11,'jndg','iongiigewiwpng','null','5490118611','2017-09-01 15:26:17','ipndgpiegipeg','\0','0916288662398','mohammad','qng','ingeipnegpineg','mohammadi','iniknnn','inwgwge',0,'iogww','ipndgpigpinege');
-INSERT INTO `visitor` VALUES (16,';ksdng','klknddjld','null','5490118611','2017-09-01 21:16:39','idigegeg','\0','0515151','asal','kn','kksngkgn','asali','051616','knsg',0,'knngwkkng','ldngoego');
+INSERT INTO `visitor` VALUES (4,'n=mohseni','ngisgn','mohseni','mohseni','2017-09-01 14:49:22','pogw','','mohseni','mohseni','mpnishe','pgn','mohseni','mohseno','nmoadadni',0,'mohse','ign');
+INSERT INTO `visitor` VALUES (11,'jndg','iongiigewiwpng','null','5490118611','2017-09-01 15:26:17','ipndgpiegipeg','','0916288662398','mohammad','qng','ingeipnegpineg','mohammadi','iniknnn','inwgwge',0,'iogww','ipndgpigpinege');
+INSERT INTO `visitor` VALUES (16,';ksdng','klknddjld','null','5490118611','2017-09-01 21:16:39','idigegeg','','0515151','asal','kn','kksngkgn','asali','051616','knsg',0,'knngwkkng','ldngoego');
 /*!40000 ALTER TABLE `visitor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -494,4 +494,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-08  5:38:19
+-- Dump completed on 2017-09-08  6:26:00

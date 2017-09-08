@@ -121,5 +121,10 @@ public class VisitorDao extends AbstractDao {
                         new Object[]{cm},
                         new VisitorRowMapper());
     }
+    
+    
+    public void update(Visitor visitor){
+        getSession().update(visitor);
+    }
 
 }
