@@ -5,14 +5,19 @@
  */
 package com.sina.sina.ctrls.ds;
 
+import com.sina.sina.dao.DsDao;
 import com.sina.sina.dao.OrderDao;
+import com.sina.sina.dao.VisitorDao;
 import com.sina.sina.models.Ds;
 import com.sina.sina.models.Order;
+import com.sina.sina.models.Visitor;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,6 +28,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class DsController {
     @Autowired
     OrderDao orderDao;
+    
+    
+    @Autowired
+    DsDao dsDao;
+    
+    @PostMapping("/ds/login")
+    public boolean login(@RequestParam("username") String username,
+            @RequestParam("password") String password,
+            HttpSession httpSession){
+        Ds ds = dsDao.findByUsername(username.trim());
+        if (ds == null || !ds.getPassword().equals(password.trim())){
+            return false;
+        }
+        httpSession.setAttribute("ds", ds);
+        return true;
+    }
     
     
     @GetMapping("/ds/reports/seen")

@@ -60,6 +60,13 @@ public class CmDao extends AbstractDao {
         return (Cm)crit.uniqueResult();
     }
     
+    
+    public Cm findByUsername(String username) {
+        Criteria crit = getSession().createCriteria(Cm.class);
+        crit.add(Restrictions.eq("username", username));
+        return (Cm)crit.uniqueResult();
+    }
+    
     public List<Cm> listAll(){
         Criteria crit = getSession().createCriteria(Cm.class);
         return crit.list();

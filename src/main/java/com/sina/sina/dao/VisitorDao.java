@@ -108,6 +108,12 @@ public class VisitorDao extends AbstractDao {
         crit.add(Restrictions.eq("id", id));
         return (Visitor)crit.uniqueResult();
     }
+    
+    public Visitor findByUsername(String username) {
+        Criteria crit = getSession().createCriteria(Visitor.class);
+        crit.add(Restrictions.eq("username", username));
+        return (Visitor)crit.uniqueResult();
+    }
 
     public List<Visitor> listAll() {
         Criteria crit = getSession().createCriteria(Visitor.class);

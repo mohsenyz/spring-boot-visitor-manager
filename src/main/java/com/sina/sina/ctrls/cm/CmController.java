@@ -25,6 +25,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,6 +50,18 @@ public class CmController {
 
     @Autowired
     CmDao cmDao;
+    
+    @PostMapping("/ds/login")
+    public boolean login(@RequestParam("username") String username,
+            @RequestParam("password") String password,
+            HttpSession httpSession){
+        Cm cm = cmDao.findByUsername(username.trim());
+        if (cm == null || !cm.getPassword().equals(password.trim())){
+            return false;
+        }
+        httpSession.setAttribute("cm", cm);
+        return true;
+    }
     
     @GetMapping("/cm/reports/visits")
     public ArrayNode getOrders(HttpSession httpSession){
@@ -165,7 +178,7 @@ public class CmController {
     }
     
     @GetMapping("/cm/login")
-    public String login(HttpSession httpSession, @RequestParam("id") int id){
+    public String login_fake(HttpSession httpSession, @RequestParam("id") int id){
         Cm cm = new Cm();
         cm.setId(id);
         httpSession.setAttribute("cm", cm);
