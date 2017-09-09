@@ -10,6 +10,7 @@ import com.sina.sina.dao.DrugsDao;
 import com.sina.sina.models.City;
 import com.sina.sina.models.Drugs;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,5 +37,11 @@ public class MainController {
     @GetMapping("/core/drugs")
     public List<Drugs> listDrugs(){
         return drugsDao.listAll();
+    }
+    
+    @GetMapping("/logout")
+    public boolean logout(HttpSession httpSession){
+        httpSession.invalidate();
+        return true;
     }
 }
