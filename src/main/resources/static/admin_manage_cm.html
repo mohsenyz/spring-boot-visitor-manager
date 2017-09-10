@@ -1,29 +1,30 @@
 <div class="container">
     <br/>
-    <div class="panel">
-        <div class="panel-head" ng-click="">
-            مرکز پخش ۱
-            <span class="date">1396/04/02</span>
+    <div class="panel" ng-repeat="x in cms">
+        <div class="panel-head">
+            {{x.name}}
+            <span class="date">{{unixToString(x.createdAt)}}</span>
         </div>
         <div class="panel-body">
-            <div class="header-row col-2">
-                <span><b>شماره تلفن: </b><i>09161236638</i></span>
-                <span><b>شناسه کاربری: </b><i>mohammad123</i></span>
+            <div class="header-row col-3">
+                <span><b>نام مسیول: </b><i>{{x.aFname}}</i></span>
+                <span><b>شماره تلفن: </b><i>{{x.fixedPhone}}</i></span>
+                <span><b>شناسه کاربری: </b><i>{{x.username}}</i></span>
             </div>
         </div>
         <div class="normal-row">
-            <button class="button" style="margin-right: 10px;">غیرفعال کردن</button>
-            <button class="button" style="margin-right: 10px;">مشاهده ی فعالیت ها</button>
-            <button class="button">حذف</button>
+            <button ng-show="x.enabled" class="button" style="margin-right: 10px;" ng-click="disableCm(x.id, $index)">غیرفعال کردن</button>
+            <button ng-show="!x.enabled" class="button" style="margin-right: 10px;" ng-click="enableCm(x.id, $index)">فعال کردن</button>
+            <button class="button">مشاهده ی فعالیت ها</button>
         </div>
         <br/>
     </div>
     <br/><br/><br/><br/><br/><br/>
 </div>
 <script>
-    $(document).ready(function () {
-        $('.tooltip').tooltipster({
-            theme: 'tooltipster-borderless'
-        });
-    });
+            $(document).ready(function () {
+                $('.tooltip').tooltipster({
+                    theme: 'tooltipster-borderless'
+                });
+            });
 </script>

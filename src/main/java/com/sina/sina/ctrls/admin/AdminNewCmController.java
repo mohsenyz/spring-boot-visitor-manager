@@ -77,6 +77,7 @@ public class AdminNewCmController {
         cm.setFixedPhone(fixed_phone);
         cm.setMobile(mobile);
         cm.setUsername(uname);
+        cm.setEnabled(true);
         cm.setPassword(password);
         cm.setCreatedAt(TimeHelper.getCurrentTimestamp());
         // @TODO add desc

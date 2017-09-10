@@ -73,7 +73,7 @@ CREATE TABLE `cm` (
 
 LOCK TABLES `cm` WRITE;
 /*!40000 ALTER TABLE `cm` DISABLE KEYS */;
-INSERT INTO `cm` VALUES (1,'mohsen','mohsen','mohsen','mohsen','2017-09-01 14:34:24','\0','mohsen','mohsen','mohsen','mohsen','mohsen');
+INSERT INTO `cm` VALUES (1,'mohsen','mohsen','mohsen','mohsen','2017-09-01 14:34:24','','mohsen','mohsen','mohsen','mohsen','mohsen');
 /*!40000 ALTER TABLE `cm` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -494,4 +494,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-10 17:03:42
+-- Dump completed on 2017-09-10 19:16:51

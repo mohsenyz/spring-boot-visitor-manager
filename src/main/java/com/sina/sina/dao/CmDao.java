@@ -70,7 +70,12 @@ public class CmDao extends AbstractDao {
     public List<Cm> listAll(){
         Criteria crit = getSession().createCriteria(Cm.class);
         return crit.list();
-    } 
+    }
+    
+    
+    public void update(Cm cm){
+        getSession().update(cm);
+    }
     
     
     @Override

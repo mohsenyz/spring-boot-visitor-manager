@@ -5,12 +5,21 @@
  */
 package com.sina.sina.ctrls.admin;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sina.sina.dao.CmDao;
+import com.sina.sina.dao.DrDao;
+import com.sina.sina.dao.DsDao;
 import com.sina.sina.dao.OrderDao;
 import com.sina.sina.dao.VisitorDao;
 import com.sina.sina.models.Cm;
+import com.sina.sina.models.Dr;
+import com.sina.sina.models.Ds;
 import com.sina.sina.models.Order;
 import com.sina.sina.models.Visitor;
+import com.utils.time.TimeHelper;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -18,6 +27,7 @@ import java.util.TimeZone;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -35,6 +45,12 @@ public class AdminController {
 
     @Autowired
     CmDao cmDao;
+    
+    @Autowired
+    DrDao drDao;
+    
+    @Autowired
+    DsDao dsDao;
 
     @GetMapping("/admin/requests")
     public List<Order> listRequests(HttpSession httpSession) {
@@ -45,11 +61,49 @@ public class AdminController {
     }
 
     @GetMapping("/admin/reports/visits")
-    public List<Order> listVisits(HttpSession httpSession) {
+    public ArrayNode listVisits(HttpSession httpSession,
+            @RequestParam("cm") String cm,
+            @RequestParam("v") String v,
+            @RequestParam("from") String from,
+            @RequestParam("to") String to) {
         if (httpSession.getAttribute("admin") == null) {
-            return new ArrayList<>();
+            return null;
         }
-        return orderDao.findAll();
+        Timestamp fromTime = TimeHelper.parseTimestamp(from, null);
+        Timestamp toTime = TimeHelper.parseTimestamp(to, null);
+        List<Order> list = orderDao.findByCmsByVisitorByTime(cm, v, fromTime, toTime);
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayNode arrayNode = mapper.createArrayNode();
+        for (Order order : list) {
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.putPOJO("order", order);
+            fillOrder(order, objectNode);
+            arrayNode.add(objectNode);
+        }
+        return arrayNode;
+    }
+    
+    
+    public void fillOrder(Order order, ObjectNode objectNode) {
+        if (order.getDrid() != null) {
+            Dr dr = drDao.findById(order.getDrid());
+            objectNode.putPOJO("dr", dr);
+        } else if (order.getDsid() != null) {
+            Ds ds = dsDao.findById(order.getDsid());
+            objectNode.putPOJO("ds", ds);
+        }
+        if (order.getForwardToVid() != null) {
+            Visitor visitor = visitorDao.findById(order.getForwardToVid());
+            objectNode.putPOJO("visitor", visitor);
+        }
+        if (order.getCmid() != null) {
+            Cm visitor = cmDao.findById(order.getCmid());
+            objectNode.putPOJO("cm", visitor);
+        }
+        if (order.getVid() != null){
+            Visitor visitor = visitorDao.findById(order.getVid());
+            objectNode.putPOJO("v", visitor);
+        }
     }
 
     @GetMapping("/admin/visitor")
@@ -72,11 +126,5 @@ public class AdminController {
     public String login(HttpSession httpSession) {
         httpSession.setAttribute("admin", true);
         return "done";
-    }
-
-    @GetMapping("/")
-    public String test() {
-        return "" + Calendar.getInstance(TimeZone.getTimeZone("Asia/Tehran")).get(Calendar.HOUR_OF_DAY);
-        //return TimeHelper.getCurrentTimestamp().toString();
     }
 }

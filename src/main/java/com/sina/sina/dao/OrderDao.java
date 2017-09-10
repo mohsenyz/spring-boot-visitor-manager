@@ -118,6 +118,26 @@ public class OrderDao extends AbstractDao {
                         new Object[]{cm, vidArray, from, to},
                         new OrderRowMapper());
     }
+    
+    public List<Order> findByCmsByVisitorByTime(String cm, String visitors, Timestamp from, Timestamp to) {
+        int[] vidArray = null;
+        if (visitors.contains(",")){
+            vidArray = ArrayUtils.toIntArray(visitors.split(","));
+        } else{
+            vidArray = new int[]{Integer.parseInt(visitors.trim())};
+        }
+        int[] cmidArray = null;
+        if (cm.contains(",")){
+            cmidArray = ArrayUtils.toIntArray(cm.split(","));
+        } else{
+            cmidArray = new int[]{Integer.parseInt(cm.trim())};
+        }
+        return jdbcTemplate.
+                query(
+                        "select `order_list`.* from`" + getTableName() + "` where order_list.cmid in(?)  and order_list.vid in(?) and created_at between ? and ?",
+                        new Object[]{cmidArray, vidArray, from, to},
+                        new OrderRowMapper());
+    }
 
     public List<Order> receivedByCm(int cm) {
         return jdbcTemplate.

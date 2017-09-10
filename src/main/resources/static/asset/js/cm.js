@@ -246,7 +246,7 @@ app.controller("cm_visitor_report", function ($scope, $rootScope, $timeout) {
     $scope.from = null;
     $scope.to = null;
     $scope.visitor = null;
-    $scope.visitor_list = [{id: 1, fname: "fff", lname: "Gdgg"}];
+    $scope.visitor_list = null;
     $scope.submitChange = function () {
         $.getJSON("/cm/reports/visitors?visitors=" + $scope.visitor + "&to=" + window.__to_date + "&from=" + window.__from_date, function (data) {
             for (i = 0; i < data.length; i++) {

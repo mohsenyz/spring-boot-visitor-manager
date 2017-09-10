@@ -29,7 +29,8 @@ app.directive("fileread", [
 app.config(function ($routeProvider) {
     $routeProvider
             .when("/", {
-                templateUrl: "admin_visits_report.html"
+                templateUrl: "admin_visits_report.html",
+                controller : "admin_visits_report"
             })
             .when("/visitor-report", {
                 templateUrl: "cm_visitor_report.html"
@@ -41,10 +42,12 @@ app.config(function ($routeProvider) {
                 templateUrl: "admin_orders.html"
             })
             .when("/manage-cm", {
-                templateUrl: "admin_manage_cm.html"
+                templateUrl: "admin_manage_cm.html",
+                controller : "admin_manage_cms"
             })
             .when("/manage-visitor", {
-                templateUrl: "admin_manage_visitors.html"
+                templateUrl: "admin_manage_visitors.html",
+                controller : "admin_manage_visitors"
             })
             .when("/user", {
                 templateUrl: "user.html",
@@ -78,6 +81,9 @@ $(document).ready(function () {
     });
 });
 app.run(function ($rootScope, $location, $timeout) {
+    $rootScope.unixToString = function (unix) {
+        return new persianDate(unix).format();
+    };
     $rootScope.goLink = 'none';
     $rootScope.go = function (path) {
         if (path == 'manage-cm') {
@@ -256,6 +262,79 @@ app.controller("new_cm", function ($scope, $rootScope, $timeout, $http) {
             alert(data);
         });
     };
+});
+app.controller("admin_visits_report", function ($scope, $rootScope, $timeout) {
+    $scope.from = null;
+    $scope.to = null;
+    $scope.visitor = null;
+    $scope.cm = null;
+    $scope.visits = null;
+    $scope.visitor_list = null;
+    $scope.cm_list = null;
+    $scope.submitChange = function () {
+        $.getJSON("/admin/reports/visits?v=" + $scope.visitor + "&cm=" + $scope.cm + "&to=" + window.__to_date + "&from=" + window.__from_date, function (data) {
+            for (i = 0; i < data.length; i++) {
+                $scope.visits.push(data[i]);
+                $scope.$apply();
+                window.setTimeout(function () {
+                    $("select").trigger("change");
+                }, 200);
+            }
+        });
+    };
+    $.getJSON("/admin/visitor", function (data) {
+        $scope.visitor_list = data;
+        $scope.$apply();
+    });
+    $.getJSON("/admin/cm", function (data) {
+        $scope.cm_list = data;
+        $scope.$apply();
+    });
+
+});
+app.controller("admin_manage_visitors", function ($scope, $rootScope, $timeout) {
+    $scope.visitors = [];
+    $.getJSON("/admin/visitor", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.visitors.push(data[i]);
+            $scope.$apply();
+        }
+    });
+
+    $scope.enableVisitor = function (id, index) {
+        $.getJSON("/admin/visitor/" + id + "/enable", function (data) {
+            $scope.visitors[index].enabled = true;
+            $scope.$apply();
+        });
+    };
+    $scope.disableVisitor = function (id, index) {
+        $.getJSON("/admin/visitor/" + id + "/disable", function (data) {
+            $scope.visitors[index].enabled = false;
+            $scope.$apply();
+        });
+    }
+});
+app.controller("admin_manage_cms", function ($scope, $rootScope, $timeout) {
+    $scope.cms = [];
+    $.getJSON("/admin/cm", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.cms.push(data[i]);
+            $scope.$apply();
+        }
+    });
+
+    $scope.enableCm = function (id, index) {
+        $.getJSON("/admin/cm/" + id + "/enable", function (data) {
+            $scope.cms[index].enabled = true;
+            $scope.$apply();
+        });
+    };
+    $scope.disableCm = function (id, index) {
+        $.getJSON("/admin/cm/" + id + "/disable", function (data) {
+            $scope.cms[index].enabled = false;
+            $scope.$apply();
+        });
+    }
 });
 app.controller("user", function ($scope) {
     $scope.fpass = null;
