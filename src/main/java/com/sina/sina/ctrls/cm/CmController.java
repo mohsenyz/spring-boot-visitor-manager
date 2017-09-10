@@ -51,6 +51,7 @@ public class CmController {
     @Autowired
     CmDao cmDao;
     
+    /*
     @PostMapping("/ds/login")
     public boolean login(@RequestParam("username") String username,
             @RequestParam("password") String password,
@@ -62,6 +63,7 @@ public class CmController {
         httpSession.setAttribute("cm", cm);
         return true;
     }
+    */
     
     @GetMapping("/cm/reports/visits")
     public ArrayNode getOrders(HttpSession httpSession){

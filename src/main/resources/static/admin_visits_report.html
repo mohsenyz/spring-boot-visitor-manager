@@ -1,37 +1,39 @@
 <div class="container">
     <div class="header-row col-2-normal">
         <span><b> مرکز پخش: </b><i>
-                <select class="comp" multiple="multiple" ng-model="visitor">
-                    <option value="all" selected="selected">همه</option>
-                    <option> مرکز پخش ۱</option>
-                    <option> مرکز پخش ۲</option>
+                <select class="comp" multiple="multiple" ng-model="cm">
+                    <option ng-repeat="x in cm_list" value="{{x.id}}">{{x.name}}</option>
                 </select>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
         <span><b> ویزیتور: </b><i>
                 <select class="comp" multiple="multiple" ng-model="visitor">
-                    <option value="all" selected="selected">همه</option>
-                    <option>ویزیتور ۱</option>
-                    <option>ویزیتور ۲</option>
+                    <option ng-repeat="x in visitor_list" value="{{x.id}}">{{x.fname}} {{x.lname}}</option>
                 </select>
             </i></span>
         <span><b> وضعیت: </b><i>
                 <select class="comp" multiple="multiple" ng-model="status">
                     <option value="all" selected="selected">همه</option>
-                    <option>در انتظار تایید مرکز پخش</option>
+                    <!-- NO IDEA ABOUT STATUS -->
+                    <!--option>در انتظار تایید مرکز پخش</option>
                     <option>انتقال یافته به ویزیتور دیگر</option>
-                    <option>تایید شده توسط مرکز پخش</option>
+                    <option>تایید شده توسط مرکز پخش</option-->
                 </select>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
         <span><b> از تاریخ:‌ </b><i>
-                <input type="text" class="datepicker input-center"/>
+                <input type="text" class="datepicker input-center" id="from-date"/>
             </i></span>
         <span><b> تا تاریخ:‌ </b><i>
-                <input type="text" class="datepicker input-center"/>
+                <input type="text" class="datepicker input-center" id="to-date"/>
             </i></span>
+    </div>
+    <div class="normal-row">
+        <button class="button" ng-click="submitChange()">
+            اعمال تغییرات
+        </button>
     </div>
     <br/>
     <div class="panel">
@@ -75,13 +77,26 @@
     <br/><br/><br/><br/><br/><br/>
 </div>
 <script>
-            $(document).ready(function () {
-                $('.tooltip').tooltipster({
-                    theme: 'tooltipster-borderless'
-                });
-                $("select.comp").select2({
-                    dir: "rtl"
-                });
-                $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
-            });
+    $(document).ready(function () {
+        $('.tooltip').tooltipster({
+            theme: 'tooltipster-borderless'
+        });
+        $("select.comp").select2({
+            dir: "rtl"
+        });
+        $("#from-date").persianDatepicker({
+            format: 'YYYY/MM/DD HH:mm:ss',
+            timePicker: {enabled: true},
+            onSelect: function (unix) {
+                window.__from_date = unix;
+            }
+        });
+        $("#to-date").persianDatepicker({
+            format: 'YYYY/MM/DD HH:mm:ss',
+            timePicker: {enabled: true},
+            onSelect: function (unix) {
+                window.__to_date = unix;
+            }
+        });
+    });
 </script>
