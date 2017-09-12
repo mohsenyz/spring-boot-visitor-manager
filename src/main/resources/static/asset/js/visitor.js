@@ -293,9 +293,9 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
             exists_drugs: $scope.exists_drugs,
             drugs_esales: $scope.drugs_esales,
             same_drugs: $scope.same_drugs,
-            next_session_date: $scope.next_session_date,
+            next_session_date: window.__next_visit,
             visit_time: $scope.visit_time,
-            visit_date: $scope.visit_date,
+            visit_date: window.__visit_time,
             urgency: $scope.urgency,
             ds: {
                 ds_name: $scope.ds.ds_name,

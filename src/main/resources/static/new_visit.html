@@ -13,7 +13,7 @@
                 </select>
             </i></span>
         <span><b>تاریخ ویزیت بعدی :‌ </b><i>
-                <input ng-model="next_session_date" type="text" class="datepicker-do input-center" style="width:100px !important;"/>
+                <input id="next-visit-input" ng-model="next_session_date" type="text" class="datepicker-do input-center" style="width:100px !important;"/>
                 <select class="comp">
                     <option value="none" selected="selected">-</option>
                     <option value="1d">یک روز</option>
@@ -32,7 +32,7 @@
                 </select>
             </i></span>
         <span><b>تاریخ ویزیت:‌ </b><i>
-                <input type="text" class="datepicker input-center" ng-model="visit_date"/>
+                <input id="visit-time-input" type="text" class="datepicker input-center" ng-model="visit_date"/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
@@ -68,7 +68,7 @@
     <textarea ng-model="content">
     </textarea>
     <div class="normal-row">
-        <button class="button" ng-click="content_drugs[content_drugs.length] = {drug : null, num : null, visit : null}; reInit();">
+        <button class="button" ng-click="content_drugs[content_drugs.length] = {drug: null, num: null, visit: null}; reInit();">
             افزودن دارو
         </button>
     </div>
@@ -107,7 +107,7 @@
     <h3 ng-show="visitor == 'none'">نتیجه : </h3>
     <textarea ng-show="visitor == 'none'" ng-model="result"></textarea>
     <div class="normal-row" ng-show="visitor == 'none'">
-        <button class="button" ng-click="result_drugs[result_drugs.length] = {drug : null, num : null, visit : null}; reInit();">
+        <button class="button" ng-click="result_drugs[result_drugs.length] = {drug: null, num: null, visit: null}; reInit();">
             افزودن دارو
         </button>
     </div>
@@ -125,7 +125,7 @@
             </i></span>
     </div>
     <div class="normal-row">
-        <button class="button" ng-click="docs[docs.length] = {desc : null, file : null};">
+        <button class="button" ng-click="docs[docs.length] = {desc: null, file: null};">
             افزودن سند
         </button>
     </div>
@@ -147,10 +147,23 @@
     <br/><br/><br/><br/><br/>
 </div>
 <script>
-    $(document).ready(function () {
-    $("select.comp").select2({
-    dir: "rtl"
-    });
-    $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
-    $(".datepicker-do").persianDatepicker({format: 'YYYY/MM/DD', timePicker: {enabled: false}});
-    });</script>
+            $(document).ready(function () {
+                $("select.comp").select2({
+                    dir: "rtl"
+                });
+                $("#visit-time-input").persianDatepicker({
+                    format: 'YYYY/MM/DD HH:mm:ss',
+                    timePicker: {enabled: true},
+                    onSelect : function(unix){
+                        window.__next_visit = unix;
+                    }
+                });
+                $("#next-visit-input").persianDatepicker({
+                    format: 'YYYY/MM/DD',
+                    timePicker: {enabled: false},
+                    onSelect : function(unix){
+                        window.__visit_time = unix;
+                    }
+                });
+            });
+</script>
