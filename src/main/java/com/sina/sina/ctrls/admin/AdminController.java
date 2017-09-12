@@ -53,11 +53,20 @@ public class AdminController {
     DsDao dsDao;
 
     @GetMapping("/admin/requests")
-    public List<Order> listRequests(HttpSession httpSession) {
+    public ArrayNode listRequests(HttpSession httpSession) {
         if (httpSession.getAttribute("admin") == null) {
-            return new ArrayList<>();
+            return null;
         }
-        return orderDao.findAllDsOrder();
+        List<Order> list = orderDao.findAllDsOrder();
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayNode arrayNode = mapper.createArrayNode();
+        for (Order order : list) {
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.putPOJO("order", order);
+            fillOrder(order, objectNode);
+            arrayNode.add(objectNode);
+        }
+        return arrayNode;
     }
 
     @GetMapping("/admin/reports/visits")
