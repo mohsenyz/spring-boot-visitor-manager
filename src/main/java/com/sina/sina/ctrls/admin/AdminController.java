@@ -121,10 +121,4 @@ public class AdminController {
         }
         return cmDao.listAll();
     }
-
-    @GetMapping("/admin/login")
-    public String login(HttpSession httpSession) {
-        httpSession.setAttribute("admin", true);
-        return "done";
-    }
 }

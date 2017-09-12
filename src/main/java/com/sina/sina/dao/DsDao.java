@@ -86,11 +86,9 @@ public class DsDao extends AbstractDao{
     }
     
     public Ds findByUsername(String pass) {
-        return (Ds) jdbcTemplate
-                .queryForObject(
-                        "select * from `" + getTableName() + "` where username = ?",
-                        new Object[]{pass},
-                        new DsRowMapper());
+        Criteria crit = getSession().createCriteria(Ds.class);
+        crit.add(Restrictions.eq("username", pass));
+        return (Ds)crit.uniqueResult();
     }
     
     

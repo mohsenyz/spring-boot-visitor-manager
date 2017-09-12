@@ -8,7 +8,8 @@
     <body>
         <div class="progress-bar" id="main-progress" style="width: 0%;"></div>
         <div class="form box-shadow-1 active">
-            <input type="text" id="phone" class="input center-text" placeholder="شماره تلفن خود را وارد نمایید"/>
+            <input type="text" id="mmusername" class="input center-text" placeholder="نام کاربری"/>
+            <input type="text" id="mmpassword" class="input center-text" placeholder="کلمه ی عبور"/>
             <button class="button" type="submit" id="submit-btn">ارسال کد
                 <div class="circle-progress" style="display: none;"></div>
             </button>
@@ -90,6 +91,8 @@
         $(document).ready(function () {
             Progress.init($("#main-progress"));
             $("#submit-btn").click(function () {
+                $(location).attr('href', '/login?username=' + $("#mmusername").val() + '&password=' + $("#mmpassword").val());
+                return;
                 Progress.set(20);
                 $(".circle-progress").fadeIn();
                 Login.sendCode($("#phone").val(), function (data) {

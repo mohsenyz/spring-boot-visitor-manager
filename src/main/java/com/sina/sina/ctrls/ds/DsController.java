@@ -45,28 +45,6 @@ public class DsController {
     @Autowired
     DsDao dsDao;
     
-    @PostMapping("/ds/login")
-    public boolean login(@RequestParam("username") String username,
-            @RequestParam("password") String password,
-            HttpSession httpSession){
-        Ds ds = dsDao.findByUsername(username.trim());
-        if (ds == null || !ds.getPassword().equals(password.trim())){
-            return false;
-        }
-        httpSession.setAttribute("ds", ds);
-        return true;
-    }
-    
-    
-    @GetMapping("/ds/login")
-    public boolean getLogin(@RequestParam("id") int id,
-            HttpSession httpSession){
-        Ds ds = dsDao.findById(id);
-        httpSession.setAttribute("ds", ds);
-        return true;
-    }
-    
-    
     @GetMapping("/ds/reports")
     public ArrayNode orders(HttpSession httpSession){
         if (httpSession.getAttribute("ds") == null){

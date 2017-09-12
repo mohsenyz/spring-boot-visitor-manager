@@ -92,6 +92,9 @@ $(document).ready(function () {
     });
 });
 app.run(function ($rootScope, $location, $timeout) {
+    $rootScope.unixToString = function (unix) {
+        return new persianDate(unix).format();
+    };
     $rootScope.go = function (path) {
         $location.path(path);
     };

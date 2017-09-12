@@ -178,12 +178,4 @@ public class CmController {
         }
         return arrayNode;
     }
-    
-    @GetMapping("/cm/login")
-    public String login_fake(HttpSession httpSession, @RequestParam("id") int id){
-        Cm cm = new Cm();
-        cm.setId(id);
-        httpSession.setAttribute("cm", cm);
-        return "done";
-    }
 }

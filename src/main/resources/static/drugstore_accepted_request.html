@@ -3,11 +3,11 @@
     <div class="panel" ng-repeat="x in orders">
         <div class="panel-head" ng-click="showCurr($event, x)">
             درخواست {{x.order.id}}
-            <span class="date" ng-if="x.order.createdAt">{{unixToString(x.order.createdAt)}}</span>
+            <span class="date" ng-if="x.order.createdAt">{{unixToString(unixToString(x.order.createdAt))}}</span>
         </div>
         <div class="panel-body">
             <div class="header-row col-2">
-                <span><b>تاریخ: </b><i ng-if="x.order.createdAt">{{unixToString(x.order.createdAt)}}</i></span>
+                <span><b>تاریخ: </b><i ng-if="x.order.createdAt">{{unixToString(unixToString(x.order.createdAt))}}</i></span>
                 <span ng-if="!x.order.submited && !x.order.viewedAt"><b>وضعیت: </b><i>تایید نشده</i></span>
                 <span ng-if="x.order.viewedAt && !x.order.submited"><b>وضعیت: </b><i>مشاهده شده</i></span>
                 <span ng-if="x.order.submited"><b>وضعیت: </b><i>تمام شده</i></span>

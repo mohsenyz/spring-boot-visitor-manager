@@ -3,7 +3,7 @@
     <div class="panel">
         <div class="panel-head">
             ویزیت شماره ی  {{x.order.id}}
-            <span class="date">{{x.order.createdAt}}</span>
+            <span class="date">{{unixToString(x.order.createdAt)}}</span>
         </div>
         <div class="panel-body">
             <div class="header-row col-2" ng-if="x.order.forwardToVid == null && x.order.nextSession == null">
@@ -23,7 +23,7 @@
                     <i ng-if="x.order.submited == 0 && x.order.viewedAt == null">انتظار</i>
                     <i ng-if="x.order.submited != 1 && x.order.viewedAt != null">بررسی شده</i>
                 </span>
-                <span class="tooltip" title="{{x.order.nextSession}}"><b>ویزیت بعدی: </b><i>{{x.order.nextSession}}</i></span>
+                <span class="tooltip" title="{{unixToString(x.order.nextSession)}}"><b>ویزیت بعدی: </b><i>{{unixToString(x.order.nextSession)}}</i></span>
 
             </div>
 
