@@ -30,7 +30,7 @@ app.config(function ($routeProvider) {
     $routeProvider
             .when("/", {
                 templateUrl: "admin_visits_report.html",
-                controller : "admin_visits_report"
+                controller: "admin_visits_report"
             })
             .when("/visitor-report", {
                 templateUrl: "cm_visitor_report.html"
@@ -39,15 +39,16 @@ app.config(function ($routeProvider) {
                 templateUrl: "admin_received_request.html"
             })
             .when("/orders", {
-                templateUrl: "admin_orders.html"
+                templateUrl: "admin_orders.html",
+                controller: "admin_orders"
             })
             .when("/manage-cm", {
                 templateUrl: "admin_manage_cm.html",
-                controller : "admin_manage_cms"
+                controller: "admin_manage_cms"
             })
             .when("/manage-visitor", {
                 templateUrl: "admin_manage_visitors.html",
-                controller : "admin_manage_visitors"
+                controller: "admin_manage_visitors"
             })
             .when("/user", {
                 templateUrl: "user.html",
@@ -140,13 +141,15 @@ app.controller("new_visitor", function ($scope, $rootScope, $timeout, $http) {
     $scope.desc = null;
     $scope.pic1 = null;
     $scope.pic2 = null;
-    $.getJSON("/core/city", function(data){
-       for (i = 0; i < data.length; i++){
-           $scope.city_select.push(data[i]);
-           console.log($scope.city_select);
-           window.setTimeout(function(){$("select").trigger("change");}, 200);
-           $scope.$apply();
-       } 
+    $.getJSON("/core/city", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.city_select.push(data[i]);
+            console.log($scope.city_select);
+            window.setTimeout(function () {
+                $("select").trigger("change");
+            }, 200);
+            $scope.$apply();
+        }
     });
     $scope.submitThis = function () {
         dScope = {
@@ -180,8 +183,8 @@ app.controller("new_visitor", function ($scope, $rootScope, $timeout, $http) {
         pic2Name = randomStr(15) + "_" + dScope.pic2.name;
         formdata.append(pic1Name, dScope.pic1);
         formdata.append(pic2Name, dScope.pic2);
-        dScope.pic1 = {file : pic1Name};
-        dScope.pic2 = {file : pic2Name};
+        dScope.pic1 = {file: pic1Name};
+        dScope.pic2 = {file: pic2Name};
         formdata.append("json", JSON.stringify(JSON.decycle(dScope, true)));
         $http({
             method: 'POST',
@@ -215,13 +218,15 @@ app.controller("new_cm", function ($scope, $rootScope, $timeout, $http) {
     $scope.address = null;
     $scope.desc = null;
     $scope.pic1 = null;
-    $.getJSON("/core/city", function(data){
-       for (i = 0; i < data.length; i++){
-           $scope.city_select.push(data[i]);
-           console.log($scope.city_select);
-           window.setTimeout(function(){$("select").trigger("change");}, 200);
-           $scope.$apply();
-       } 
+    $.getJSON("/core/city", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.city_select.push(data[i]);
+            console.log($scope.city_select);
+            window.setTimeout(function () {
+                $("select").trigger("change");
+            }, 200);
+            $scope.$apply();
+        }
     });
     $scope.submitThis = function () {
         dScope = {
@@ -249,7 +254,7 @@ app.controller("new_cm", function ($scope, $rootScope, $timeout, $http) {
         }
         pic1Name = randomStr(15) + "_" + dScope.pic1.name;
         formdata.append(pic1Name, dScope.pic1);
-        dScope.pic1 = {file : pic1Name};
+        dScope.pic1 = {file: pic1Name};
         formdata.append("json", JSON.stringify(JSON.decycle(dScope, true)));
         $http({
             method: 'POST',
@@ -291,6 +296,13 @@ app.controller("admin_visits_report", function ($scope, $rootScope, $timeout) {
         $scope.$apply();
     });
 
+});
+app.controller("admin_orders", function ($scope, $rootScope, $timeout) {
+    $scope.orders = null;
+    $.getJSON("/admin/requests", function (data) {
+        $scope.orders = data;
+        $scope.$apply();
+    });
 });
 app.controller("admin_manage_visitors", function ($scope, $rootScope, $timeout) {
     $scope.visitors = [];

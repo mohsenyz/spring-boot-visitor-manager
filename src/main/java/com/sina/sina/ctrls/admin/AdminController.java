@@ -10,13 +10,17 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sina.sina.dao.CmDao;
 import com.sina.sina.dao.DrDao;
+import com.sina.sina.dao.DrugsDao;
 import com.sina.sina.dao.DsDao;
 import com.sina.sina.dao.OrderDao;
+import com.sina.sina.dao.OrderDrugsDao;
 import com.sina.sina.dao.VisitorDao;
 import com.sina.sina.models.Cm;
 import com.sina.sina.models.Dr;
+import com.sina.sina.models.Drugs;
 import com.sina.sina.models.Ds;
 import com.sina.sina.models.Order;
+import com.sina.sina.models.OrderDrugs;
 import com.sina.sina.models.Visitor;
 import com.utils.time.TimeHelper;
 import java.sql.Timestamp;
@@ -51,6 +55,12 @@ public class AdminController {
     
     @Autowired
     DsDao dsDao;
+    
+    @Autowired
+    OrderDrugsDao orderDrugsDao;
+    
+    @Autowired
+    DrugsDao drugsDao;
 
     @GetMapping("/admin/requests")
     public ArrayNode listRequests(HttpSession httpSession) {
@@ -112,6 +122,13 @@ public class AdminController {
         if (order.getVid() != null){
             Visitor visitor = visitorDao.findById(order.getVid());
             objectNode.putPOJO("v", visitor);
+        }
+        List<OrderDrugs> list = orderDrugsDao.findByOrder(order.getId());
+        ArrayNode arrayNode = objectNode.putArray("order_drugs");
+        for (OrderDrugs orderDrug : list){
+            Drugs drug = drugsDao.findById(orderDrug.getDrugId());
+            orderDrug.setDrugName(drug.getName());
+            arrayNode.addPOJO(orderDrug);
         }
     }
 
