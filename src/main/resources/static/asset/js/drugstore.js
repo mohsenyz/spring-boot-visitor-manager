@@ -29,13 +29,16 @@ app.directive("fileread", [
 app.config(function ($routeProvider) {
     $routeProvider
             .when("/", {
-                templateUrl: "drugstore_report.html"
+                templateUrl: "drugstore_report.html",
+                controller : "drugstore_report"
             })
             .when("/accepted-requests", {
-                templateUrl: "drugstore_accepted_request.html"
+                templateUrl: "drugstore_accepted_request.html",
+                controller : "drugstore_accepted_request"
             })
             .when("/finished-requests", {
-                templateUrl: "drugstore_finished_request.html"
+                templateUrl: "drugstore_finished_request.html",
+                controller : "drugstore_finished_request"
             })
             .when("/user", {
                 templateUrl: "user.html",
@@ -65,6 +68,10 @@ $(document).ready(function () {
     });
 });
 app.run(function ($rootScope, $location, $timeout) {
+    $rootScope.x = null;
+    $rootScope.unixToString = function (unix) {
+        return new persianDate(unix).format();
+    };
     $rootScope.go = function (path) {
         $location.path(path);
     };
@@ -73,12 +80,8 @@ app.run(function ($rootScope, $location, $timeout) {
         name: '',
         result: false,
     };
-    $rootScope.showCurr = function ($event, type) {
-        var curr = $($event.originalEvent.originalTarget).parent();
-        $rootScope.curr.bar = curr.find(".panel-body").html();
-        $rootScope.curr.name = curr.find(".panel-head").html();
-        $rootScope.curr.result = type;
-        console.log($rootScope.curr);
+    $rootScope.showCurr = function ($event, obj) {
+        $rootScope.x = obj;
         $rootScope.go('curr');
         $('.tooltip').tooltipster({
             theme: 'tooltipster-borderless'
@@ -125,6 +128,33 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
             alert(data);
         });
     };
+});
+app.controller("drugstore_report", function ($scope, $rootScope, $timeout, $http) {
+    $scope.orders = [];
+    $.getJSON("/ds/reports", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.orders.push(data[i]);
+            $scope.$apply();
+        }
+    });
+});
+app.controller("drugstore_finished_request", function ($scope, $rootScope, $timeout, $http) {
+    $scope.orders = [];
+    $.getJSON("/ds/reports/seen", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.orders.push(data[i]);
+            $scope.$apply();
+        }
+    });
+});
+app.controller("drugstore_accepted_request", function ($scope, $rootScope, $timeout, $http) {
+    $scope.orders = [];
+    $.getJSON("/ds/reports/finished", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope.orders.push(data[i]);
+            $scope.$apply();
+        }
+    });
 });
 app.controller("user", function ($scope) {
     $scope.fpass = null;

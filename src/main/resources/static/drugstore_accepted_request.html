@@ -1,22 +1,24 @@
 <div class="container">
     <br/>
-    <div class="panel">
-        <div class="panel-head" ng-click="showCurr($event, true)">
-            درخواست ۲
-            <span class="date">1396/04/02</span>
+    <div class="panel" ng-repeat="x in orders">
+        <div class="panel-head" ng-click="showCurr($event, x)">
+            درخواست {{x.order.id}}
+            <span class="date" ng-if="x.order.createdAt">{{unixToString(x.order.createdAt)}}</span>
         </div>
         <div class="panel-body">
             <div class="header-row col-2">
-                <span><b>تاریخ: </b><i>پنجشنبه  2 تیر 1396 ساعت 02:10</i></span>
-                <span><b>وضعیت: </b><i>تایید شده</i></span>
+                <span><b>تاریخ: </b><i ng-if="x.order.createdAt">{{unixToString(x.order.createdAt)}}</i></span>
+                <span ng-if="!x.order.submited && !x.order.viewedAt"><b>وضعیت: </b><i>تایید نشده</i></span>
+                <span ng-if="x.order.viewedAt && !x.order.submited"><b>وضعیت: </b><i>مشاهده شده</i></span>
+                <span ng-if="x.order.submited"><b>وضعیت: </b><i>تمام شده</i></span>
             </div>
             <h4>توضیحات : </h4>
             <div class="area area-90">
-                توضیحات درخواست
+                {{x.order.desc}}
             </div>
         </div>
         <br/>
-        <span class="help" ng-click="showCurr($event, true)">مشاهده ی بیشتر</span>
+        <span class="help" ng-click="showCurr($event, x)">مشاهده ی بیشتر</span>
     </div>
     <br/><br/><br/><br/><br/><br/>
 </div>

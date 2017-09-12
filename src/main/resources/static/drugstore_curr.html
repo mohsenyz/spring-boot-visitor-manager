@@ -1,33 +1,26 @@
 <div class="container">
-    <br/>
-    <div class="panel">
-        <div class="panel-head">
-            <htmldiv content="curr.name"></htmldiv>
-        </div>
-        <div class="panel-body">
-            <htmldiv content="curr.bar"></htmldiv>
-            <h4>درخواست : </h4>
-            <div class="area area-90">
-                محتوای درخواست
-            </div>
-            <h4>لیست داروهای درخواستی: </h4>
-            <div class="header-row col-2">
-                <span><b>دارو : </b><i>
-                       همولاکس 
-                    </i></span>
-                <span><b>تعداد : </b><i>
-                        ۱۰
-                    </i></span>
-            </div>
-        </div>
-        <br/>
+    <h3>توضیحات : </h3>
+    <div class="area">
+        {{x.order.desc}}
     </div>
-    <br/><br/><br/><br/><br/><br/>
+    <h3>درخواست : </h3>
+    <div class="area">
+        {{x.order.content}}
+    </div>
+    <div class="header-row col-2-normal" ng-repeat="d in x.order_drugs">
+        <span class="span-5"><b>دارو : </b><i>
+                {{d.drugName}}
+            </i></span>
+        <span class="span-5"><b>تعداد : </b><i>
+                {{d.count}}
+            </i></span>
+    </div>
+    <br/><br/><br/><br/><br/>
 </div>
 <script>
-            $(document).ready(function () {
-                $('.tooltip').tooltipster({
-                    theme: 'tooltipster-borderless'
-                });
-            });
-</script>
+    $(document).ready(function () {
+    $("select.comp").select2({
+    dir: "rtl"
+    });
+    $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
+    });</script>

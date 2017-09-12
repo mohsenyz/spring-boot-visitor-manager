@@ -9,6 +9,7 @@ import com.sina.sina.dao.rowmapper.DrugsRowMapper;
 import com.sina.sina.models.Drugs;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,10 +42,8 @@ public class DrugsDao extends AbstractDao{
     }
     
     public Drugs findById(int id) {
-        return (Drugs) jdbcTemplate
-                .queryForObject(
-                        "select * from `" + getTableName() + "` where id = ?",
-                        new Object[]{id},
-                        new DrugsRowMapper());
+        Criteria crit = getSession().createCriteria(Drugs.class);
+        crit.add(Restrictions.eq("id", id));
+        return (Drugs) crit.uniqueResult();
     }
 }

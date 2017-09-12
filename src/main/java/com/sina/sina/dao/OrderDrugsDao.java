@@ -6,7 +6,11 @@
 package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.OrderDrugsRowMapper;
+import com.sina.sina.models.Order;
 import com.sina.sina.models.OrderDrugs;
+import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,11 +56,16 @@ public class OrderDrugsDao extends AbstractDao{
     }
     
     public OrderDrugs findById(int id) {
-        return (OrderDrugs) jdbcTemplate
-                .queryForObject(
-                        "select * from `" + getTableName() + "` where id = ?",
-                        new Object[]{id},
-                        new OrderDrugsRowMapper());
+        Criteria crit = getSession().createCriteria(OrderDrugs.class);
+        crit.add(Restrictions.eq("id", id));
+        return (OrderDrugs) crit.uniqueResult();
+    }
+    
+    
+    public List<OrderDrugs> findByOrder(int orderId) {
+        Criteria crit = getSession().createCriteria(OrderDrugs.class);
+        crit.add(Restrictions.eq("oid", orderId));
+        return (List<OrderDrugs>) crit.list();
     }
     
 }

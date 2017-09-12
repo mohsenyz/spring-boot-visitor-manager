@@ -64,11 +64,9 @@ public class OrderDao extends AbstractDao {
     }
 
     public Order findById(int id) {
-        return (Order) jdbcTemplate
-                .queryForObject(
-                        "select * from `" + getTableName() + "` where id = ?",
-                        new Object[]{id},
-                        new OrderRowMapper());
+        Criteria crit = getSession().createCriteria(Order.class);
+        crit.add(Restrictions.eq("id", id));
+        return (Order)crit.uniqueResult();
     }
 
     public List<Order> findByVid(int vid) {
@@ -80,20 +78,20 @@ public class OrderDao extends AbstractDao {
     public List<Order> findForwarded(int vid) {
         Criteria crit = getSession().createCriteria(Order.class);
         crit.add(Restrictions.eq("vid", vid));
-        crit.add(Restrictions.isNotNull("forward_to_vid"));
+        crit.add(Restrictions.isNotNull("forwardToVid"));
         return crit.list();
     }
 
-    public List<Order> findReceivedRequest(int vid) {
+    public List<Order> findReceivedRequest(Integer vid) {
         Criteria crit = getSession().createCriteria(Order.class);
-        crit.add(Restrictions.eq("forward_to_vid", vid));
+        crit.add(Restrictions.eq("forwardToVid", vid));
         return crit.list();
     }
 
-    public List<Order> findNextVisit(int vid) {
+    public List<Order> findNextVisit(Integer vid) {
         Criteria crit = getSession().createCriteria(Order.class);
         crit.add(Restrictions.eq("vid", vid));
-        crit.add(Restrictions.isNotNull("next_session"));
+        crit.add(Restrictions.isNotNull("nextSession"));
         return crit.list();
     }
 
@@ -159,6 +157,15 @@ public class OrderDao extends AbstractDao {
         return jdbcTemplate.
                 query(
                         "select `order_list`.* from`" + getTableName() + "` where dsid = ? and vid is null and viewed_at is not null",
+                        new Object[]{ds},
+                        new OrderRowMapper());
+    }
+    
+    
+    public List<Order> findByDs(int ds) {
+        return jdbcTemplate.
+                query(
+                        "select `order_list`.* from`" + getTableName() + "` where dsid = ? and vid is null",
                         new Object[]{ds},
                         new OrderRowMapper());
     }
