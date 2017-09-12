@@ -195,6 +195,7 @@ CREATE TABLE `drugs` (
 
 LOCK TABLES `drugs` WRITE;
 /*!40000 ALTER TABLE `drugs` DISABLE KEYS */;
+INSERT INTO `drugs` VALUES (1,'hemolax');
 /*!40000 ALTER TABLE `drugs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,19 +260,19 @@ CREATE TABLE `hibernate_sequence` (
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (31);
-INSERT INTO `hibernate_sequence` VALUES (31);
-INSERT INTO `hibernate_sequence` VALUES (31);
-INSERT INTO `hibernate_sequence` VALUES (31);
-INSERT INTO `hibernate_sequence` VALUES (31);
-INSERT INTO `hibernate_sequence` VALUES (31);
-INSERT INTO `hibernate_sequence` VALUES (31);
-INSERT INTO `hibernate_sequence` VALUES (31);
-INSERT INTO `hibernate_sequence` VALUES (31);
-INSERT INTO `hibernate_sequence` VALUES (31);
-INSERT INTO `hibernate_sequence` VALUES (31);
-INSERT INTO `hibernate_sequence` VALUES (31);
-INSERT INTO `hibernate_sequence` VALUES (31);
+INSERT INTO `hibernate_sequence` VALUES (34);
+INSERT INTO `hibernate_sequence` VALUES (34);
+INSERT INTO `hibernate_sequence` VALUES (34);
+INSERT INTO `hibernate_sequence` VALUES (34);
+INSERT INTO `hibernate_sequence` VALUES (34);
+INSERT INTO `hibernate_sequence` VALUES (34);
+INSERT INTO `hibernate_sequence` VALUES (34);
+INSERT INTO `hibernate_sequence` VALUES (34);
+INSERT INTO `hibernate_sequence` VALUES (34);
+INSERT INTO `hibernate_sequence` VALUES (34);
+INSERT INTO `hibernate_sequence` VALUES (34);
+INSERT INTO `hibernate_sequence` VALUES (34);
+INSERT INTO `hibernate_sequence` VALUES (34);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,6 +303,7 @@ CREATE TABLE `order_drugs` (
 
 LOCK TABLES `order_drugs` WRITE;
 /*!40000 ALTER TABLE `order_drugs` DISABLE KEYS */;
+INSERT INTO `order_drugs` VALUES (33,10,1,NULL,32,NULL,NULL,8,NULL);
 /*!40000 ALTER TABLE `order_drugs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,6 +362,8 @@ INSERT INTO `order_list` VALUES (24,1,'knegnewwegw',NULL,1,'lksengekgn',NULL,NUL
 INSERT INTO `order_list` VALUES (26,1,'knegnewwegw',NULL,1,'lksengekgn',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'null',NULL,25,NULL,NULL,'eg;ernwgn','rwrhrhwrwhrhw',NULL,NULL,'krhnrhheweh',NULL,NULL,1,4,NULL);
 INSERT INTO `order_list` VALUES (28,1,'knegnewwegw',NULL,1,'lksengekgn',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'null',NULL,27,NULL,NULL,'eg;ernwgn','rwrhrhwrwhrhw',NULL,NULL,'krhnrhheweh',NULL,'',1,16,NULL);
 INSERT INTO `order_list` VALUES (30,1,'knegnewwegw',NULL,1,'lksengekgn',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'null',NULL,29,NULL,NULL,'eg;ernwgn','rwrhrhwrwhrhw',NULL,NULL,'krhnrhheweh',NULL,'',1,11,NULL);
+INSERT INTO `order_list` VALUES (31,NULL,'request',NULL,0,'desc',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,9,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL);
+INSERT INTO `order_list` VALUES (32,NULL,'request',NULL,0,'desc',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,9,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL);
 /*!40000 ALTER TABLE `order_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -494,4 +498,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-10 19:16:51
+-- Dump completed on 2017-09-12 12:52:18

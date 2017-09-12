@@ -92,10 +92,39 @@ app.run(function ($rootScope, $location, $timeout) {
         }, 0);
     };
 });
-app.controller("new_visit", function ($scope, $rootScope, $timeout) {
+app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
     $scope.content_drugs = [];
     $scope.desc = null;
     $scope.request = null;
+    $scope._drugs_list = [];
+    $.getJSON("/core/drugs", function (data) {
+        for (i = 0; i < data.length; i++) {
+            $scope._drugs_list.push(data[i]);
+            window.setTimeout(function () {
+                $("select").trigger("change");
+            }, 200);
+            $scope.$apply();
+        }
+    });
+    $scope.submitThis = function () {
+        dScope = {
+            content_drugs : $scope.content_drugs,
+            desc : $scope.desc,
+            request : $scope.request
+        };
+        var formdata = new FormData();
+        formdata.append("json", JSON.stringify(JSON.decycle(dScope, true)));
+        $http({
+            method: 'POST',
+            url: '/ds/order',
+            data: formdata,
+            headers: {
+                'Content-Type': undefined
+            }
+        }).then(function (data) {
+            alert(data);
+        });
+    };
 });
 app.controller("user", function ($scope) {
     $scope.fpass = null;

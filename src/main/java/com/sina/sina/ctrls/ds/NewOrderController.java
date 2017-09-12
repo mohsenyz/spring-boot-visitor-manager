@@ -5,6 +5,7 @@
  */
 package com.sina.sina.ctrls.ds;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sina.sina.dao.DocsDao;
@@ -54,6 +55,7 @@ public class NewOrderController {
         }
         Ds currVisitor = (Ds)httpSession.getAttribute("ds");
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Order order = new Order();
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
         String content = jsonNode.get("request").asText();
@@ -66,7 +68,7 @@ public class NewOrderController {
         for (Drugs_1 result_drug : result_drugs) {
             OrderDrugs orderDrugs = new OrderDrugs();
             orderDrugs.setDrugId(result_drug.drug);
-            orderDrugs.setType(OrderDrugs.RESULT_DRUGS);
+            orderDrugs.setType(OrderDrugs.DS_ORDER_DRUGS);
             orderDrugs.setCount(result_drug.num);
             orderDrugs.setOid(order.getId());
             orderDrugsDao.insert(orderDrugs);

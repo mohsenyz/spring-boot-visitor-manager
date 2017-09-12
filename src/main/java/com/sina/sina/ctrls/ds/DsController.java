@@ -46,6 +46,16 @@ public class DsController {
     }
     
     
+    @GetMapping("/ds/login")
+    public boolean getLogin(@RequestParam("id") int id,
+            HttpSession httpSession){
+        Ds ds = dsDao.findById(id);
+        httpSession.setAttribute("ds", ds);
+        return true;
+    }
+    
+    
+    
     @GetMapping("/ds/reports/seen")
     public List<Order> seenOrder(HttpSession httpSession){
         if (httpSession.getAttribute("ds") == null){

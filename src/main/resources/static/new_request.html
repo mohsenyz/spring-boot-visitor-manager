@@ -13,8 +13,7 @@
     <div class="header-row col-2-normal" ng-repeat="x in content_drugs">
         <span class="span-5"><b>دارو : </b><i>
                 <select ng-model="x.drug">
-                    <option>همولاکس</option>
-                    <option>دایجستر</option>
+                    <option value="{{x.id}}" ng-repeat="x in _drugs_list">{{x.name}}</option>
                 </select>
             </i></span>
         <span class="span-5"><b>تعداد : </b><i>
@@ -24,7 +23,7 @@
     <br/>
     <hr/>
     <div class="normal-row">
-        <button class="button" style="margin: 0 auto; float: none !important;">
+        <button class="button" style="margin: 0 auto; float: none !important;" ng-click="submitThis()">
             ثبت درخواست
         </button>
     </div>

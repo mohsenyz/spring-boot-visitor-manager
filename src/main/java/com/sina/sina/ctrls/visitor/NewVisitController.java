@@ -5,6 +5,7 @@
  */
 package com.sina.sina.ctrls.visitor;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sina.sina.dao.CmDao;
@@ -82,6 +83,7 @@ public class NewVisitController {
         }
         Visitor currVisitor = (Visitor) httpSession.getAttribute("visitor");
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Order order = new Order();
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
         String visitor = jsonNode.get("visitor").asText();
