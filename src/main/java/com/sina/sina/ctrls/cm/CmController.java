@@ -10,13 +10,17 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sina.sina.dao.CmDao;
 import com.sina.sina.dao.DrDao;
+import com.sina.sina.dao.DrugsDao;
 import com.sina.sina.dao.DsDao;
 import com.sina.sina.dao.OrderDao;
+import com.sina.sina.dao.OrderDrugsDao;
 import com.sina.sina.dao.VisitorDao;
 import com.sina.sina.models.Cm;
 import com.sina.sina.models.Dr;
+import com.sina.sina.models.Drugs;
 import com.sina.sina.models.Ds;
 import com.sina.sina.models.Order;
+import com.sina.sina.models.OrderDrugs;
 import com.sina.sina.models.Visitor;
 import com.utils.time.TimeHelper;
 import java.sql.Timestamp;
@@ -51,19 +55,11 @@ public class CmController {
     @Autowired
     CmDao cmDao;
     
-    /*
-    @PostMapping("/ds/login")
-    public boolean login(@RequestParam("username") String username,
-            @RequestParam("password") String password,
-            HttpSession httpSession){
-        Cm cm = cmDao.findByUsername(username.trim());
-        if (cm == null || !cm.getPassword().equals(password.trim())){
-            return false;
-        }
-        httpSession.setAttribute("cm", cm);
-        return true;
-    }
-    */
+    @Autowired
+    OrderDrugsDao orderDrugsDao;
+    
+    @Autowired
+    DrugsDao drugsDao;
     
     @GetMapping("/cm/reports/visits")
     public ArrayNode getOrders(HttpSession httpSession){
@@ -103,6 +99,13 @@ public class CmController {
         if (order.getVid() != null){
             Visitor visitor = visitorDao.findById(order.getVid());
             objectNode.putPOJO("v", visitor);
+        }
+        List<OrderDrugs> list = orderDrugsDao.findByOrder(order.getId());
+        ArrayNode arrayNode = objectNode.putArray("order_drugs");
+        for (OrderDrugs orderDrug : list){
+            Drugs drug = drugsDao.findById(orderDrug.getDrugId());
+            orderDrug.setDrugName(drug.getName());
+            arrayNode.addPOJO(orderDrug);
         }
     }
     
