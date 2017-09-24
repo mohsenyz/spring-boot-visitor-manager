@@ -86,6 +86,30 @@ app.run(function ($rootScope, $location, $timeout) {
         return new persianDate(unix).format();
     };
     $rootScope.goLink = 'none';
+    $rootScope.filterBy1 = function(element){
+        return element.type == 1;
+    };
+    $rootScope.filterBy2 = function(element){
+        return element.type == 2;
+    };
+    $rootScope.filterBy3 = function(element){
+        return element.type == 3;
+    };
+    $rootScope.filterBy4 = function(element){
+        return element.type == 4;
+    };
+    $rootScope.filterBy5 = function(element){
+        return element.type == 5;
+    };
+    $rootScope.filterBy6 = function(element){
+        return element.type == 6;
+    };
+    $rootScope.filterBy7 = function(element){
+        return element.type == 7;
+    };
+    $rootScope.filterBy8 = function(element){
+        return element.type == 8;
+    };
     $rootScope.go = function (path) {
         if (path == 'manage-cm') {
             $rootScope.goLink = 'new_cm';
