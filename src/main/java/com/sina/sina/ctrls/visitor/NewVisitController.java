@@ -315,16 +315,16 @@ public class NewVisitController {
             orderDrugs.setOid(order.getId());
             orderDrugsDao.insert(orderDrugs);
         }
-        Drugs_2[] same_drugs = objectMapper.treeToValue(jsonNode.get("exists_drugs"), Drugs_2[].class);
-        for (Drugs_2 noskh : same_drugs) {
+        Drugs_1[] same_drugs = objectMapper.treeToValue(jsonNode.get("same_drugs"), Drugs_1[].class);
+        for (Drugs_1 noskh : same_drugs) {
             OrderDrugs orderDrugs = new OrderDrugs();
             orderDrugs.setType(OrderDrugs.SAME_DRUGS);
             orderDrugs.setDrugId(noskh.drug);
-            orderDrugs.setVisitDesc(noskh.desc);
-            orderDrugs.setReason(noskh.reason);
+            orderDrugs.setCount(noskh.num);
             orderDrugs.setOid(order.getId());
             orderDrugsDao.insert(orderDrugs);
         }
+        // @TODO insert esales drugs
         return "done";
     }
 

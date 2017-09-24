@@ -18,7 +18,8 @@ public class OrderDrugs {
             KNOWN_DRUGS = 5,
             EXISTS_DRUGS = 6,
             SAME_DRUGS = 7,
-            DS_ORDER_DRUGS = 8;
+            DS_ORDER_DRUGS = 8,
+            ESALES_DRUGS = 9;
     
     
     @Id

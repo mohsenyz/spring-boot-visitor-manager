@@ -26,7 +26,7 @@ public class SinaApplication {
     }
 
     @PostConstruct
-    void started() {
+    void setupTimezone() {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Tehran"));
     }
 }
