@@ -17,16 +17,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SinaApplication {
     
     public static void main(String[] args) {
+        try {
+            System.setOut(new PrintStream(new FileOutputStream("/home/mphj/Logs/visitor-manager/" + new Timestamp(Calendar.getInstance().getTime().getTime()).toString() + "_" + UUID.randomUUID().toString() + ".log")));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SinaApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
         SpringApplication.run(SinaApplication.class, args);
     }
 
     @PostConstruct
     void started() {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Tehran"));
-        try {
-            System.setOut(new PrintStream(new FileOutputStream("/home/mphj/Logs/visitor-manager/" + new Timestamp(Calendar.getInstance().getTime().getTime()).toString() + "_" + UUID.randomUUID().toString() + ".log")));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SinaApplication.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 }
