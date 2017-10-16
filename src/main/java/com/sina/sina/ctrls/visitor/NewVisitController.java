@@ -201,7 +201,7 @@ public class NewVisitController {
                 String dr_address = doctorDetails.get("address").asText();
                 String dr_email = doctorDetails.get("email").asText();
                 String dr_pezeshk = doctorDetails.get("pezeshk").asText();
-                String dr_consent = doctorDetails.get("dr_consent").asText();
+                String dr_consent = doctorDetails.get("consent").asText();
                 String dr_company_product_ack = doctorDetails.get("company_products_ack").asText();
 
                 Dr dr = new Dr();
