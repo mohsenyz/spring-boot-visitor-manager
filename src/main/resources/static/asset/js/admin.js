@@ -61,6 +61,10 @@ app.config(function ($routeProvider) {
                 templateUrl: "admin_new_visitor.html",
                 controller: "new_visitor"
             })
+            .when("/new_city", {
+                templateUrl : "settings.html",
+                controller : "new_city"
+            })
             .when("/new_cm", {
                 templateUrl: "admin_new_cm.html",
                 controller: "new_cm"
@@ -396,6 +400,23 @@ app.controller("user", function ($scope) {
             alert("متاسفانه مشکلی به وجود آمد");
         });
     };
+});
+app.controller("new_city", function ($scope, $rootScope, $timeout, $http) {
+    $scope.city = null;
+    $scope.newCity = function () {
+        formData = new FormData();
+        formData.append("name", $scope.city)
+        $http({
+            method: 'POST',
+            url: '/admin/city/new',
+            data: formData,
+            headers: {
+                'Content-Type': undefined
+            }
+        }).then(function (data) {
+            alert(data);
+        });
+    }
 });
 function makeActive(ele) {
     ele = $(ele);
