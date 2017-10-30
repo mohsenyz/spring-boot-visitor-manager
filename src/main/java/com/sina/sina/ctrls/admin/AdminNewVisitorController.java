@@ -15,6 +15,7 @@ import com.sina.sina.models.Docs;
 import com.sina.sina.models.Visitor;
 import com.sina.sina.models.VisitorCity;
 import com.sina.sina.pojo.Docs_1;
+import com.sina.sina.utils.IntegerHelper;
 import com.utils.http.Uploader;
 import com.utils.time.TimeHelper;
 import java.io.IOException;
@@ -57,21 +58,55 @@ public class AdminNewVisitorController {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
         Visitor visitor = new Visitor();
-        String fname = jsonNode.get("fname").asText();
-        String lname = jsonNode.get("lname").asText();
-        String birthday = jsonNode.get("birthday").asText();
-        String code = jsonNode.get("code").asText();
-        String fixed_phone = jsonNode.get("fixed_phone").asText();
-        String mobile = jsonNode.get("mobile").asText();
-        String ack_type = jsonNode.get("type_ack").asText();
-        String grade = jsonNode.get("grade").asText();
-        String uname = jsonNode.get("uname").asText();
-        String password = jsonNode.get("password").asText();
-        String address = jsonNode.get("address").asText();
-        String grade_exp = jsonNode.get("grade_exp").asText();
-        String work_exp = jsonNode.get("work_exp").asText();
-        String desc = jsonNode.get("desc").asText();
-        String city = jsonNode.get("city").asText();
+        String fname = "", lname = "", birthday = "", code = "";
+        try{
+             fname = jsonNode.get("fname").asText();
+        }catch (Exception e){}
+        try{
+             lname = jsonNode.get("lname").asText();
+        }catch (Exception e){}
+        try {
+             birthday = jsonNode.get("birthday").asText();
+        } catch (Exception e){}
+        try{
+             code = jsonNode.get("code").asText();
+        }catch (Exception e){}
+        String fixed_phone = "", mobile = "", ack_type = "", grade = "", uname = "";
+        try{
+             fixed_phone = jsonNode.get("fixed_phone").asText();
+        }catch (Exception e){}
+        try{
+             mobile = jsonNode.get("mobile").asText();
+        }catch (Exception e){ }
+        try{
+             ack_type = jsonNode.get("type_ack").asText();
+        }catch (Exception e){}
+        try{
+             grade = jsonNode.get("grade").asText();
+        }catch (Exception e){}
+        try{
+             uname = jsonNode.get("uname").asText();
+        }catch (Exception e){ }
+        String password = "", address = "", grade_exp = "", work_exp = "";
+        try {
+             password = jsonNode.get("password").asText();
+        }catch (Exception e){}
+        try{
+             address = jsonNode.get("address").asText();
+        }catch (Exception e){}
+        try{
+             grade_exp = jsonNode.get("grade_exp").asText();
+        }catch (Exception e){}
+        try{
+             work_exp = jsonNode.get("work_exp").asText();
+        }catch (Exception e){}
+        String desc = "", city = "";
+        try{
+             desc = jsonNode.get("desc").asText();
+        }catch (Exception e){}
+        try{
+             city = jsonNode.get("city").asText();
+        }catch (Exception e){}
         visitor.setFname(fname);
         visitor.setLname(lname);
         visitor.setBirthday(birthday);
@@ -91,7 +126,7 @@ public class AdminNewVisitorController {
         visitorDao.insert(visitor);
 
         VisitorCity visitorCity = new VisitorCity();
-        visitorCity.setCid(Integer.parseInt(city));
+        visitorCity.setCid(IntegerHelper.parseInt(city));
         visitorCity.setVid(visitor.getId());
         visitorCityDao.insert(visitorCity);
 

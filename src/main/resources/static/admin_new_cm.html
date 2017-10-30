@@ -1,4 +1,5 @@
 <div class="container">
+    <form name="new_cm_form">
     <div class="header-row col-3-normal">
         <span><b> شهر: </b><i>
                 <select class="comp city" ng-model="city">
@@ -13,52 +14,52 @@
     </div>
     <div class="header-row col-2-normal">
         <span class="span-10"><b>نام مرکز پخش: </b><i>
-                <input type="text" ng-model="name"/>
+                <input type="text" ng-model="name" required/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
-        <span><b>نام مسبول: </b><i>
-                <input type="text" ng-model="a_fname"/>
+        <span><b>نام مسئول: </b><i>
+                <input type="text" ng-model="a_fname" required/>
             </i></span>
-        <span><b>نام خانوادگی مسیول: </b><i>
-                <input type="text" ng-model="a_lname"/>
+        <span><b>نام خانوادگی مسئول: </b><i>
+                <input type="text" ng-model="a_lname" required/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
-        <span><b>تاریخ تولد مسیول : </b><i>
-                <input type="text" class="center-text datepicker" ng-model="a_birthday"/>
+        <span><b>تاریخ تولد مسئول : </b><i>
+                <input type="text" class="center-text datepicker" ng-model="a_birthday" required/>
             </i></span>
-        <span><b>کد ملی مسبول: </b><i>
-                <input type="text" ng-model="a_code"/>
+        <span><b>کد ملی مسئول: </b><i>
+                <input type="text" ng-model="a_code" required/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
         <span><b> تلفن ثابت:‌  </b><i>
-                <input type="text" ng-model="fixed_phone"/>
+                <input type="text" ng-model="fixed_phone" required/>
             </i></span>
         <span><b> موبایل:  </b><i>
-                <input type="text" ng-model="mobile"/>
+                <input type="text" ng-model="mobile" required/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
         <span><b>شناسه ی کاربری: </b><i>
-                <input type="text" ng-model="uname"/>
+                <input type="text" ng-model="uname" required/>
             </i></span>
         <span><b>کلمه ی عبور:‌ </b><i>
-                <input type="text" ng-model="password"/>
+                <input type="text" ng-model="password" required/>
             </i></span>
     </div>
     <h3> آدرس: </h3>
-    <textarea ng-model="address">
+    <textarea ng-model="address" required>
     </textarea>
     <h3>توضیحات : </h3>
-    <textarea ng-model="desc">
+    <textarea ng-model="desc" required>
     </textarea>
     <div class="header-row col-2-normal">
-        <span><b>تصویر کارت ملی مسیول</b><i>
+        <span><b>تصویر کارت ملی مسئول</b><i>
             </i></span>
         <span><b>فایل : </b><i>
-                <input type="file" fileread="pic1"/>
+                <input type="file" fileread="pic1" required/>
             </i></span>
     </div>
     <div class="normal-row">
@@ -71,7 +72,7 @@
                 <input type="text" ng-model="x.desc"/>
             </i></span>
         <span><b>فایل : </b><i>
-                <input type="file" fileread="x.file"/>
+                <input type="file" fileread="x.file" required/>
             </i></span>
     </div>
     <br/>
@@ -82,6 +83,7 @@
         </button>
     </div>
     <br/><br/><br/><br/><br/>
+    </form>
 </div>
 <script>
     $(document).ready(function () {

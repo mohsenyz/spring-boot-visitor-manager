@@ -124,6 +124,7 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
     $scope.desc = null;
     $scope.request = null;
     $scope._drugs_list = [];
+    $scope.isFormValidated = false;
     $.getJSON("/core/drugs", function (data) {
         for (i = 0; i < data.length; i++) {
             $scope._drugs_list.push(data[i]);
@@ -141,15 +142,26 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
         };
         var formdata = new FormData();
         formdata.append("json", JSON.stringify(JSON.decycle(dScope, true)));
+        if (!$scope.isFormValidated){
+            if (!$scope.new_order_form.$valid){
+                alert("لطفا فیلد های خالی را پر کنید و یا دوباره فرم را ارسال کنید");
+                $scope.isFormValidated = true;
+                return;
+            }
+        }
+        window.nanobar.go(30);
         $http({
             method: 'POST',
             url: '/ds/order',
             data: formdata,
+            responseType: 'text',
+            transformResponse: function(d, h) {return d},
             headers: {
                 'Content-Type': undefined
             }
         }).then(function (data) {
-            alert(data);
+            alert("سفارش با موفقیت ثبت شد");
+            window.nanobar.go(100);
         });
     };
 });
@@ -195,12 +207,15 @@ app.controller("user", function ($scope) {
             alert("پسورد ها با هم مطابقت ندارند");
             return;
         }
+        window.nanobar.go(30);
         Login.setPass($scope.fpass, function () {
             alert("پسورد با موفقیت ثبت شد");
             $scope.fpass = null;
             $scope.lpass = null;
             $scope.$apply();
+            window.nanobar.go(100);
         }, function () {
+            window.nanobar.go(100);
             alert("متاسفانه مشکلی به وجود آمد");
         });
     };

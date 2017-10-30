@@ -1,7 +1,7 @@
 <div class="area fade-animation" ng-show="doctor == 'make_new'">
     <div class="nrow">
-        <div class="normal-row span-5"><label>نام پزشک : </label><input type="text" ng-model="dr.name"/></div>
-        <div class="normal-row span-5"><label>تخصص / سمت: </label><input type="text" ng-model="dr.expertise"/></div>
+        <div class="normal-row span-5"><label>نام پزشک : </label><input type="text" ng-model="dr.name" required/></div>
+        <div class="normal-row span-5"><label>تخصص / سمت: </label><input type="text" ng-model="dr.expertise" required/></div>
     </div>
     <div class="header-row row-100">
         <span class="span-10"><b> بهترین زمان ویزیت: </b><i>
@@ -13,26 +13,26 @@
             </i></span>
     </div>
     <div class="nrow">
-        <div class="normal-row span-5"><label>تلفن ثابت: </label><input type="text" ng-model="dr.fixed_phone"/></div>
-        <div class="normal-row span-5"><label>موبایل: </label><input type="text" ng-model="dr.mobile"/></div>
+        <div class="normal-row span-5"><label>تلفن ثابت: </label><input type="text" ng-model="dr.fixed_phone" required/></div>
+        <div class="normal-row span-5"><label>موبایل: </label><input type="text" ng-model="dr.mobile" required/></div>
     </div>
     <div class="nrow">
-        <div class="normal-row span-10"><label>مطب/ کلینیک یا درمانگاه / بیمارستان: </label><input type="text" ng-model="dr.place"/></div>
+        <div class="normal-row span-10"><label>مطب/ کلینیک یا درمانگاه / بیمارستان: </label><input type="text" ng-model="dr.place" required/></div>
     </div>
     <div class="nrow">
-        <div class="normal-row span-10"><label>آدرس: </label><input type="text" ng-model="dr.address"/></div>
+        <div class="normal-row span-10"><label>آدرس: </label><input type="text" ng-model="dr.address" required/></div>
     </div>
     <div class="nrow">
-        <div class="normal-row span-10"><label>ایمیل :‌ </label><input type="text" ng-model="dr.email"/></div>
+        <div class="normal-row span-10"><label>ایمیل :‌ </label><input type="text" ng-model="dr.email" required/></div>
     </div>
     <div class="nrow">
-        <div class="normal-row span-10"><label>شماره نظام پزشکی:  </label><input type="text" ng-model="dr.pezeshk"/></div>
+        <div class="normal-row span-10"><label>شماره نظام پزشکی:  </label><input type="text" ng-model="dr.pezeshk" required/></div>
     </div>
     <div class="nrow">
-        <div class="normal-row span-10"><label>میزان آشنایی پزشک با محصولات سینا فراور:  </label><input type="text" ng-model="dr.company_products_ack"/></div>
+        <div class="normal-row span-10"><label>میزان آشنایی پزشک با محصولات سینا فراور:  </label><input type="text" ng-model="dr.company_products_ack" required/></div>
     </div>
     <div class="nrow">
-        <div class="normal-row span-10"><label>میزان رضایت مندی پزشک از تاثیر محصولات سبنا فراور: </label><input type="text" ng-model="dr.consent"/></div>
+        <div class="normal-row span-10"><label>میزان رضایت مندی پزشک از تاثیر محصولات سبنا فراور: </label><input type="text" ng-model="dr.consent" required/></div>
     </div>
     <div class="normal-row">
         <button class="button" style="margin-right: 10px;">ذخیره</button>

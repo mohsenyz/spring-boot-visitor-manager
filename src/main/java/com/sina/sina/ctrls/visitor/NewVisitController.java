@@ -26,6 +26,7 @@ import com.sina.sina.models.Visitor;
 import com.sina.sina.pojo.Docs_1;
 import com.sina.sina.pojo.Drugs_1;
 import com.sina.sina.pojo.Drugs_2;
+import com.sina.sina.utils.IntegerHelper;
 import com.utils.http.Uploader;
 import com.utils.time.TimeHelper;
 import java.io.IOException;
@@ -86,18 +87,38 @@ public class NewVisitController {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Order order = new Order();
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
-        String visitor = jsonNode.get("visitor").asText();
-        String doctor = jsonNode.get("doctor").asText();
-        String drugstore = jsonNode.get("drugstore").asText();
-        String next_session_date = jsonNode.get("next_session_date").asText();
-        String visit_time = jsonNode.get("visit_time").asText();
-        String visit_date = jsonNode.get("visit_date").asText();
-        String urgency = jsonNode.get("urgency").asText();
-        String content = jsonNode.get("content").asText();
-        String desc = jsonNode.get("desc").asText();
+        String visitor = "", doctor = "", drugstore = "", next_session_date = "", visit_time = "", visit_date = "";
+        try{
+             visitor = jsonNode.get("visitor").asText();
+        }catch (Exception e){}
+        try{
+             doctor = jsonNode.get("doctor").asText();
+        }catch (Exception e){}
+        try{
+             drugstore = jsonNode.get("drugstore").asText();
+        }catch (Exception e){}
+        try{
+             next_session_date = jsonNode.get("next_session_date").asText();
+        }catch (Exception e){}
+        try{
+             visit_time = jsonNode.get("visit_time").asText();
+        }catch (Exception e){}
+        try{
+             visit_date = jsonNode.get("visit_date").asText();
+        }catch (Exception e){}
+        String urgency = "", content = "", desc = "";
+        try{
+             urgency = jsonNode.get("urgency").asText();
+        }catch (Exception e){}
+        try{
+             content = jsonNode.get("content").asText();
+        }catch (Exception e){}
+        try{
+             desc = jsonNode.get("desc").asText();
+        }catch (Exception e){}
         order.setVid(currVisitor.getId());
         try {
-            order.setForwardToVid(Integer.parseInt(visitor));
+            order.setForwardToVid(IntegerHelper.parseInt(visitor));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,7 +133,7 @@ public class NewVisitController {
             order.setCreatedAtAp(2);
         }
         order.setCreatedAt(TimeHelper.parseTimestamp(visit_date, null));
-        order.setUrgency(Integer.parseInt(urgency));
+        order.setUrgency(IntegerHelper.parseInt(urgency));
         order.setContent(content);
         order.setDesc(desc);
         int cid = visitorCityDao.findByVid(currVisitor.getId()).get(0).getCid();
@@ -121,21 +142,57 @@ public class NewVisitController {
          * *
          *
          */
-        String visit_place = jsonNode.get("visit_place").asText();
-        String visit_place_name = jsonNode.get("visit_place_name").asText();
-        String dr_visit_suggestion = jsonNode.get("dr_visit_suggestion").asText();
-        String ds_visited_name = jsonNode.get("ds_visited_name").asText();
-        String ds_visited_exp = jsonNode.get("ds_visited_exp").asText();
-        String ds_visited_phone = jsonNode.get("ds_visited_phone").asText();
-        String ds_idea = jsonNode.get("ds_idea").asText();
-        String ds_pop_ds_name = jsonNode.get("ds_pop_ds_name").asText();
-        String ds_opponent = jsonNode.get("ds_opponent").asText();
-        String ds_dr_index = jsonNode.get("ds_dr_index").asText();
-        String cm = jsonNode.get("cm").asText();
-        String given = jsonNode.get("given").asText();
-        String given_etc = jsonNode.get("given_etc").asText();
-        String needed = jsonNode.get("needed").asText();
-        String result = jsonNode.get("result").asText();
+        String visit_place = "", visit_place_name = "", dr_visit_suggestion = "", ds_visited_name = "";
+        try{
+             visit_place = jsonNode.get("visit_place").asText();
+        }catch (Exception e){}
+        try{
+             visit_place_name = jsonNode.get("visit_place_name").asText();
+        }catch (Exception e){}
+        try{
+             dr_visit_suggestion = jsonNode.get("dr_visit_suggestion").asText();
+        }catch (Exception e){}
+        try{
+             ds_visited_name = jsonNode.get("ds_visited_name").asText();
+        }catch (Exception e){}
+        String ds_visited_exp = "", ds_visited_phone = "", ds_idea = "", ds_pop_ds_name = "", ds_opponent = "";
+        try {
+             ds_visited_exp = jsonNode.get("ds_visited_exp").asText();
+        }catch (Exception e){}
+        try{
+             ds_visited_phone = jsonNode.get("ds_visited_phone").asText();
+        }catch (Exception e){}
+        try{
+             ds_idea = jsonNode.get("ds_idea").asText();
+        }catch (Exception e){}
+        try{
+             ds_pop_ds_name = jsonNode.get("ds_pop_ds_name").asText();
+        }catch (Exception e){}
+        try{
+             ds_opponent = jsonNode.get("ds_opponent").asText();
+        }catch (Exception e){}
+        String ds_dr_index = "", cm = "", given_etc = "", given = "", needed = "";
+        try{
+             ds_dr_index = jsonNode.get("ds_dr_index").asText();
+        }catch (Exception e){
+        }
+        try{
+             cm = jsonNode.get("cm").asText();
+        }catch (Exception e){
+        }
+        try {
+             given = jsonNode.get("given").asText();
+        }catch (Exception e){}
+        try{
+             given_etc = jsonNode.get("given_etc").asText();
+        }catch (Exception e){ }
+        try{
+             needed = jsonNode.get("needed").asText();
+        }catch (Exception r){}
+        String result = "";
+        try{
+             result = jsonNode.get("result").asText();
+        }catch (Exception e){}
 
         /**
          * *
@@ -144,14 +201,32 @@ public class NewVisitController {
         if (drugstore != null && !drugstore.equals("none")) {
             if (drugstore.equals("make_new")) {
                 JsonNode doctorDetails = jsonNode.get("ds");
-                String ds_name = doctorDetails.get("ds_name").asText();
-                String ds_fanni_name = doctorDetails.get("ds_fanni_name").asText();
-                String ds_phone_number = doctorDetails.get("phone_number").asText();
-                String ds_address = doctorDetails.get("address").asText();
-                String ds_knowledge = doctorDetails.get("knowledge").asText();
-                String ds_best_visit_time = doctorDetails.get("best_visit_time").asText();
-                String ds_type = doctorDetails.get("type").asText();
-                String ds_company_name_ack = doctorDetails.get("company_name_ack").asText();
+                String ds_name = "", ds_fanni_name = "", ds_phone_number = "", ds_address = "", ds_knowledge = "",
+                        ds_best_visit_time = "", ds_type = "", ds_company_name_ack = "";
+                try{
+                     ds_name = doctorDetails.get("ds_name").asText();
+                }catch (Exception e){}
+                try{
+                     ds_fanni_name = doctorDetails.get("ds_fanni_name").asText();
+                }catch (Exception e){}
+                try{
+                     ds_phone_number = doctorDetails.get("phone_number").asText();
+                }catch (Exception e){}
+                try{
+                     ds_address = doctorDetails.get("address").asText();
+                }catch (Exception e){}
+                try{
+                     ds_knowledge = doctorDetails.get("knowledge").asText();
+                }catch (Exception e){}
+                try {
+                     ds_best_visit_time = doctorDetails.get("best_visit_time").asText();
+                }catch (Exception e){}
+                try{
+                     ds_type = doctorDetails.get("type").asText();
+                }catch (Exception e){}
+                try{
+                     ds_company_name_ack = doctorDetails.get("company_name_ack").asText();
+                }catch (Exception e){}
 
                 Ds ds = new Ds();
                 ds.setName(ds_name);
@@ -160,21 +235,21 @@ public class NewVisitController {
                 ds.setCity(cid);
                 ds.setAddress(ds_address);
                 ds.setCompanyProductsAck(ds_knowledge);
-                ds.setBestTime(Integer.parseInt(ds_best_visit_time));
-                ds.setType(Integer.parseInt(ds_type));
-                ds.setCompanyNameAckReason(Integer.parseInt(ds_company_name_ack));
+                ds.setBestTime(IntegerHelper.parseInt(ds_best_visit_time));
+                ds.setType(IntegerHelper.parseInt(ds_type));
+                ds.setCompanyNameAckReason(IntegerHelper.parseInt(ds_company_name_ack));
                 dsDao.insert(ds);
                 order.setDsid(ds.getId());
             } else {
                 try {
-                    order.setDsid(Integer.parseInt(drugstore));
+                    order.setDsid(IntegerHelper.parseInt(drugstore));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             try {
                 order.setDsVisitedName(ds_visited_name);
-                order.setDsVisitedJob(Integer.parseInt(ds_visited_exp));
+                order.setDsVisitedJob(IntegerHelper.parseInt(ds_visited_exp));
                 order.setDsVisitedPhone(ds_visited_phone);
                 order.setDsIdea(ds_idea);
                 order.setDsPopCm(ds_pop_ds_name);
@@ -184,7 +259,7 @@ public class NewVisitController {
                 e.printStackTrace();
             }
             try {
-                order.setCmid(Integer.parseInt(cm));
+                order.setCmid(IntegerHelper.parseInt(cm));
             } catch (Exception e) {
                 e.printStackTrace();;
             }
@@ -192,22 +267,46 @@ public class NewVisitController {
         if (doctor != null && !doctor.equals("none")) {
             if (doctor.equals("make_new")) {
                 JsonNode doctorDetails = jsonNode.get("dr");
-                String dr_name = doctorDetails.get("name").asText();
-                String dr_expertise = doctorDetails.get("expertise").asText();
-                String dr_best_visit_time = doctorDetails.get("best_visit_time").asText();
-                String dr_fixed_phone = doctorDetails.get("fixed_phone").asText();
-                String dr_mobile = doctorDetails.get("mobile").asText();
-                String dr_place = doctorDetails.get("place").asText();
-                String dr_address = doctorDetails.get("address").asText();
-                String dr_email = doctorDetails.get("email").asText();
-                String dr_pezeshk = doctorDetails.get("pezeshk").asText();
-                String dr_consent = doctorDetails.get("consent").asText();
-                String dr_company_product_ack = doctorDetails.get("company_products_ack").asText();
+                String  dr_name = "", dr_expertise = "", dr_best_visit_time = "", dr_fixed_phone = "", dr_mobile = "", dr_place = "",
+                        dr_address = "", dr_email = "", dr_pezeshk = "", dr_consent = "", dr_company_product_ack = "";
+                try{
+                     dr_name = doctorDetails.get("name").asText();
+                }catch (Exception e){}
+                try{
+                     dr_expertise = doctorDetails.get("expertise").asText();
+                }catch (Exception e){}
+                try{
+                     dr_best_visit_time = doctorDetails.get("best_visit_time").asText();
+                }catch (Exception e){}
+                try{
+                     dr_fixed_phone = doctorDetails.get("fixed_phone").asText();
+                }catch (Exception e){}
+                try{
+                     dr_mobile = doctorDetails.get("mobile").asText();
+                }catch (Exception e){}
+                try{
+                     dr_place = doctorDetails.get("place").asText();
+                }catch (Exception e){}
+                try{
+                     dr_address = doctorDetails.get("address").asText();
+                }catch (Exception e){}
+                try{
+                     dr_email = doctorDetails.get("email").asText();
+                }catch (Exception e){}
+                try{
+                     dr_pezeshk = doctorDetails.get("pezeshk").asText();
+                }catch (Exception e){}
+                try{
+                     dr_consent = doctorDetails.get("consent").asText();
+                }catch (Exception e){}
+                try{
+                     dr_company_product_ack = doctorDetails.get("company_products_ack").asText();
+                }catch (Exception e){}
 
                 Dr dr = new Dr();
                 dr.setName(dr_name);
                 dr.setExpert(dr_expertise);
-                dr.setBestVisitTime1(Integer.parseInt(dr_best_visit_time));
+                dr.setBestVisitTime1(IntegerHelper.parseInt(dr_best_visit_time));
                 dr.setFixedPhone(dr_fixed_phone);
                 dr.setMobile(dr_mobile);
                 dr.setPlace(dr_place);
@@ -220,13 +319,13 @@ public class NewVisitController {
                 order.setDrid(dr.getId());
             } else {
                 try {
-                    order.setDrid(Integer.parseInt(doctor));
+                    order.setDrid(IntegerHelper.parseInt(doctor));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             try {
-                order.setDrVisitPlace(Integer.parseInt(visit_place));
+                order.setDrVisitPlace(IntegerHelper.parseInt(visit_place));
                 order.setDrVisitPlaceName(visit_place_name);
                 order.setDrSuggestion(dr_visit_suggestion);
             } catch (Exception e) {

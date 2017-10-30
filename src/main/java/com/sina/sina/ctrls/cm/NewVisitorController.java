@@ -70,20 +70,51 @@ public class NewVisitorController {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
         Visitor visitor = new Visitor();
-        String fname = jsonNode.get("fname").asText();
-        String lname = jsonNode.get("lname").asText();
-        String birthday = jsonNode.get("birthday").asText();
-        String code = jsonNode.get("code").asText();
-        String fixed_phone = jsonNode.get("fixed_phone").asText();
-        String mobile = jsonNode.get("mobile").asText();
-        String ack_type = jsonNode.get("type_ack").asText();
-        String grade = jsonNode.get("grade").asText();
-        String uname = jsonNode.get("uname").asText();
-        String password = jsonNode.get("password").asText();
-        String address = jsonNode.get("address").asText();
-        String grade_exp = jsonNode.get("grade_exp").asText();
-        String work_exp = jsonNode.get("work_exp").asText();
-        String desc = jsonNode.get("desc").asText();
+        String fname = "", lname = "", birthday = "", code = "";
+        try{
+             fname = jsonNode.get("fname").asText();
+        }catch (Exception e){}
+        try{
+             lname = jsonNode.get("lname").asText();
+        }catch (Exception e){}
+        try{
+             birthday = jsonNode.get("birthday").asText();
+        }catch (Exception e){}
+        try{
+             code = jsonNode.get("code").asText();
+        }catch (Exception e){}
+        String fixed_phone = "", mobile = "", ack_type = "", grade = "", uname = "", password = "";
+        try{
+             fixed_phone = jsonNode.get("fixed_phone").asText();
+        }catch (Exception e){}
+        try{
+             mobile = jsonNode.get("mobile").asText();
+        }catch (Exception e){}
+        try{
+             ack_type = jsonNode.get("type_ack").asText();
+        }catch (Exception e){}
+        try{
+             grade = jsonNode.get("grade").asText();
+        }catch (Exception e){}
+        try{
+             uname = jsonNode.get("uname").asText();
+        }catch (Exception e){}
+        try{
+             password = jsonNode.get("password").asText();
+        }catch (Exception e){}
+        String address = "", grade_exp = "", work_exp = "", desc = "";
+        try{
+             address = jsonNode.get("address").asText();
+        }catch (Exception e){}
+        try{
+            grade_exp = jsonNode.get("grade_exp").asText();
+        }catch (Exception e){}
+        try{
+             work_exp = jsonNode.get("work_exp").asText();
+        }catch (Exception e){}
+        try{
+             desc = jsonNode.get("desc").asText();
+        }catch (Exception e){}
         visitor.setFname(fname);
         visitor.setLname(lname);
         visitor.setBirthday(birthday);

@@ -1,68 +1,69 @@
 <div class="container">
+    <form name="new_visitor_form">
     <div class="header-row col-2-normal">
         <span><b>نام: </b><i>
-                <input type="text" ng-model="fname"/>
+                <input type="text" ng-model="fname" required/>
             </i></span>
         <span><b>نام خانوادگی:‌ </b><i>
-                <input type="text" ng-model="lname"/>
+                <input type="text" ng-model="lname" required/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
         <span><b>تاریخ تولد:‌  </b><i>
-                <input type="text" class="center-text datepicker just-date" ng-model="birthday"/>
+                <input type="text" class="center-text datepicker just-date" ng-model="birthday" required/>
             </i></span>
         <span><b> کد ملی:  </b><i>
-                <input type="text" ng-model="code"/>
+                <input type="text" ng-model="code" required/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
         <span><b> تلفن ثابت:‌  </b><i>
-                <input type="text" ng-model="fixed_phone"/>
+                <input type="text" ng-model="fixed_phone" required/>
             </i></span>
         <span><b> موبایل:  </b><i>
-                <input type="text" ng-model="mobile"/>
+                <input type="text" ng-model="mobile" required/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
         <span><b>معرف / نحوه ی آشنایی :‌ </b><i>
-                <input type="text" ng-model="type_ack"/>
+                <input type="text" ng-model="type_ack" required/>
             </i></span>
         <span><b> رشته ی تحصیلی: </b><i>
-                <input type="text" ng-model="grade"/>
+                <input type="text" ng-model="grade" required/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
         <span><b>شناسه ی کاربری: </b><i>
-                <input type="text" ng-model="uname"/>
+                <input type="text" ng-model="uname" required/>
             </i></span>
         <span><b>کلمه ی عبور:‌ </b><i>
-                <input type="text" ng-model="password"/>
+                <input type="text" ng-model="password" required/>
             </i></span>
     </div>
     <h3> آدرس: </h3>
-    <textarea ng-model="address">
+    <textarea ng-model="address" required>
     </textarea>
     <h3>سوابق تحصیلی / تخصصی :‌ </h3>
-    <textarea ng-model="grade_exp">
+    <textarea ng-model="grade_exp" required>
     </textarea>
     <h3>سوابق شغلی و آموزشی : </h3>
-    <textarea ng-model="work_exp">
+    <textarea ng-model="work_exp" required>
     </textarea>
     <h3>توضیحات : </h3>
-    <textarea ng-model="desc">
+    <textarea ng-model="desc" required>
     </textarea>
     <div class="header-row col-2-normal">
         <span><b>تصویر پرسنلی</b><i>
             </i></span>
         <span><b>فایل : </b><i>
-                <input type="file" fileread="pic1"/>
+                <input type="file" fileread="pic1" required/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
         <span><b>تصویر کارت ملی</b><i>
             </i></span>
         <span><b>فایل : </b><i>
-                <input type="file" fileread="pic2"/>
+                <input type="file" fileread="pic2" required/>
             </i></span>
     </div>
     <div class="normal-row">
@@ -75,7 +76,7 @@
                 <input type="text" ng-model="x.desc"/>
             </i></span>
         <span><b>فایل : </b><i>
-                <input type="file" ng-model="x.file"/>
+                <input type="file" ng-model="x.file" required/>
             </i></span>
     </div>
     <br/>
@@ -86,6 +87,7 @@
         </button>
     </div>
     <br/><br/><br/><br/><br/>
+    </form>
 </div>
 <script>
             $(document).ready(function () {

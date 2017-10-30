@@ -11,7 +11,7 @@
     </div>
     <div class="header-row col-2-normal">
         <span class="span-10"><b>نام محل ملاقات: </b><i>
-                <input type="text" ng-model="$parent.visit_place_name"/>
+                <input type="text" ng-model="$parent.visit_place_name" required/>
             </i></span>
     </div>
     <h3>کدام یک از محصولات معرفی شده توسط پزشک نسخه میشود: </h3>
@@ -35,7 +35,7 @@
                 </select>
             </i></span>
         <span class="span-4"><b>سایر: </b><i>
-                <input type="text" ng-model="x.desc"/>
+                <input type="text" ng-model="x.desc" required/>
             </i></span>
     </div>
     <h3>علت نسخه نشدن داروها : </h3>
@@ -62,10 +62,10 @@
                 </select>
             </i></span>
         <span class="span-4"><b>سایر: </b><i>
-                <input type="text" ng-model="x.desc"/>
+                <input type="text" ng-model="x.desc" required/>
             </i></span>
     </div>
     <h3>انتقاد / پیشنهاد پزشک در مورد محصولات سینا فرآور : </h3>
-    <textarea ng-model="$parent.dr_visit_suggestion">
+    <textarea ng-model="$parent.dr_visit_suggestion" required>
     </textarea>
 </section>

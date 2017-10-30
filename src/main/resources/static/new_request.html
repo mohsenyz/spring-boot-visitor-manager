@@ -1,9 +1,10 @@
 <div class="container">
+    <form name="new_request_form">
     <h3>توضیحات : </h3>
-    <textarea ng-model="desc">
+    <textarea ng-model="desc" required>
     </textarea>
     <h3>درخواست : </h3>
-    <textarea ng-model="request">
+    <textarea ng-model="request" required>
     </textarea>
     <div class="normal-row">
         <button class="button" ng-click="content_drugs[content_drugs.length] = {drug : null, num : null}; reInit();">
@@ -17,7 +18,7 @@
                 </select>
             </i></span>
         <span class="span-5"><b>تعداد : </b><i>
-                <input type="number" ng-model="x.num"/>
+                <input type="number" ng-model="x.num" required/>
             </i></span>
     </div>
     <br/>
@@ -28,6 +29,7 @@
         </button>
     </div>
     <br/><br/><br/><br/><br/>
+    </form>
 </div>
 <script>
     $(document).ready(function () {

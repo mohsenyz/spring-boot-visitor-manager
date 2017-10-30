@@ -16,13 +16,18 @@ public class AdminCityController {
 
 
     @PostMapping("/admin/city/new")
-    public Boolean disableCm(@RequestParam("name") String name, HttpSession httpSession) {
+    public Boolean disableCm(@RequestParam("name") String name, @RequestParam("count") int count, HttpSession httpSession) {
         if (httpSession.getAttribute("admin") == null) {
             return null;
         }
         City city = new City();
         city.setName(name);
         cityDao.insert(city);
+        for (int i = 1; i <= count; i++){
+            city = new City();
+            city.setName(name + " - " + "منطقه" + i);
+            cityDao.insert(city);
+        }
         return true;
     }
 

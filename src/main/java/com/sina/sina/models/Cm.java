@@ -15,37 +15,37 @@ public class Cm {
     @Column(name = "id")
     private int id;
     
-    @Column(name = "name")
+    @Column(name = "name", nullable = true)
     private String name;
     
-    @Column(name = "a_fname")
+    @Column(name = "a_fname", nullable = true)
     private String aFname;
     
-    @Column(name = "a_lname")
+    @Column(name = "a_lname", nullable = true)
     private String aLname;
     
-    @Column(name = "a_birthday")
+    @Column(name = "a_birthday", nullable = true)
     private String aBirthday;
     
-    @Column(name = "a_code")
+    @Column(name = "a_code", nullable = true)
     private String aCode;
     
-    @Column(name = "fixed_phone")
+    @Column(name = "fixed_phone", nullable = true)
     private String fixedPhone;
     
-    @Column(name = "mobile")
+    @Column(name = "mobile", nullable = true)
     private String mobile;
     
-    @Column(name = "username")
+    @Column(name = "username", nullable = true)
     private String username;
     
-    @Column(name = "password")
+    @Column(name = "password", nullable = true)
     private String password;
     
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = true)
     private Timestamp createdAt;
     
-    @Column(name = "enabled")
+    @Column(name = "enabled", nullable = true)
     private boolean enabled;
 
     public int getId() {

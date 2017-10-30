@@ -15,6 +15,7 @@ import com.sina.sina.models.Cm;
 import com.sina.sina.models.CmCity;
 import com.sina.sina.models.Docs;
 import com.sina.sina.pojo.Docs_1;
+import com.sina.sina.utils.IntegerHelper;
 import com.utils.http.Uploader;
 import com.utils.time.TimeHelper;
 import java.io.IOException;
@@ -57,18 +58,45 @@ public class AdminNewCmController {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode jsonNode = objectMapper.readTree(jsonBody);
         Cm cm = new Cm();
-        String name = jsonNode.get("name").asText();
-        String a_fname = jsonNode.get("a_fname").asText();
-        String a_lname = jsonNode.get("a_lname").asText();
-        String a_birthday = jsonNode.get("a_birthday").asText();
-        String a_code = jsonNode.get("a_code").asText();
-        String fixed_phone = jsonNode.get("fixed_phone").asText();
-        String mobile = jsonNode.get("mobile").asText();
-        String uname = jsonNode.get("uname").asText();
-        String password = jsonNode.get("password").asText();
-        String address = jsonNode.get("address").asText();
-        String desc = jsonNode.get("desc").asText();
-        String city = jsonNode.get("city").asText();
+        String name = "", a_fname = "", a_lname = "", a_birthday = "",
+                a_code = "", fixed_phone = "", mobile = "", uname = "",
+                password = "", address = "", desc = "", city = "";
+        try{
+            name = jsonNode.get("name").asText();
+        }catch (Exception e){}
+        try{
+             a_fname = jsonNode.get("a_fname").asText();
+        }catch (Exception e){}
+        try{
+             a_lname = jsonNode.get("a_lname").asText();
+        }catch (Exception e){}
+        try{
+             a_birthday = jsonNode.get("a_birthday").asText();
+        }catch (Exception e){}
+        try{
+             a_code = jsonNode.get("a_code").asText();
+        }catch (Exception e){}
+        try{
+             fixed_phone = jsonNode.get("fixed_phone").asText();
+        }catch (Exception e){}
+        try{
+             mobile = jsonNode.get("mobile").asText();
+        }catch (Exception e){}
+        try{
+             uname = jsonNode.get("uname").asText();
+        }catch (Exception e){}
+        try{
+             password = jsonNode.get("password").asText();
+        }catch (Exception e){}
+        try{
+             address = jsonNode.get("address").asText();
+        }catch (Exception e){}
+        try{
+             desc = jsonNode.get("desc").asText();
+        }catch (Exception e){}
+        try{
+             city = jsonNode.get("city").asText();
+        }catch (Exception e){}
         cm.setName(name);
         cm.setaFname(a_fname);
         cm.setaLname(a_lname);
@@ -85,7 +113,7 @@ public class AdminNewCmController {
         cmDao.insert(cm);
 
         CmCity cmCity = new CmCity();
-        cmCity.setCid(Integer.parseInt(city));
+        cmCity.setCid(IntegerHelper.parseInt(city));
         cmCity.setCmid(cm.getId());
         cmCityDao.insert(cmCity);
 

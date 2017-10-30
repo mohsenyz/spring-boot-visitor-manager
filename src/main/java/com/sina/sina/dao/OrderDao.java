@@ -7,6 +7,7 @@ package com.sina.sina.dao;
 
 import com.sina.sina.dao.rowmapper.OrderRowMapper;
 import com.sina.sina.models.Order;
+import com.sina.sina.utils.IntegerHelper;
 import com.utils.list.ArrayUtils;
 import java.sql.Timestamp;
 import java.util.List;
@@ -108,7 +109,7 @@ public class OrderDao extends AbstractDao {
         if (visitors.contains(",")){
             vidArray = ArrayUtils.toIntArray(visitors.split(","));
         } else{
-            vidArray = new int[]{Integer.parseInt(visitors.trim())};
+            vidArray = new int[]{IntegerHelper.parseInt(visitors.trim())};
         }
         return jdbcTemplate.
                 query(
@@ -122,13 +123,13 @@ public class OrderDao extends AbstractDao {
         if (visitors.contains(",")){
             vidArray = ArrayUtils.toIntArray(visitors.split(","));
         } else{
-            vidArray = new int[]{Integer.parseInt(visitors.trim())};
+            vidArray = new int[]{IntegerHelper.parseInt(visitors.trim())};
         }
         int[] cmidArray = null;
         if (cm.contains(",")){
             cmidArray = ArrayUtils.toIntArray(cm.split(","));
         } else{
-            cmidArray = new int[]{Integer.parseInt(cm.trim())};
+            cmidArray = new int[]{IntegerHelper.parseInt(cm.trim())};
         }
         return jdbcTemplate.
                 query(

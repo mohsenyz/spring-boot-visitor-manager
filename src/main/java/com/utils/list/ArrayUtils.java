@@ -5,6 +5,8 @@
  */
 package com.utils.list;
 
+import com.sina.sina.utils.IntegerHelper;
+
 /**
  *
  * @author mphj
@@ -13,7 +15,7 @@ public class ArrayUtils {
     public static int[] toIntArray(String[] string){
         int[] intArray = new int[string.length];
         for (int i =0; i < string.length; i++){
-            intArray[i] = Integer.parseInt(string[i]);
+            intArray[i] = IntegerHelper.parseInt(string[i]);
         }
         return intArray;
     }

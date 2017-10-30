@@ -1,18 +1,18 @@
 <section ng-show="drugstore != 'none'">
     <div class="header-row col-2-normal">
         <span class="span-10"><b>نام کامل ویزیت شونده:</b><i>
-                <input type="text" ng-model="$parent.ds_visited_name"/>
+                <input type="text" ng-model="$parent.ds_visited_name" required/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
         <span class="span-5"><b>شغل:</b><i>
                 <select class="comp" ng-model="$parent.ds_visited_exp">
-                    <option value="1">مسیول فنی</option>
-                    <option value="2">مسیول سفارش</option>
+                    <option value="1">مسئول فنی</option>
+                    <option value="2">مسئول سفارش</option>
                 </select>
             </i></span>
         <span class="span-5"><b>شماره تلفن</b><i>
-                <input type="text" ng-model="$parent.ds_visited_phone"/>
+                <input type="text" ng-model="$parent.ds_visited_phone" required/>
             </i></span>
     </div>
     <h3>با کدام یک از محصولات ویزیت شده آشنایی دارند؟</h3>
@@ -87,11 +87,11 @@
                 </select>
             </i></span>
         <span class="span-5"><b>تعداد : </b><i>
-                <input type="number" ng-model="x.num"/>
+                <input type="number" ng-model="x.num" required/>
             </i></span>
     </div>
     <h3>نام و اولویت شرکت توزیع کننده ی مناسب از نظر داروخانه:</h3>
-    <textarea ng-model="$parent.ds_pop_ds_name">
+    <textarea ng-model="$parent.ds_pop_ds_name" required>
     </textarea>
     <h3>محصولات مشابه محصولات معرفی شده موجود در داروخانه:</h3>
     <div class="normal-row">
@@ -104,13 +104,13 @@
                 <input type="text" ng-model="x.drugname"/>
             </i></span>
         <span class="span-5"><b>تعداد : </b><i>
-                <input type="number" ng-model="x.num"/>
+                <input type="number" ng-model="x.num" required/>
             </i></span>
     </div>
     <h3>تسهیلات رقبا:</h3>
-    <textarea ng-model="$parent.ds_opponent">
+    <textarea ng-model="$parent.ds_opponent" required>
     </textarea>
     <h3>پزشکان شاخص مجاور داروخانه: </h3>
-    <textarea ng-model="$parent.ds_dr_index">
+    <textarea ng-model="$parent.ds_dr_index" required>
     </textarea>
 </section>

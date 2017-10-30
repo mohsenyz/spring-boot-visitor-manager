@@ -179,6 +179,7 @@ app.controller("new_visitor", function ($scope, $rootScope, $timeout, $http) {
             $scope.$apply();
         }
     });
+    $scope.isFormValidated = false;
     $scope.submitThis = function () {
         dScope = {
             city: $scope.city,
@@ -214,15 +215,26 @@ app.controller("new_visitor", function ($scope, $rootScope, $timeout, $http) {
         dScope.pic1 = {file: pic1Name};
         dScope.pic2 = {file: pic2Name};
         formdata.append("json", JSON.stringify(JSON.decycle(dScope, true)));
+        if (!$scope.isFormValidated){
+            if (!$scope.new_visitor_form.$valid){
+                alert("لطفا فیلد های خالی را پر کنید و یا دوباره فرم را ارسال کنید");
+                $scope.isFormValidated = true;
+                return;
+            }
+        }
+        window.nanobar.go(30);
         $http({
             method: 'POST',
             url: '/admin/visitor/new',
             data: formdata,
+            responseType: 'text',
+            transformResponse: function(d, h) {return d},
             headers: {
                 'Content-Type': undefined
             }
         }).then(function (data) {
-            alert(data);
+            alert("ویزیتور با موفقیت ساخته شد");
+            window.nanobar.go(100);
         });
     };
 });
@@ -246,6 +258,7 @@ app.controller("new_cm", function ($scope, $rootScope, $timeout, $http) {
     $scope.address = null;
     $scope.desc = null;
     $scope.pic1 = null;
+    $scope.isFormValidated = false;
     $.getJSON("/core/city", function (data) {
         for (i = 0; i < data.length; i++) {
             $scope.city_select.push(data[i]);
@@ -284,15 +297,26 @@ app.controller("new_cm", function ($scope, $rootScope, $timeout, $http) {
         formdata.append(pic1Name, dScope.pic1);
         dScope.pic1 = {file: pic1Name};
         formdata.append("json", JSON.stringify(JSON.decycle(dScope, true)));
+        if (!$scope.isFormValidated){
+            if (!$scope.new_cm_form.$valid){
+                alert("لطفا فیلد های خالی را پر کنید و یا دوباره فرم را ارسال کنید");
+                $scope.isFormValidated = true;
+                return;
+            }
+        }
+        window.nanobar.go(30);
         $http({
             method: 'POST',
             url: '/admin/cm/new',
             data: formdata,
+            responseType: 'text',
+            transformResponse: function(d, h) {return d},
             headers: {
                 'Content-Type': undefined
             }
         }).then(function (data) {
-            alert(data);
+            alert("مرکز پخش با موفقیت ساخته شد");
+            window.nanobar.go(100);
         });
     };
 });
@@ -391,30 +415,38 @@ app.controller("user", function ($scope) {
             alert("پسورد ها با هم مطابقت ندارند");
             return;
         }
+        window.nanobar.go(30);
         Login.setPass($scope.fpass, function () {
             alert("پسورد با موفقیت ثبت شد");
             $scope.fpass = null;
             $scope.lpass = null;
             $scope.$apply();
+            window.nanobar.go(100);
         }, function () {
             alert("متاسفانه مشکلی به وجود آمد");
+            window.nanobar.go(100);
         });
     };
 });
 app.controller("new_city", function ($scope, $rootScope, $timeout, $http) {
     $scope.city = null;
+    $scope.count = null;
     $scope.newCity = function () {
         formData = new FormData();
-        formData.append("name", $scope.city)
+        formData.append("name", $scope.city);
+        formData.append("count", $scope.count);
+        window.nanobar.go(30);
         $http({
             method: 'POST',
             url: '/admin/city/new',
             data: formData,
+            transformResponse: function(d, h) {return d},
             headers: {
                 'Content-Type': undefined
             }
         }).then(function (data) {
-            alert(data);
+            alert("شهر با موفقیت ساخته شد");
+            window.nanobar.go(100);
         });
     }
 });

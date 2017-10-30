@@ -1,4 +1,5 @@
 <div class="container">
+    <form name="new_visit_form">
     <div class="header-row col-2-normal">
         <span><b>داروخانه یا دکتر : </b><i>
                 <select class="comp" ng-model="drugstore" ng-disabled="doctor != 'none'">
@@ -32,7 +33,7 @@
                 </select>
             </i></span>
         <span><b>تاریخ ویزیت:‌ </b><i>
-                <input id="visit-time-input" type="text" class="datepicker input-center" ng-model="visit_date"/>
+                <input id="visit-time-input" type="text" class="datepicker input-center" ng-model="visit_date" required/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
@@ -62,10 +63,10 @@
             </i></span>
     </div>
     <h3>توضیحات : </h3>
-    <textarea ng-model="desc">
+    <textarea ng-model="desc" required>
     </textarea>
     <h3>محتوا : </h3>
-    <textarea ng-model="content">
+    <textarea ng-model="content" required>
     </textarea>
     <div class="normal-row">
         <button class="button" ng-click="content_drugs[content_drugs.length] = {drug: null, num: null, visit: null}; reInit();">
@@ -79,10 +80,10 @@
                 </select>
             </i></span>
         <span class="span-2"><b>تعداد : </b><i>
-                <input type="number" ng-model="x.num"/>
+                <input type="number" ng-model="x.num" required/>
             </i></span>
         <span class="span-5"><b>گزارش ویزیت : </b><i>
-                <input type="text" ng-model="x.visit"/>
+                <input type="text" ng-model="x.visit" required/>
             </i></span>
     </div>
     <h3>اقلام تحویلی:</h3>
@@ -101,11 +102,11 @@
             </i>
         </span>
     </div>
-    <textarea placeholder="مقالات علمی / دارو" ng-model="given_etc"></textarea>
+    <textarea placeholder="مقالات علمی / دارو" ng-model="given_etc" required></textarea>
     <h3>موارد درخواستی:</h3>
-    <textarea ng-model="needed"></textarea>
+    <textarea ng-model="needed" required></textarea>
     <h3 ng-show="visitor == 'none'">نتیجه : </h3>
-    <textarea ng-show="visitor == 'none'" ng-model="result"></textarea>
+    <textarea ng-show="visitor == 'none'" ng-model="result" required></textarea>
     <div class="normal-row" ng-show="visitor == 'none'">
         <button class="button" ng-click="result_drugs[result_drugs.length] = {drug: null, num: null, visit: null}; reInit();">
             افزودن دارو
@@ -118,10 +119,10 @@
                 </select>
             </i></span>
         <span class="span-2"><b>تعداد : </b><i>
-                <input type="number" ng-model="x.num"/>
+                <input type="number" ng-model="x.num" required/>
             </i></span>
         <span class="span-5"><b>گزارش ویزیت : </b><i>
-                <input type="text" ng-model="x.visit"/>
+                <input type="text" ng-model="x.visit" required/>
             </i></span>
     </div>
     <div class="normal-row">
@@ -131,10 +132,10 @@
     </div>
     <div class="header-row col-2-normal" ng-repeat="x in docs">
         <span><b>توضیحات : </b><i>
-                <input type="text" ng-model="x.desc"/>
+                <input type="text" ng-model="x.desc" required/>
             </i></span>
         <span><b>فایل : </b><i>
-                <input type="file" ng-model="x.file"/>
+                <input type="file" ng-model="x.file" required/>
             </i></span>
     </div>
     <br/>
@@ -145,6 +146,7 @@
         </button>
     </div>
     <br/><br/><br/><br/><br/>
+    </form>
 </div>
 <script>
             $(document).ready(function () {
