@@ -149,6 +149,11 @@ app.run(function ($rootScope, $location, $timeout) {
     };
 });
 app.controller("new_visitor", function ($scope, $rootScope, $timeout, $http) {
+    $scope.revDate = function (event) {
+        $timeout(function () {
+            $scope.birthday = $("#bb_112").val();
+        }, 1000);
+    };
     $scope.city_select = [];
     $scope.city = null;
     $scope.area = null;
@@ -208,12 +213,16 @@ app.controller("new_visitor", function ($scope, $rootScope, $timeout, $http) {
             formdata.append(name, dScope.docs[i].file);
             dScope.docs[i].file = name;
         }
-        pic1Name = randomStr(15) + "_" + dScope.pic1.name;
-        pic2Name = randomStr(15) + "_" + dScope.pic2.name;
-        formdata.append(pic1Name, dScope.pic1);
-        formdata.append(pic2Name, dScope.pic2);
-        dScope.pic1 = {file: pic1Name};
-        dScope.pic2 = {file: pic2Name};
+        if (dScope.pic1 != null){
+            pic1Name = randomStr(15) + "_" + dScope.pic1.name;
+            formdata.append(pic1Name, dScope.pic1);
+            dScope.pic1 = {file: pic1Name};
+        }
+        if (dScope.pic2 != null){
+            pic2Name = randomStr(15) + "_" + dScope.pic2.name;
+            formdata.append(pic2Name, dScope.pic2);
+            dScope.pic2 = {file: pic2Name};
+        }
         formdata.append("json", JSON.stringify(JSON.decycle(dScope, true)));
         if (!$scope.isFormValidated){
             if (!$scope.new_visitor_form.$valid){
@@ -242,6 +251,11 @@ window.randomStr = function (length) {
     return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
 };
 app.controller("new_cm", function ($scope, $rootScope, $timeout, $http) {
+    $scope.revDate = function () {
+        $timeout(function () {
+            $scope.a_birthday = $("#bb_113").val();
+        }, 1000);
+    };
     $scope.city_select = [];
     $scope.city = null;
     $scope.area = null;
@@ -293,9 +307,11 @@ app.controller("new_cm", function ($scope, $rootScope, $timeout, $http) {
             formdata.append(name, dScope.docs[i].file);
             dScope.docs[i].file = name;
         }
-        pic1Name = randomStr(15) + "_" + dScope.pic1.name;
-        formdata.append(pic1Name, dScope.pic1);
-        dScope.pic1 = {file: pic1Name};
+        if (dScope.pic1 != null){
+            pic1Name = randomStr(15) + "_" + dScope.pic1.name;
+            formdata.append(pic1Name, dScope.pic1);
+            dScope.pic1 = {file: pic1Name};
+        }
         formdata.append("json", JSON.stringify(JSON.decycle(dScope, true)));
         if (!$scope.isFormValidated){
             if (!$scope.new_cm_form.$valid){

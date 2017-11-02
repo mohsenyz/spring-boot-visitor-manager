@@ -191,6 +191,11 @@ app.controller("reports", function ($scope, $http) {
     });
 });
 app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
+    $scope.revDate = function () {
+        $timeout(function () {
+            $scope.visit_date = $("#visit-time-input").val();
+        }, 1000);
+    };
     $scope.result_drugs = [];
     $scope.content_drugs = [];
     $scope.docs = [];
