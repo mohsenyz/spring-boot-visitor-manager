@@ -1,0 +1,6 @@
+language: java
+script:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -DskipTests=true
+  - ls
+  - cd target
+  - ls
