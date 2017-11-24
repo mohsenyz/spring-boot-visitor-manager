@@ -1,6 +1,13 @@
 language: java
 script:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -DskipTests=true
-  - ls
-  - cd target
-  - ls
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -DskipTests=true
+- ls
+- cd target
+- ls
+deploy:
+  provider: releases
+  api_key:
+    secure: cUtxDdI/KyHGtItQZs9vlwikEpb4boi9Ms02lGp+xMVhFBvvKR1d3P99wXX1Rp+emLT9rrSmWM1lP7YulRTSlk/XToRs2475xW0vAYMgbTAMVqwjy6aOd4f1KSVGRLkaffnykWtkHKosMGs3sBUl7qjltqE5gQchCEGxApnDbAwDEFuvi4YuuoPGgmM89I701Xqy0b9FTCsrb197UMFBUuMiDEjhJZ7U7+Q0AHO2nrfifKnctuodIGUyl5YW2AwykRU1JJXmZtIsZunG9v71yLyX8sQB4Xj+WXGazYWtLQWL3eUy6Mng6sPqJwGyrfXNPZQvUI/kuomURKBejaT+x3ze4Y7TQdXqdgOIwC1kNbdV7+ADzr6UitHftpPLRpex2VHxcOElkaSQkNJ2PXKOfOtWiAvtPBvOZbf/bxobu5BCsLtiI/Eot+MrMw8KPainRp/+/a0X4NAp83cgWYlxkUFT8L7D+dlz2yUADbfqxz305kSZZ3Q2DVq0HuSu6pFs42S03moabmQY+oEAMEjJDhugYR+mOP7DCD3McZl3+U4DScF8qRY5DRkNUi+mwxRnyNvbQcehLiJ2GVLRXBpt7+5y0IPJuPda+CdfwnH+9GCMcDqBrcrrusxM9B42d4jzOwPlPAJkmhVMHJYp2huF/mhKYO+li0isFOR7xQk6qQo=
+  file: target/sina-0.0.1-SNAPSHOT.jar
+  on:
+    repo: mphj/spring-boot-visitor-manager
