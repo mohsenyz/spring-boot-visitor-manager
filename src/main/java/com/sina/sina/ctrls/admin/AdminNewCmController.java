@@ -117,38 +117,42 @@ public class AdminNewCmController {
         cmCity.setCmid(cm.getId());
         cmCityDao.insert(cmCity);
 
-        Docs_1 doc = objectMapper.treeToValue(jsonNode.get("pic1"), Docs_1.class);
-        Docs doc1 = new Docs();
-        doc1.setDesc(doc.desc);
-        doc1.setName(UUID.randomUUID().toString() + "_" + doc.file);
-        try {
-            Uploader.from(httpServletRequest.getPart(doc.file))
-                    .withName(doc1.getName())
-                    .saveInto(uploadPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        doc1.setCid(cm.getId());
-        doc1.setType(Docs.CM_DOC1);
-        docsDao.insert(doc1);
-        
-        
-        Docs_1[] docs = objectMapper.treeToValue(jsonNode.get("docs"), Docs_1[].class);
-        for (Docs_1 doc22 : docs) {
-            Docs doc11 = new Docs();
-            doc11.setDesc(doc22.desc);
-            doc11.setName(UUID.randomUUID().toString() + "_" + doc22.file);
+        try{
+            Docs_1 doc = objectMapper.treeToValue(jsonNode.get("pic1"), Docs_1.class);
+            Docs doc1 = new Docs();
+            doc1.setDesc(doc.desc);
+            doc1.setName(UUID.randomUUID().toString() + "_" + doc.file);
             try {
-                Uploader.from(httpServletRequest.getPart(doc22.file))
-                        .withName(doc11.getName())
+                Uploader.from(httpServletRequest.getPart(doc.file))
+                        .withName(doc1.getName())
                         .saveInto(uploadPath);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            doc11.setType(Docs.CM_DOC);
-            doc11.setCid(cm.getId());
+            doc1.setCid(cm.getId());
+            doc1.setType(Docs.CM_DOC1);
             docsDao.insert(doc1);
-        }
+        }catch (Exception e){}
+        
+        
+        try{
+            Docs_1[] docs = objectMapper.treeToValue(jsonNode.get("docs"), Docs_1[].class);
+            for (Docs_1 doc22 : docs) {
+                Docs doc11 = new Docs();
+                doc11.setDesc(doc22.desc);
+                doc11.setName(UUID.randomUUID().toString() + "_" + doc22.file);
+                try {
+                    Uploader.from(httpServletRequest.getPart(doc22.file))
+                            .withName(doc11.getName())
+                            .saveInto(uploadPath);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                doc11.setType(Docs.CM_DOC);
+                doc11.setCid(cm.getId());
+                docsDao.insert(doc11);
+            }
+        }catch (Exception e){}
         return "done";
     }
 }

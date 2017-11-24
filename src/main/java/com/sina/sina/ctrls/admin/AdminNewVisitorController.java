@@ -130,52 +130,59 @@ public class AdminNewVisitorController {
         visitorCity.setVid(visitor.getId());
         visitorCityDao.insert(visitorCity);
 
-        Docs_1 doc = objectMapper.treeToValue(jsonNode.get("pic1"), Docs_1.class);
-        Docs doc1 = new Docs();
-        doc1.setDesc(doc.desc);
-        doc1.setName(UUID.randomUUID().toString() + "_" + doc.file);
+        Docs_1 doc;
         try {
-            Uploader.from(httpServletRequest.getPart(doc.file))
-                    .withName(doc1.getName())
-                    .saveInto(uploadPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        doc1.setVid(visitor.getId());
-        doc1.setType(Docs.VISITOR_DOC1);
-        docsDao.insert(doc1);
-
-        doc = objectMapper.treeToValue(jsonNode.get("pic2"), Docs_1.class);
-        Docs doc2 = new Docs();
-        doc2.setDesc(doc.desc);
-        doc2.setVid(visitor.getId());
-        doc2.setName(UUID.randomUUID().toString() + "_" + doc.file);
-        try {
-            Uploader.from(httpServletRequest.getPart(doc.file))
-                    .withName(doc2.getName())
-                    .saveInto(uploadPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        doc2.setType(Docs.VISITOR_DOC2);
-        docsDao.insert(doc2);
-
-        Docs_1[] docs = objectMapper.treeToValue(jsonNode.get("docs"), Docs_1[].class);
-        for (Docs_1 doc22 : docs) {
-            Docs doc11 = new Docs();
-            doc11.setDesc(doc22.desc);
-            doc11.setName(UUID.randomUUID().toString() + "_" + doc22.file);
+            doc = objectMapper.treeToValue(jsonNode.get("pic1"), Docs_1.class);
+            Docs doc1 = new Docs();
+            doc1.setDesc(doc.desc);
+            doc1.setName(UUID.randomUUID().toString() + "_" + doc.file);
             try {
-                Uploader.from(httpServletRequest.getPart(doc22.file))
-                        .withName(doc11.getName())
+                Uploader.from(httpServletRequest.getPart(doc.file))
+                        .withName(doc1.getName())
                         .saveInto(uploadPath);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            doc11.setType(Docs.VISITOR_DOCS);
-            doc11.setVid(visitor.getId());
+            doc1.setVid(visitor.getId());
+            doc1.setType(Docs.VISITOR_DOC1);
             docsDao.insert(doc1);
-        }
+        }catch (Exception e){}
+
+        try{
+            doc = objectMapper.treeToValue(jsonNode.get("pic2"), Docs_1.class);
+            Docs doc2 = new Docs();
+            doc2.setDesc(doc.desc);
+            doc2.setVid(visitor.getId());
+            doc2.setName(UUID.randomUUID().toString() + "_" + doc.file);
+            try {
+                Uploader.from(httpServletRequest.getPart(doc.file))
+                        .withName(doc2.getName())
+                        .saveInto(uploadPath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            doc2.setType(Docs.VISITOR_DOC2);
+            docsDao.insert(doc2);
+        }catch (Exception e){}
+
+        try{
+            Docs_1[] docs = objectMapper.treeToValue(jsonNode.get("docs"), Docs_1[].class);
+            for (Docs_1 doc22 : docs) {
+                Docs doc11 = new Docs();
+                doc11.setDesc(doc22.desc);
+                doc11.setName(UUID.randomUUID().toString() + "_" + doc22.file);
+                try {
+                    Uploader.from(httpServletRequest.getPart(doc22.file))
+                            .withName(doc11.getName())
+                            .saveInto(uploadPath);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                doc11.setType(Docs.VISITOR_DOCS);
+                doc11.setVid(visitor.getId());
+                docsDao.insert(doc11);
+            }
+        }catch (Exception e){}
         return "done";
     }
 }
