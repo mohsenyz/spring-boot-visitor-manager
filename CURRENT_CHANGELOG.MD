@@ -1,1 +1,1 @@
-Added simple script to check is release available
+#release should be released
