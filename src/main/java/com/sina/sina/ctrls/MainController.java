@@ -107,6 +107,15 @@ public class MainController {
     public List<Drugs> listDrugs(){
         return drugsDao.listAll();
     }
+
+    @GetMapping("/core/drugs/new")
+    public void newDrug(@RequestParam("name") String name) {
+        if (name.isEmpty())
+            return;
+        Drugs drugs = new Drugs();
+        drugs.setName(name);
+        drugsDao.insert(drugs);
+    }
     
     @GetMapping("/logout")
     public boolean logout(HttpSession httpSession){

@@ -13,5 +13,24 @@
             افزودن
         </button>
     </div>
+    <hr/>
+    <h3>افزودن دارو</h3>
+    <div class="header-row">
+        <span class="span-10"><b>نام دارو : </b><i>
+                <input type="name" ng-model="drug"/>
+            </i></span>
+    </div>
+    <div class="normal-row">
+        <button class="button" ng-click="newDrug()">
+            افزودن
+        </button>
+    </div>
+    <hr/>
+    <h3>لیست داروها</h3>
+    <div class="header-row" ng-repeat="x in drugs">
+        <span class="span-10"><b>نام دارو : </b><i>
+                {{x.name}}
+            </i></span>
+    </div>
     <br/><br/><br/><br/>
 </div>

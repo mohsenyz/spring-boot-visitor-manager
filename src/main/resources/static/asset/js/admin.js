@@ -447,6 +447,7 @@ app.controller("user", function ($scope) {
 app.controller("new_city", function ($scope, $rootScope, $timeout, $http) {
     $scope.city = null;
     $scope.count = null;
+    $scope.drugs = [];
     $scope.newCity = function () {
         formData = new FormData();
         formData.append("name", $scope.city);
@@ -464,7 +465,28 @@ app.controller("new_city", function ($scope, $rootScope, $timeout, $http) {
             alert("شهر با موفقیت ساخته شد");
             window.nanobar.go(100);
         });
+    };
+    $scope.newDrug = function () {
+            $http({
+                method: 'GET',
+                url: '/core/drugs/new?name=' + $scope.drug,
+                transformResponse: function(d, h) {return d},
+                headers: {
+                    'Content-Type': undefined
+                }
+            }).then(function (data) {
+                alert("دارو با موفقیت ساخته شد");
+                $scope.drugsChanged();
+                window.nanobar.go(100);
+            });
+    };
+    $scope.drugsChanged = function () {
+        $.getJSON("/core/drugs", function (data) {
+            $scope.drugs = data;
+            $scope.$apply();
+        });
     }
+    $scope.drugsChanged();
 });
 function makeActive(ele) {
     ele = $(ele);
