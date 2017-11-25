@@ -1,2 +1,1 @@
-** Added new drug support **
-#release
+#release Added new drug support
