@@ -4,6 +4,8 @@ script:
 before_deploy:
   - zip release.zip target/*.jar
   - export RELEASE_BODY=$(cat CURRENT_CHANGELOG.MD)
+  - chmod +x check-release.sh
+  - source check-release.sh
 deploy:
   skip_cleanup: true
   provider: releases
@@ -13,4 +15,5 @@ deploy:
   name: Build $(date +'%d.%m.%Y %R')
   body: $RELEASE_BODY
   on:
+    condition: "$CAN_RELEASE=true"
     repo: mphj/spring-boot-visitor-manager

@@ -1,1 +1,1 @@
-Testing gpg keys again and again and again
+Added simple script to check is release available
