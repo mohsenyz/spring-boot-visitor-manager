@@ -1,2 +1,1 @@
-#release
-** Added new drug support **
+#release removed visitor access to ``` cm ``` and ``` dr ```
