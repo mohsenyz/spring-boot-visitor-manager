@@ -5,12 +5,12 @@
                 <select class="comp" ng-model="drugstore" ng-disabled="doctor != 'none'">
                     <option value="none" selected="selected">انتخاب داروخانه</option>
                     <option value="make_new">افزودن داروخانه</option>
-                    <!--option value="{{x.id}}" ng-repeat="x in ds_list">{{x.name}}</option-->
+                    <option value="{{x.id}}" ng-repeat="x in ds_list">{{x.name}}</option>
                 </select>
                 <select class="comp" ng-model="doctor" ng-disabled="drugstore != 'none'">
                     <option value="none" selected="selected">انتخاب دکتر</option>
                     <option value="make_new">افزودن دکتر</option>
-                    <!--option value="{{x.id}}" ng-repeat="x in dr_list">{{x.name}}</option-->
+                    <option value="{{x.id}}" ng-repeat="x in dr_list">{{x.name}}</option>
                 </select>
             </i></span>
         <span><b>تاریخ ویزیت بعدی :‌ </b><i>

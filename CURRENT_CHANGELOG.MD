@@ -1,1 +1,1 @@
-#release Added drugstore username and password support, cm name and phone in new visit, and fixed #4
+#release changed new visit
