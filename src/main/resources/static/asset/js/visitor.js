@@ -217,6 +217,8 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
     $scope.ds = {
         ds_name: null,
         ds_fanni_name: null,
+        ds_username: null,
+        ds_password: null,
         phone_number: null,
         address: null,
         knowledge: null,
@@ -247,7 +249,8 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
     $scope.ds_pop_ds_name = null;
     $scope.ds_opponent = null;
     $scope.ds_dr_index = null;
-    $scope.cm = null;
+    $scope.cm_name = null;
+    $scope.cm_phone = null;
     $scope.given = null;
     $scope.given_etc = null;
     $scope.needed = null;
@@ -332,6 +335,8 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
             ds: {
                 ds_name: $scope.ds.ds_name,
                 ds_fanni_name: $scope.ds.ds_fanni_name,
+                ds_username: $scope.ds.ds_username,
+                ds_password: $scope.ds.ds_password,
                 phone_number: $scope.ds.phone_number,
                 address: $scope.ds.address,
                 knowledge: $scope.ds.knowledge,
@@ -362,7 +367,8 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
             ds_pop_ds_name: $scope.ds_pop_ds_name,
             ds_opponent: $scope.ds_opponent,
             ds_dr_index: $scope.ds_dr_index,
-            cm: $scope.cm,
+            cm_name: $scope.cm_name,
+            cm_phone: $scope.cm_phone,
             given: $scope.given,
             given_etc: $scope.given_etc,
             needed: $scope.needed,

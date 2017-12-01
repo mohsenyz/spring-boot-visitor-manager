@@ -92,10 +92,6 @@ public class CmController {
             Visitor visitor = visitorDao.findById(order.getForwardToVid());
             objectNode.putPOJO("visitor", visitor);
         }
-        if (order.getCmid() != null) {
-            Cm visitor = cmDao.findById(order.getCmid());
-            objectNode.putPOJO("cm", visitor);
-        }
         if (order.getVid() != null){
             Visitor visitor = visitorDao.findById(order.getVid());
             objectNode.putPOJO("v", visitor);

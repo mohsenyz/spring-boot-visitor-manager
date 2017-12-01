@@ -1,5 +1,5 @@
-<div class="container">
-    <form name="new_visit_form">
+<div class="container" novalidate>
+    <form name="new_visit_form" novalidate>
     <div class="header-row col-2-normal">
         <span><b>داروخانه یا دکتر : </b><i>
                 <select class="comp" ng-model="drugstore" ng-disabled="doctor != 'none'">
@@ -49,13 +49,16 @@
     <div ng-include src="'new_visit_doctor.html'"></div>
     <div ng-include src="'new_visit_doctor_section.html'"></div>
     <div ng-include src="'new_visit_ds_section.html'"></div>
-    <div class="header-row col-2-normal">
-        <span><b>مرکز پخش :‌  </b><i>
-                <select class="comp" ng-model="cm">
-                    <option value="{{x.id}}" ng-repeat="x in cm_list">{{x.name}}</option>
-                </select>
+        <div class="header-row col-2-normal">
+        <span><b>نام مرکز پخش :‌</b><i>
+                <input type="text" ng-model="cm_name" required/>
             </i></span>
-        <span><b>انتقال به ویزیتور:  </b><i>
+            <span><b>شماره تلفن مرکز پخش :</b><i>
+                <input type="text" ng-model="cm_phone" required/>
+            </i></span>
+        </div>
+    <div class="header-row col-2-normal">
+        <span class="span-10"><b>انتقال به ویزیتور:  </b><i>
                 <select ng-model="visitor" value="none" class="comp">
                     <option value="none" selected="selected">-</option>
                     <option value="{{x.id}}" ng-repeat="x in visitor_list">{{x.fname}} {{x.lname}}</option>

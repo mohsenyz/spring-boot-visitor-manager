@@ -19,8 +19,11 @@ public class Order {
     @Column(name = "vid", nullable = true)
     private Integer vid;
     
-    @Column(name = "cmid", nullable = true)
-    private Integer cmid;
+    @Column(name = "cm_name", nullable = true)
+    private String cmName;
+
+    @Column(name = "cm_phone", nullable = true)
+    private String cmPhone;
     
     @Column(name = "dsid", nullable = true)
     private Integer dsid;
@@ -119,12 +122,20 @@ public class Order {
         this.vid = vid;
     }
 
-    public Integer getCmid() {
-        return cmid;
+    public String getCmName() {
+        return cmName;
     }
 
-    public void setCmid(Integer cmid) {
-        this.cmid = cmid;
+    public void setCmName(String cmid) {
+        this.cmName = cmid;
+    }
+
+    public String getCmPhone() {
+        return cmPhone;
+    }
+
+    public void setCmPhone(String cmid) {
+        this.cmPhone = cmid;
     }
 
     public Integer getDsid() {

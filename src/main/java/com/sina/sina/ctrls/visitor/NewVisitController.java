@@ -202,7 +202,8 @@ public class NewVisitController {
             if (drugstore.equals("make_new")) {
                 JsonNode doctorDetails = jsonNode.get("ds");
                 String ds_name = "", ds_fanni_name = "", ds_phone_number = "", ds_address = "", ds_knowledge = "",
-                        ds_best_visit_time = "", ds_type = "", ds_company_name_ack = "";
+                        ds_best_visit_time = "", ds_type = "", ds_company_name_ack = "",
+                        ds_username = "", ds_password = "";
                 try{
                      ds_name = doctorDetails.get("ds_name").asText();
                 }catch (Exception e){}
@@ -227,6 +228,12 @@ public class NewVisitController {
                 try{
                      ds_company_name_ack = doctorDetails.get("company_name_ack").asText();
                 }catch (Exception e){}
+                try{
+                    ds_username = doctorDetails.get("ds_username").asText();
+                }catch (Exception e){}
+                try{
+                    ds_password = doctorDetails.get("ds_password").asText();
+                }catch (Exception e){}
 
                 Ds ds = new Ds();
                 ds.setName(ds_name);
@@ -234,6 +241,8 @@ public class NewVisitController {
                 ds.setPhone(ds_phone_number);
                 ds.setCity(cid);
                 ds.setAddress(ds_address);
+                ds.setUsername(ds_username);
+                ds.setPassword(ds_password);
                 ds.setCompanyProductsAck(ds_knowledge);
                 ds.setBestTime(IntegerHelper.parseInt(ds_best_visit_time));
                 ds.setType(IntegerHelper.parseInt(ds_type));
@@ -257,11 +266,6 @@ public class NewVisitController {
                 order.setDsIndexDr(ds_dr_index);
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-            try {
-                order.setCmid(IntegerHelper.parseInt(cm));
-            } catch (Exception e) {
-                e.printStackTrace();;
             }
         }
         if (doctor != null && !doctor.equals("none")) {
@@ -333,10 +337,22 @@ public class NewVisitController {
             }
         }
 
+        String cmName = "", cmPhone = "";
+        try{
+            cmName = jsonNode.get("cm_name").asText();
+        }catch (Exception e){
+        }
+        try{
+            cmPhone = jsonNode.get("cm_phone").asText();
+        }catch (Exception e){
+        }
+
         // @TODO set given
         order.setGivenDocument(given_etc);
         order.setNeededDocument(needed);
         order.setResult(result);
+        order.setCmName(cmName);
+        order.setCmPhone(cmPhone);
         orderDao.insert(order);
         Drugs_1[] result_drugs = objectMapper.treeToValue(jsonNode.get("result_drugs"), Drugs_1[].class);
         for (Drugs_1 result_drug : result_drugs) {
