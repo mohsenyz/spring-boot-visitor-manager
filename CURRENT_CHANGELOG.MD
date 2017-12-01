@@ -1,1 +1,1 @@
-#release removed visitor access to ``` cm ``` and ``` dr ```
+#release Added drugstore username and password support, cm name and phone in new visit, and fixed #4
