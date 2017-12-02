@@ -48,7 +48,8 @@ app.config(function ($routeProvider) {
                 controller: "cm_finished_request"
             })
             .when("/accept-ds-request", {
-                templateUrl: "cm_accept_ds_request.html"
+                templateUrl: "cm_accept_ds_request.html",
+                controller: "accept-ds-request"
             })
             .when("/manage-visitor", {
                 templateUrl: "cm_manage_visitors.html",
@@ -286,6 +287,29 @@ app.controller("cm_manage_visitors", function ($scope, $rootScope, $timeout) {
             $scope.$apply();
         });
     }
+});
+app.controller("accept-ds-request", function ($scope, $http, $rootScope, $timeout) {
+    $scope.request = [];
+    $.getJSON("/cm/unaccepted", function (data) {
+        $scope.request = data;
+        $scope.$apply();
+    });
+    $scope.acceptDs = function (dsId) {
+    window.nanobar.go(30);
+    $http({
+                method: 'GET',
+                url: '/cm/ds/accept?id=' + dsId,
+                responseType: 'text',
+                transformResponse: function(d, h) {return d},
+                headers: {
+                    'Content-Type': undefined
+                }
+            }).then(function (data) {
+                window.nanobar.go(100);
+                alert("درخواست ارسال شد");
+                window.location.reload();
+            });
+    };
 });
 app.controller("cm_visitor_report", function ($scope, $rootScope, $timeout) {
     $scope.from = null;

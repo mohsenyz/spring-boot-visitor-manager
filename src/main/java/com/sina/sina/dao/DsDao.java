@@ -72,6 +72,10 @@ public class DsDao extends AbstractDao{
         cm.setId(generatedKeyHolder.getKey().intValue());*/
         getSession().save(cm);
     }
+
+    public void update(Ds ds) {
+        getSession().update(ds);
+    }
     
     public Ds findById(int id) {
         Criteria crit = getSession().createCriteria(Ds.class);
@@ -89,6 +93,12 @@ public class DsDao extends AbstractDao{
         Criteria crit = getSession().createCriteria(Ds.class);
         crit.add(Restrictions.eq("username", pass));
         return (Ds)crit.uniqueResult();
+    }
+
+    public List<Ds> findUnAccepted() {
+        Criteria crit = getSession().createCriteria(Ds.class);
+        crit.add(Restrictions.eq("verified", false));
+        return crit.list();
     }
     
     

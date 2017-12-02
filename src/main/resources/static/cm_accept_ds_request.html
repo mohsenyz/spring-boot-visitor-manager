@@ -1,29 +1,29 @@
 <div class="container">
     <br/>
-    <div class="panel">
+    <div class="panel" ng-repeat="x in request">
         <div class="panel-head">
             درخواست تایید داروخانه
-            <span class="date">1396/04/02</span>
+            <span class="date">{{unixToString(x.createdAt)}}</span>
         </div>
         <div class="panel-body">
             <div class="header-row col-3">
-                <span><b>نام داروخانه: </b><i>سینا</i></span>
-                <span><b>شماره تلفن: </b><i>0913123456</i></span>
-                <span><b>شناسه کاربری: </b><i>sina123</i></span>
+                <span><b>نام داروخانه: </b><i>{{x.name}}</i></span>
+                <span><b>شماره تلفن: </b><i>{{x.phone}}</i></span>
+                <span><b>شناسه کاربری: </b><i>{{x.username}}</i></span>
             </div>
-            <h4>توضیحات : </h4>
+            <h4>آدرس : </h4>
             <div class="area area-90">
-                توضیحات وارد شده توسط داروخانه
+                {{x.address}}
             </div>
         </div>
         <br/>
         <div class="normal-row">
-            <button class="button">تایید داروخانه</button>
+            <button class="button" ng-click="acceptDs(x.id)">تایید داروخانه</button>
         </div>
         <br/>
     </div>
     <br/>
-    <div class="panel">
+    <!--div class="panel">
         <div class="panel-head">
             درخواست تایید دکتر
             <span class="date">1396/04/02</span>
@@ -43,7 +43,7 @@
             <button class="button">تایید دکتر</button>
         </div>
         <br/>
-    </div>
+    </div-->
     <br/><br/><br/><br/><br/><br/>
 </div>
 <script>

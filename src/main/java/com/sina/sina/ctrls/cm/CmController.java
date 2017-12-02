@@ -177,4 +177,25 @@ public class CmController {
         }
         return arrayNode;
     }
+
+    @GetMapping("/cm/unaccepted")
+    public List<Ds> unacceptedDs(HttpSession httpSession){
+        if (httpSession.getAttribute("cm") == null){
+            return null;
+        }
+        return dsDao.findUnAccepted();
+    }
+
+
+    @GetMapping("/cm/ds/accept")
+    public String acceptDs(HttpSession httpSession,
+                           @RequestParam("id") int id) {
+        if (httpSession.getAttribute("cm") == null){
+            return null;
+        }
+        Ds ds = dsDao.findById(id);
+        ds.setVerified(true);
+        dsDao.update(ds);
+        return "done";
+    }
 }

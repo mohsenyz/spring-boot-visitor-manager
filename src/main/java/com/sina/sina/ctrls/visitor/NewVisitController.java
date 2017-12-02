@@ -244,6 +244,7 @@ public class NewVisitController {
                 ds.setUsername(ds_username);
                 ds.setPassword(ds_password);
                 ds.setCompanyProductsAck(ds_knowledge);
+                ds.setCreatedAt(order.getCreatedAt());
                 ds.setBestTime(IntegerHelper.parseInt(ds_best_visit_time));
                 ds.setType(IntegerHelper.parseInt(ds_type));
                 ds.setCompanyNameAckReason(IntegerHelper.parseInt(ds_company_name_ack));
