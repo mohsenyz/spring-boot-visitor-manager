@@ -19,6 +19,8 @@ import com.sina.sina.models.OrderDrugs;
 import com.sina.sina.pojo.Drugs_1;
 import java.io.IOException;
 import javax.servlet.http.HttpSession;
+
+import com.utils.time.TimeHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,6 +65,7 @@ public class NewOrderController {
         order.setDsid(currVisitor.getId());
         order.setContent(content);
         order.setDesc(desc);
+        order.setCreatedAt(TimeHelper.getCurrentTimestamp());
         orderDao.insert(order);
         Drugs_1[] result_drugs = objectMapper.treeToValue(jsonNode.get("content_drugs"), Drugs_1[].class);
         for (Drugs_1 result_drug : result_drugs) {

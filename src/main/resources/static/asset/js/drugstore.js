@@ -143,7 +143,7 @@ app.controller("new_visit", function ($scope, $rootScope, $timeout, $http) {
         var formdata = new FormData();
         formdata.append("json", JSON.stringify(JSON.decycle(dScope, true)));
         if (!$scope.isFormValidated){
-            if (!$scope.new_order_form.$valid){
+            if (!$scope.new_request_form.$valid){
                 alert("لطفا فیلد های خالی را پر کنید و یا دوباره فرم را ارسال کنید");
                 $scope.isFormValidated = true;
                 return;

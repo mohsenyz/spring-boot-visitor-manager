@@ -133,7 +133,7 @@ public class OrderDao extends AbstractDao {
         }
         return jdbcTemplate.
                 query(
-                        "select `order_list`.* from`" + getTableName() + "` where order_list.cmid in(?)  and order_list.vid in(?) and created_at between ? and ?",
+                        "select `order_list`.* from`" + getTableName() + "` where order_list.cmid in(?)  and order_list.vid in(?) and order_list.created_at between ? and ?",
                         new Object[]{cmidArray, vidArray, from, to},
                         new OrderRowMapper());
     }
