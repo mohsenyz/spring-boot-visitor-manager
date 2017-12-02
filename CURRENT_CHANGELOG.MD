@@ -1,1 +1,1 @@
-#release changed new request
+#release Fixed #5 and #6
