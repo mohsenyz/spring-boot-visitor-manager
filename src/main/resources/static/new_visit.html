@@ -13,16 +13,8 @@
                     <option value="{{x.id}}" ng-repeat="x in dr_list">{{x.name}}</option>
                 </select>
             </i></span>
-        <span><b>تاریخ ویزیت بعدی :‌ </b><i>
-                <input id="next-visit-input" ng-model="next_session_date" type="text" class="datepicker-do input-center" style="width:100px !important;"/>
-                <select class="comp">
-                    <option value="none" selected="selected">-</option>
-                    <option value="1d">یک
-                    <option value="1w">یک هفته</option>
-                    <option value="2w">دو هفته</option>
-                    <option value="3w">سه هفته</option>
-                    <option value="1m">یک ماه</option>
-                </select>
+        <span><b>تاریخ ویزیت:‌ </b><i>
+                <input id="visit-time-input" type="text" class="datepicker input-center" ng-blur="revDate()" ng-model="visit_date" required/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
@@ -32,8 +24,8 @@
                     <option value="pm">عصر</option>
                 </select>
             </i></span>
-        <span><b>تاریخ ویزیت:‌ </b><i>
-                <input id="visit-time-input" type="text" class="datepicker input-center" ng-blur="revDate()" ng-model="visit_date" required/>
+        <span><b>تاریخ ویزیت بعدی :‌ </b><i>
+                <input id="next-visit-input" ng-model="next_session_date" type="text" class="datepicker-do input-center" style="width:100px !important;"/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
