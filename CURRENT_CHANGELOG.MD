@@ -1,1 +1,1 @@
-#release Fixed #5 and #6
+#release Fixed #10
