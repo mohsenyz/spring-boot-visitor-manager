@@ -19,4 +19,13 @@ public class ArrayUtils {
         }
         return intArray;
     }
+
+
+    public static String join(int[] objs) {
+        String[] strings = new String[objs.length];
+        for (int i = 0; i < objs.length; i++) {
+            strings[i] = "" + objs[i];
+        }
+        return String.join(",", strings);
+    }
 }

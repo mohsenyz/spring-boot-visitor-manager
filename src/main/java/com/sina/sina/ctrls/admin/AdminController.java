@@ -81,16 +81,21 @@ public class AdminController {
 
     @GetMapping("/admin/reports/visits")
     public ArrayNode listVisits(HttpSession httpSession,
-            @RequestParam("cm") String cm,
+            @RequestParam("name") String cmName,
+            @RequestParam("phone") String cmPhone,
             @RequestParam("v") String v,
             @RequestParam("from") String from,
             @RequestParam("to") String to) {
         if (httpSession.getAttribute("admin") == null) {
             return null;
         }
-        Timestamp fromTime = TimeHelper.parseTimestamp(from, null);
-        Timestamp toTime = TimeHelper.parseTimestamp(to, null);
-        List<Order> list = orderDao.findByCmsByVisitorByTime(cm, v, fromTime, toTime);
+        Timestamp fromTime = null, toTime = null;
+        if (from != null && !from.isEmpty())
+            fromTime = TimeHelper.parseTimestamp(from, null);
+        if (to != null && !to.isEmpty())
+            toTime = TimeHelper.parseTimestamp(to, null);
+        System.out.println(fromTime.toString() + toTime.toString());
+        List<Order> list = orderDao.findByCmsByVisitorByTime(cmPhone, cmName, v, fromTime, toTime);
         ObjectMapper mapper = new ObjectMapper();
         ArrayNode arrayNode = mapper.createArrayNode();
         for (Order order : list) {

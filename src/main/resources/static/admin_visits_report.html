@@ -1,9 +1,12 @@
 <div class="container">
     <div class="header-row col-2-normal">
-        <span><b> مرکز پخش: </b><i>
+        <span><b>نام مرکز پخش : </b><i>
                 <select class="comp" multiple="multiple" ng-model="cm">
-                    <option ng-repeat="x in cm_list" value="{{x.id}}">{{x.name}}</option>
+                    <option ng-repeat="x in cm_list" value="{{x.name}}">{{x.name}}</option>
                 </select>
+            </i></span>
+        <span><b>شماره تلفن مرکز پخش : </b><i>
+                <input type="text" ng-model="cm_phone"/>
             </i></span>
     </div>
     <div class="header-row col-2-normal">
@@ -36,7 +39,7 @@
         </button>
     </div>
     <div class="panel" ng-repeat="x in visits">
-        <div class="panel-head" ng-click="showCurr($event, x)">
+        <div class="panel-head" ng-click="showCurr(x)">
             ویزیت شماره ی  {{x.order.id}}
             <span class="date">{{unixToString(x.order.createdAt)}}</span>
         </div>

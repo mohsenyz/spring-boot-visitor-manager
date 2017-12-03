@@ -89,6 +89,8 @@ $(document).ready(function () {
     });
 });
 app.run(function ($rootScope, $location, $timeout) {
+    $rootScope.defaultName = "";
+    $rootScope.defaultVisitor = "";
     $rootScope.unixToString = function (unix) {
         return new persianDate(unix).format();
     };
@@ -132,12 +134,8 @@ app.run(function ($rootScope, $location, $timeout) {
         name: '',
         result: false,
     };
-    $rootScope.showCurr = function ($event, type) {
-        var curr = $($event.originalEvent.originalTarget).parent();
-        $rootScope.curr.bar = curr.find(".panel-body").html();
-        $rootScope.curr.name = curr.find(".panel-head").html();
-        $rootScope.curr.result = type;
-        console.log($rootScope.curr);
+    $rootScope.showCurr = function (data) {
+        $rootScope.x = data;
         $rootScope.go('curr');
         $('.tooltip').tooltipster({
             theme: 'tooltipster-borderless'
@@ -345,31 +343,40 @@ app.controller("new_cm", function ($scope, $rootScope, $timeout, $http) {
     };
 });
 app.controller("admin_visits_report", function ($scope, $rootScope, $timeout) {
-    $scope.from = null;
-    $scope.to = null;
-    $scope.visitor = null;
-    $scope.cm = null;
-    $scope.visits = null;
-    $scope.visitor_list = null;
-    $scope.cm_list = null;
+    $scope.from = "";
+    $scope.to = "";
+    $scope.visitor = "";
+    $scope.cm = "";
+    $scope.cm_phone = "";
+    $scope.visits = "";
+    $scope.visitor_list = "";
+    $scope.cm_list = "";
     $scope.submitChange = function () {
-        $.getJSON("/admin/reports/visits?v=" + $scope.visitor + "&cm=" + $scope.cm + "&to=" + window.__to_date + "&from=" + window.__from_date, function (data) {
-            for (i = 0; i < data.length; i++) {
-                $scope.visits.push(data[i]);
-                $scope.$apply();
-                window.setTimeout(function () {
-                    $("select").trigger("change");
-                }, 200);
-            }
+        $.getJSON("/admin/reports/visits?v=" + $scope.visitor + "&name=" + $scope.cm + "&to=" + window.__to_date + "&from=" + window.__from_date + "&phone" + $scope.cm_phone, function (data) {
+            $scope.visits = data;
+            window.setTimeout(function () {
+                                $("select").trigger("change");
+                            }, 200);
+            $scope.$apply();
         });
     };
     $.getJSON("/admin/visitor", function (data) {
         $scope.visitor_list = data;
         $scope.$apply();
+        $scope.visitor = $rootScope.defaultVisitor;
+        $scope.$apply();
+        window.setTimeout(function () {
+                                                $("select").trigger("change");
+                                            }, 200);
+
     });
     $.getJSON("/admin/cm", function (data) {
         $scope.cm_list = data;
+        $scope.cm = $rootScope.defaultName;
         $scope.$apply();
+        window.setTimeout(function () {
+                                                        $("select").trigger("change");
+                                                    }, 200);
     });
 
 });
@@ -382,6 +389,10 @@ app.controller("admin_orders", function ($scope, $rootScope, $timeout) {
 });
 app.controller("admin_manage_visitors", function ($scope, $rootScope, $timeout) {
     $scope.visitors = [];
+    $scope.showAct = function(id) {
+        $rootScope.defaultVisitor = id;
+        $rootScope.go('');
+    };
     $.getJSON("/admin/visitor", function (data) {
         for (i = 0; i < data.length; i++) {
             $scope.visitors.push(data[i]);
@@ -404,6 +415,10 @@ app.controller("admin_manage_visitors", function ($scope, $rootScope, $timeout) 
 });
 app.controller("admin_manage_cms", function ($scope, $rootScope, $timeout) {
     $scope.cms = [];
+    $scope.showAct = function(name) {
+            $rootScope.defaultName = name;
+            $rootScope.go('');
+    };
     $.getJSON("/admin/cm", function (data) {
         for (i = 0; i < data.length; i++) {
             $scope.cms.push(data[i]);
