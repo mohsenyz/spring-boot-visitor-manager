@@ -57,6 +57,9 @@ app.config(function ($routeProvider) {
             .when("/curr", {
                 templateUrl: "admin_curr.html"
             })
+            .when("/curr_visitor", {
+                templateUrl: "curr_visitor.html",
+            })
             .when("/new_visitor", {
                 templateUrl: "admin_new_visitor.html",
                 controller: "new_visitor"
@@ -146,6 +149,11 @@ app.run(function ($rootScope, $location, $timeout) {
                 dir: "rtl"
             });
         }, 0);
+    };
+    $rootScope.x = {};
+    $rootScope.showVisitor = function (visitor) {
+        $rootScope.x = visitor;
+        $rootScope.go('curr_visitor');
     };
 });
 app.controller("new_visitor", function ($scope, $rootScope, $timeout, $http) {

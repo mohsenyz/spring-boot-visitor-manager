@@ -1,0 +1,48 @@
+<div class="container">
+    <br/><br/>
+    <div class="panel">
+        <div class="panel-head">
+            {{x.fname}} {{x.lname}}
+            <span class="date">{{unixToString(x.createdAt)}}</span>
+        </div>
+        <div class="panel-body">
+            <div class="header-row col-3">
+                <span><b>نوع: </b><i>ویزیتور</i></span>
+                <span><b>شماره تلفن: </b><i>{{x.fixedPhone}}</i></span>
+                <span><b>شناسه کاربری: </b><i>{{x.username}}</i></span>
+            </div>
+            <h4>آدرس : </h4>
+            <div class="area area-90">
+                {{x.address}}
+            </div>
+            <div class="panel-body">
+                <div class="header-row col-3">
+                    <span><b> تاریخ تولد: </b><i>{{x.birthday}}</i></span>
+                    <span><b>کد ملی :‌ </b><i>{{x.code}}</i></span>
+                    <span><b>شماره همراه: </b><i>{{x.mobile}}</i></span>
+                </div>
+            </div>
+            <h4>نحوه آشنایی : </h4>
+            <div class="area area-90">
+                {{x.ack}}
+            </div>
+            <h4>توضیحات : </h4>
+            <div class="area area-90">
+                {{x.description}}
+            </div>
+            <h4>تحصیلات : </h4>
+            <div class="area area-90">
+                {{x.grade}}
+            </div>
+            <h4>تجربه تحصیلی : </h4>
+            <div class="area area-90">
+                {{x.gradeExp}}
+            </div>
+            <h4>تجربه کاری : </h4>
+            <div class="area area-90">
+                {{x.workExp}}
+            </div>
+        </div>
+        <br/>
+    </div>
+</div>

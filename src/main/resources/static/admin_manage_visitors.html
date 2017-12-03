@@ -1,6 +1,6 @@
 <div class="container">
     <br/>
-    <div class="panel" ng-repeat="x in visitors">
+    <div class="panel" ng-repeat="x in visitors" ng-click="showVisitor(x)">
         <div class="panel-head">
             {{x.fname}} {{x.lname}}
             <span class="date">{{unixToString(x.createdAt)}}</span>
