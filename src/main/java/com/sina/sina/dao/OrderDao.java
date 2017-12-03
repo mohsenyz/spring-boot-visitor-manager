@@ -9,6 +9,8 @@ import com.sina.sina.dao.rowmapper.OrderRowMapper;
 import com.sina.sina.models.Order;
 import com.sina.sina.utils.IntegerHelper;
 import com.utils.list.ArrayUtils;
+
+import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -118,23 +120,50 @@ public class OrderDao extends AbstractDao {
                         new OrderRowMapper());
     }
     
-    public List<Order> findByCmsByVisitorByTime(String cm, String visitors, Timestamp from, Timestamp to) {
+    public List<Order> findByCmsByVisitorByTime(String cmPhone, String cmName, String visitors, Timestamp from, Timestamp to) {
         int[] vidArray = null;
-        if (visitors.contains(",")){
-            vidArray = ArrayUtils.toIntArray(visitors.split(","));
-        } else{
-            vidArray = new int[]{IntegerHelper.parseInt(visitors.trim())};
-        }
-        int[] cmidArray = null;
-        if (cm.contains(",")){
-            cmidArray = ArrayUtils.toIntArray(cm.split(","));
-        } else{
-            cmidArray = new int[]{IntegerHelper.parseInt(cm.trim())};
+        if (cmPhone == null) cmPhone = "";
+        if (cmName == null) cmName = "";
+        if (visitors.isEmpty()) {
+            if (from != null && to != null) {
+                return jdbcTemplate.
+                        query(
+                                "select `order_list`.* from`" + getTableName() + "` where order_list.cm_phone like ? and order_list.cm_name like ? and order_list.created_at between ? and ?",
+                                new Object[]{"%" + cmPhone + "%", "%" + cmName + "%", from, to},
+                                new OrderRowMapper());
+            }
+            if (from == null || to == null) {
+                return jdbcTemplate.
+                        query(
+                                "select `order_list`.* from`" + getTableName() + "` where order_list.cm_phone like ? and order_list.cm_name like ?",
+                                new Object[]{"%" + cmPhone + "%", "%" + cmName + "%"},
+                                new OrderRowMapper());
+            }
+        } else {
+            if (visitors.contains(",")){
+                vidArray = ArrayUtils.toIntArray(visitors.split(","));
+            } else{
+                vidArray = new int[]{IntegerHelper.parseInt(visitors.trim())};
+            }
+            if (from != null && to != null) {
+                return jdbcTemplate.
+                        query(
+                                "select `order_list`.* from`" + getTableName() + "` where order_list.cm_phone like ? and order_list.cm_name like ?  and order_list.vid in(?) and order_list.created_at between ? and ?",
+                                new Object[]{"%" + cmPhone + "%", "%" + cmName + "%", ArrayUtils.join(vidArray), from, to},
+                                new OrderRowMapper());
+            }
+            if (from == null || to == null) {
+                return jdbcTemplate.
+                        query(
+                                "select `order_list`.* from`" + getTableName() + "` where order_list.cm_phone like ? and order_list.cm_name like ?  and order_list.vid in(?)",
+                                new Object[]{"%" + cmPhone + "%", "%" + cmName + "%", ArrayUtils.join(vidArray)},
+                                new OrderRowMapper());
+            }
         }
         return jdbcTemplate.
                 query(
-                        "select `order_list`.* from`" + getTableName() + "` where order_list.cmid in(?)  and order_list.vid in(?) and order_list.created_at between ? and ?",
-                        new Object[]{cmidArray, vidArray, from, to},
+                        "select `order_list`.* from`" + getTableName() + "` where order_list.cm_phone like ? and order_list.cm_name like ?  and order_list.vid in(?) and order_list.created_at between ? and ?",
+                        new Object[]{"%" + cmPhone + "%", "%" + cmName + "%", ArrayUtils.join(vidArray), from, to},
                         new OrderRowMapper());
     }
 
