@@ -401,7 +401,7 @@ app.controller("admin_orders", function ($scope, $http, $rootScope, $timeout) {
                             }
                         }).then(function (data) {
                             window.nanobar.go(100);
-                            alert("درخواست تایید شد");
+                            alert("درخواست منتقل شد");
                             window.location.reload();
                         });
     };

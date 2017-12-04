@@ -198,4 +198,39 @@ public class CmController {
         dsDao.update(ds);
         return "done";
     }
+
+
+
+    @GetMapping("/cm/requests")
+    public ArrayNode listRequests(HttpSession httpSession) {
+        if (httpSession.getAttribute("cm") == null) {
+            return null;
+        }
+        Cm cm = (Cm) httpSession.getAttribute("cm");
+        List<Order> list = orderDao.findAllDsOrderByCm(cm.getId());
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayNode arrayNode = mapper.createArrayNode();
+        for (Order order : list) {
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.putPOJO("order", order);
+            fillOrder(order, objectNode);
+            arrayNode.add(objectNode);
+        }
+        return arrayNode;
+    }
+
+
+    @GetMapping("/cm/req/accept")
+    public String acceptReq(HttpSession httpSession,
+                            @RequestParam("id") int id) {
+        if (httpSession.getAttribute("cm") == null) {
+            return null;
+        }
+        Order order = orderDao.findById(id);
+        order.setSubmited(true);
+        order.setSubmitTime(TimeHelper.getCurrentTimestamp());
+        order.setFromId(null);
+        orderDao.update(order);
+        return "done";
+    }
 }

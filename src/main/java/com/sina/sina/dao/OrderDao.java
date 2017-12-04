@@ -215,6 +215,13 @@ public class OrderDao extends AbstractDao {
                         new OrderRowMapper());
     }
 
+    public List<Order> findAllDsOrderByCm(int cmid) {
+        return jdbcTemplate.
+                query(
+                        "select `order_list`.* from`" + getTableName() + "` where vid is null and from_id = ?",
+                        new Object[]{cmid}, new OrderRowMapper());
+    }
+
     public List<Order> findAll() {
         return jdbcTemplate.
                 query(

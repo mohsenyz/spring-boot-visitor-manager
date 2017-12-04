@@ -1,1 +1,1 @@
-#release admin can submit or transfer ds requests
+#release *** Latest *** cm can accept transfered ds request from admin

@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AdminController {
 
+    
     @Autowired
     OrderDao orderDao;
 
@@ -135,17 +136,11 @@ public class AdminController {
 
     @GetMapping("/admin/visitor")
     public List<Visitor> listVisitor(HttpSession httpSession) {
-        if (httpSession.getAttribute("admin") == null) {
-            return new ArrayList<>();
-        }
         return visitorDao.listAll();
     }
 
     @GetMapping("/admin/cm")
     public List<Cm> listCm(HttpSession httpSession) {
-        if (httpSession.getAttribute("admin") == null) {
-            return new ArrayList<>();
-        }
         return cmDao.listAll();
     }
 

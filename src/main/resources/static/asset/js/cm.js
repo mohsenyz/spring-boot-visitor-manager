@@ -56,7 +56,8 @@ app.config(function ($routeProvider) {
                 controller: "cm_manage_visitors"
             })
             .when("/orders", {
-                templateUrl: "cm_orders.html"
+                templateUrl: "cm_orders.html",
+                controller: "cm_orders"
             })
             .when("/user", {
                 templateUrl: "user.html",
@@ -360,6 +361,31 @@ app.controller("user", function ($scope) {
             window.nanobar.go(100);
         });
     };
+});
+
+app.controller("cm_orders", function ($scope, $http, $rootScope, $timeout) {
+    $scope.orders = null;
+    $.getJSON("/cm/requests", function (data) {
+        $scope.orders = data;
+        $scope.$apply();
+    });
+    $scope.submitReq = function (dsId) {
+        window.nanobar.go(30);
+        $http({
+                    method: 'GET',
+                    url: '/cm/req/accept?id=' + dsId,
+                    responseType: 'text',
+                    transformResponse: function(d, h) {return d},
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                }).then(function (data) {
+                    window.nanobar.go(100);
+                    alert("درخواست تایید شد");
+                    window.location.reload();
+                });
+        };
+
 });
 function makeActive(ele) {
     ele = $(ele);
