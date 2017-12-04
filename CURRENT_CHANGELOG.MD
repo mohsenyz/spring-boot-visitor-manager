@@ -1,1 +1,1 @@
-#release fixed some work in webpages
+#release admin can accept drugstore request

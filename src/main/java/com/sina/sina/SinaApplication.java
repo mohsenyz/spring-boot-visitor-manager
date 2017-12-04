@@ -15,13 +15,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class SinaApplication {
-    
+
+
     public static void main(String[] args) {
-        /*try {
+        try {
             System.setOut(new PrintStream(new FileOutputStream("/home/mphj/Logs/visitor-manager/" + new Timestamp(Calendar.getInstance().getTime().getTime()).toString() + "_" + UUID.randomUUID().toString() + ".log")));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SinaApplication.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
         SpringApplication.run(SinaApplication.class, args);
     }
 

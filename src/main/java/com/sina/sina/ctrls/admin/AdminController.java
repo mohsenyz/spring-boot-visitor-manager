@@ -148,4 +148,26 @@ public class AdminController {
         }
         return cmDao.listAll();
     }
+
+
+    @GetMapping("/admin/ds/unaccepted")
+    public List<Ds> unacceptedDs(HttpSession httpSession){
+        if (httpSession.getAttribute("admin") == null) {
+            return new ArrayList<>();
+        }
+        return dsDao.findUnAccepted();
+    }
+
+
+    @GetMapping("/admin/ds/accept")
+    public String acceptDs(HttpSession httpSession,
+                           @RequestParam("id") int id) {
+        if (httpSession.getAttribute("admin") == null) {
+            return null;
+        }
+        Ds ds = dsDao.findById(id);
+        ds.setVerified(true);
+        dsDao.update(ds);
+        return "done";
+    }
 }

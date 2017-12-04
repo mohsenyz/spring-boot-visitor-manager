@@ -42,6 +42,10 @@ app.config(function ($routeProvider) {
                 templateUrl: "admin_orders.html",
                 controller: "admin_orders"
             })
+            .when("/accept-ds-request", {
+                            templateUrl: "admin_accept_ds_request.html",
+                            controller: "accept-ds-request"
+            })
             .when("/manage-cm", {
                 templateUrl: "admin_manage_cm.html",
                 controller: "admin_manage_cms"
@@ -510,6 +514,29 @@ app.controller("new_city", function ($scope, $rootScope, $timeout, $http) {
         });
     }
     $scope.drugsChanged();
+});
+app.controller("accept-ds-request", function ($scope, $http, $rootScope, $timeout) {
+    $scope.request = [];
+    $.getJSON("/admin/ds/unaccepted", function (data) {
+        $scope.request = data;
+        $scope.$apply();
+    });
+    $scope.acceptDs = function (dsId) {
+    window.nanobar.go(30);
+    $http({
+                method: 'GET',
+                url: '/admin/ds/accept?id=' + dsId,
+                responseType: 'text',
+                transformResponse: function(d, h) {return d},
+                headers: {
+                    'Content-Type': undefined
+                }
+            }).then(function (data) {
+                window.nanobar.go(100);
+                alert("درخواست ارسال شد");
+                window.location.reload();
+            });
+    };
 });
 function makeActive(ele) {
     ele = $(ele);
