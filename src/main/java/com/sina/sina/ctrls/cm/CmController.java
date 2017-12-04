@@ -8,20 +8,8 @@ package com.sina.sina.ctrls.cm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.sina.sina.dao.CmDao;
-import com.sina.sina.dao.DrDao;
-import com.sina.sina.dao.DrugsDao;
-import com.sina.sina.dao.DsDao;
-import com.sina.sina.dao.OrderDao;
-import com.sina.sina.dao.OrderDrugsDao;
-import com.sina.sina.dao.VisitorDao;
-import com.sina.sina.models.Cm;
-import com.sina.sina.models.Dr;
-import com.sina.sina.models.Drugs;
-import com.sina.sina.models.Ds;
-import com.sina.sina.models.Order;
-import com.sina.sina.models.OrderDrugs;
-import com.sina.sina.models.Visitor;
+import com.sina.sina.dao.*;
+import com.sina.sina.models.*;
 import com.utils.time.TimeHelper;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -47,6 +35,9 @@ public class CmController {
     VisitorDao visitorDao;
 
     @Autowired
+    CmCityDao cmCityDao;
+
+    @Autowired
     DrDao drDao;
 
     @Autowired
@@ -54,6 +45,8 @@ public class CmController {
 
     @Autowired
     CmDao cmDao;
+
+
     
     @Autowired
     OrderDrugsDao orderDrugsDao;
@@ -183,7 +176,9 @@ public class CmController {
         if (httpSession.getAttribute("cm") == null){
             return null;
         }
-        return dsDao.findUnAccepted();
+        Cm cm = (Cm) httpSession.getAttribute("cm");
+        CmCity cmCity = cmCityDao.findByCmid(cm.getId()).get(0);
+        return dsDao.findUnAcceptedByCity(cmCity.getCid());
     }
 
 

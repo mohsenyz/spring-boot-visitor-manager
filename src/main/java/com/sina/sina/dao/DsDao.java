@@ -100,6 +100,13 @@ public class DsDao extends AbstractDao{
         crit.add(Restrictions.eq("verified", false));
         return crit.list();
     }
+
+    public List<Ds> findUnAcceptedByCity(int city) {
+        Criteria crit = getSession().createCriteria(Ds.class);
+        crit.add(Restrictions.eq("verified", false));
+        crit.add(Restrictions.eq("city", city));
+        return crit.list();
+    }
     
     
     public List<Ds> findUnverifiedByCm(int cmId){
