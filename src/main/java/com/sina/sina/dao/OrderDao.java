@@ -221,4 +221,9 @@ public class OrderDao extends AbstractDao {
                         "select `order_list`.* from`" + getTableName() + "`",
                         new OrderRowMapper());
     }
+
+
+    public void update(Order order) {
+        getSession().update(order);
+    }
 }

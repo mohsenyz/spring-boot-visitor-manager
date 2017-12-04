@@ -159,6 +159,8 @@ public class AdminController {
     }
 
 
+
+
     @GetMapping("/admin/ds/accept")
     public String acceptDs(HttpSession httpSession,
                            @RequestParam("id") int id) {
@@ -168,6 +170,37 @@ public class AdminController {
         Ds ds = dsDao.findById(id);
         ds.setVerified(true);
         dsDao.update(ds);
+        return "done";
+    }
+
+
+    @GetMapping("/admin/req/accept")
+    public String acceptReq(HttpSession httpSession,
+                           @RequestParam("id") int id) {
+        if (httpSession.getAttribute("admin") == null) {
+            return null;
+        }
+        Order order = orderDao.findById(id);
+        order.setSubmited(true);
+        order.setSubmitTime(TimeHelper.getCurrentTimestamp());
+        order.setFromId(null);
+        orderDao.update(order);
+        return "done";
+    }
+
+
+    @GetMapping("/admin/req/trans")
+    public String transReq(HttpSession httpSession,
+                            @RequestParam("id") int id,
+                           @RequestParam("to") int to) {
+        if (httpSession.getAttribute("admin") == null) {
+            return null;
+        }
+        Order order = orderDao.findById(id);
+        order.setSubmited(false);
+        order.setSubmitTime(null);
+        order.setFromId(to);
+        orderDao.update(order);
         return "done";
     }
 }

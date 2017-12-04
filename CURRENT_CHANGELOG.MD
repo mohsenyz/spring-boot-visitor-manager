@@ -1,1 +1,1 @@
-#release admin can accept drugstore request
+#release admin can submit or transfer ds requests

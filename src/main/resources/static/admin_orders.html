@@ -57,7 +57,8 @@
         <div class="panel-body">
             <div class="header-row col-2">
                 <span><b>داروخانه: </b><i>{{x.ds.name}}</i></span>
-                <span ng-if="!x.order.submited && !x.order.viewedAt"><b>وضعیت: </b><i>تایید نشده</i></span>
+                <span ng-if="!x.order.submited && !x.order.viewedAt && !x.order.fromId"><b>وضعیت: </b><i>تایید نشده</i></span>
+                <span ng-if="!x.order.submited && !x.order.viewedAt && x.order.fromId"><b>وضعیت: </b><i>منتقل شده</i></span>
                 <span ng-if="x.order.viewedAt && !x.order.submited"><b>وضعیت: </b><i>مشاهده شده</i></span>
                 <span ng-if="x.order.submited"><b>وضعیت: </b><i>تمام شده</i></span>
             </div>
@@ -78,6 +79,16 @@
                     </i></span>
             </div>
         </div>
+        <div class="normal-row" ng-show="!x.order.submited">
+            <button class="button" style="margin-right: 10px;" ng-click="submitReq(x.order.id)">تایید درخواست</button>
+        </div>
+        <div class="normal-row" ng-show="!x.order.submited">
+            و یا انتقال به مرکز پخش
+            <select class="comp" ng-model="x.order.fromId">
+                <option ng-repeat="x in cm_list" value="{{x.id}}">{{x.name}}</option>
+            </select>
+            <button class="button" style="margin-right: 10px;" ng-click="transferReq(x.order.id, x.order.fromId)">انتقال</button>
+        </div>
         <br/>
     </div>
     <br/><br/><br/><br/><br/><br/>
@@ -86,9 +97,6 @@
     $(document).ready(function () {
         $('.tooltip').tooltipster({
             theme: 'tooltipster-borderless'
-        });
-        $("select.comp").select2({
-            dir: "rtl"
         });
         $(".datepicker").persianDatepicker({format: 'YYYY/MM/DD HH:mm:ss', timePicker: {enabled: true}});
     });

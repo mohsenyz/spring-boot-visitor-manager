@@ -96,6 +96,8 @@ app.run(function ($rootScope, $location, $timeout) {
     $rootScope.defaultName = "";
     $rootScope.defaultVisitor = "";
     $rootScope.unixToString = function (unix) {
+        if (unix == '' || !unix)
+            return;
         return new persianDate(unix).format();
     };
     $rootScope.goLink = 'none';
@@ -384,12 +386,56 @@ app.controller("admin_visits_report", function ($scope, $rootScope, $timeout) {
     });
 
 });
-app.controller("admin_orders", function ($scope, $rootScope, $timeout) {
+app.controller("admin_orders", function ($scope, $http, $rootScope, $timeout) {
     $scope.orders = null;
+    $scope.cm_list = [];
+    $scope.transferReq = function(reqId, cmId) {
+        window.nanobar.go(30);
+                $http({
+                            method: 'GET',
+                            url: '/admin/req/trans?id=' + reqId + "&to=" + cmId,
+                            responseType: 'text',
+                            transformResponse: function(d, h) {return d},
+                            headers: {
+                                'Content-Type': undefined
+                            }
+                        }).then(function (data) {
+                            window.nanobar.go(100);
+                            alert("درخواست تایید شد");
+                            window.location.reload();
+                        });
+    };
+    $.getJSON("/admin/cm", function (data) {
+            $scope.cm_list = data;
+            $scope.$apply();
+            window.setTimeout(function () {
+                $("select").each(function() {
+                    $(this).trigger("change");
+                    $(this).val(null).trigger('change.select2');
+                });
+            }, 500);
+        });
     $.getJSON("/admin/requests", function (data) {
         $scope.orders = data;
         $scope.$apply();
     });
+    $scope.submitReq = function (dsId) {
+        window.nanobar.go(30);
+        $http({
+                    method: 'GET',
+                    url: '/admin/req/accept?id=' + dsId,
+                    responseType: 'text',
+                    transformResponse: function(d, h) {return d},
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                }).then(function (data) {
+                    window.nanobar.go(100);
+                    alert("درخواست تایید شد");
+                    window.location.reload();
+                });
+        };
+
 });
 app.controller("admin_manage_visitors", function ($scope, $rootScope, $timeout) {
     $scope.visitors = [];
